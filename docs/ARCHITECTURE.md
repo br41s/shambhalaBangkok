@@ -9,40 +9,66 @@ Bangkok Shambhala is a static-first Next.js application with selective server-si
 ### Why Next.js App Router?
 - **Static generation** for content pages = fastest possible load times
 - **Server components** = smaller client bundles
-- **API routes** = newsletter signup, ICS generation without external servers
+- **API routes** = newsletter signup, ICS generation, admin auth without external servers
 - **Vercel hosting** = zero-config deployment with CDN
 
-### Why Markdown CMS (Decap)?
+### Why Markdown + Custom Admin?
 - Content lives in Git → version history, no vendor lock-in
-- Non-technical editors get a visual UI at `/admin/`
+- Custom admin panel at `/admin/` with email/password login
+- Editors create/edit content through forms with a Markdown editor toolbar
+- Changes are committed to GitHub via API → Vercel rebuilds automatically
 - No database to maintain or scale
-- Free tier covers all needs
 
 ### Why NOT a database?
 - < 100 events/year → Markdown files are sufficient
-- No user accounts → no auth system needed
+- Single admin account → no complex user management needed
 - Donations via external payment links → no transaction processing
 - Community channels are external (WhatsApp, LINE) → no chat integration
 
 ## Content Flow
 
 ```
-Editor writes content
+Editor logs in at /admin/login
   ↓
-Decap CMS UI (/admin/)
+Admin panel (email/password auth)
   ↓
-Git commit (Markdown files)
+Creates/edits event or post via forms
+  ↓
+GitHub API commits Markdown file
   ↓
 Vercel build trigger
   ↓
 Static pages generated
   ↓
 CDN serves worldwide
-  ↓
-n8n webhook fires (optional)
-  ↓
-Newsletter + social notifications
 ```
+
+## Admin Panel Architecture
+
+```
+/admin/login        → Email/password + optional Turnstile captcha
+/admin/             → Dashboard (stats, quick actions, recent content)
+/admin/events       → Events list with Edit/New links
+/admin/events/new   → EventForm component → POST /api/admin/content
+/admin/events/[slug]/edit → EventForm pre-filled → POST /api/admin/content
+/admin/posts        → Posts list with Edit/New links
+/admin/posts/new    → PostForm component → POST /api/admin/content
+/admin/posts/[slug]/edit  → PostForm pre-filled → POST /api/admin/content
+```
+
+### Authentication Flow
+1. User submits email + password (+ optional Turnstile token)
+2. Server verifies credentials against `ADMIN_EMAIL` / `ADMIN_PASSWORD` env vars
+3. If valid, creates HMAC-SHA256 signed session token (24h expiry)
+4. Token stored in HTTP-only secure cookie (`admin_session`)
+5. All admin pages call `requireAuth()` which validates the cookie or redirects to login
+
+### Content CRUD Flow
+1. Admin fills form → client POSTs JSON to `/api/admin/content`
+2. API route verifies session cookie
+3. Builds Markdown file with YAML frontmatter (via `gray-matter`)
+4. Sends to GitHub Contents API (Base64-encoded, with SHA for updates)
+5. GitHub commit triggers Vercel rebuild (~1-2 minutes)
 
 ## Directory Architecture
 
@@ -54,14 +80,21 @@ src/
 │   ├── events/          # Events listing & detail
 │   ├── blog/            # Blog listing & detail
 │   ├── about/           # Institutional pages
-│   ├── admin/           # Internal admin dashboard
+│   ├── admin/           # Custom admin panel
+│   │   ├── login/       # Email/password login page
+│   │   ├── events/      # Event list, new, edit
+│   │   └── posts/       # Post list, new, edit
 │   └── api/             # Server-side API routes
+│       └── admin/       # Auth + content CRUD endpoints
 ├── components/
+│   ├── admin/           # EventForm, PostForm, MarkdownEditor, LogoutButton
 │   ├── layout/          # Header, Footer (used in root layout)
 │   └── ui/              # Reusable presentational components
 └── lib/
     ├── types.ts         # All TypeScript interfaces
     ├── config.ts        # Site configuration & navigation
+    ├── auth.ts          # Session management (HMAC-signed cookies)
+    ├── github.ts        # GitHub API client (content CRUD)
     ├── content.ts       # File-system content reader (gray-matter)
     ├── markdown.ts      # Markdown → HTML conversion (remark)
     ├── events.ts        # Event data access functions
@@ -112,15 +145,20 @@ Content stored as Markdown is converted to sanitized HTML at build time:
 - Referrer-Policy: strict-origin-when-cross-origin
 - Permissions-Policy (restricted)
 
+### Admin Authentication
+- Email/password login verified against environment variables
+- HMAC-SHA256 signed session tokens with 24-hour expiry
+- HTTP-only secure cookie for session storage
+- Timing-safe comparison to prevent timing attacks
+- Optional Cloudflare Turnstile captcha on login
+- All admin pages protected by `requireAuth()` middleware
+
 ### API Protection
+- Admin API routes verify session cookie before processing
+- GitHub API calls authenticated via personal access token
 - Rate limiting on newsletter endpoint (5 requests/minute per IP)
 - Honeypot field for bot detection
 - CORS controlled by Next.js defaults
-
-### No Authentication Required
-- Admin panel is informational only (links to Decap CMS)
-- Decap CMS handles its own auth via Git gateway
-- No user accounts in the system
 
 ## Performance Budget
 

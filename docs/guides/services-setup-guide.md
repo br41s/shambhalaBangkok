@@ -53,7 +53,7 @@ This guide walks you through configuring every external service the Bangkok Sham
 | 3 | Custom Domain & DNS | Required | 15 min | ☐ |
 | 4 | Brevo (Email / Newsletter) | Required | 20 min | ☐ |
 | 5 | Plausible Analytics | Required | 10 min | ☐ |
-| 6 | Decap CMS (Content Editor) | Required | 15 min | ☐ |
+| 6 | Admin Panel (Custom) | Required | 10 min | ☐ |
 | 7 | Google Search Console | Required | 10 min | ☐ |
 | 8 | Google Business Profile | Required | 15 min | ☐ |
 | 9 | Social Channels (WhatsApp, LINE) | Required | 20 min | ☐ |
@@ -70,7 +70,7 @@ This guide walks you through configuring every external service the Bangkok Sham
 
 ## 1. GitHub Repository
 
-**Purpose:** Source code hosting, version control, CMS backend.
+**Purpose:** Source code hosting, version control, content storage.
 
 **You need:** A GitHub account.
 
@@ -136,8 +136,14 @@ This guide walks you through configuring every external service the Bangkok Sham
    | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | `shambhala-bangkok.org` | All |
    | `BREVO_API_KEY` | *(from Step 4)* | Production |
    | `BREVO_LIST_ID` | *(from Step 4)* | Production |
+   | `ADMIN_EMAIL` | *(from Step 6)* | All |
+   | `ADMIN_PASSWORD` | *(from Step 6)* | All |
+   | `ADMIN_SESSION_SECRET` | *(from Step 6)* | All |
+   | `GITHUB_TOKEN` | *(from Step 6)* | All |
+   | `TURNSTILE_SITE_KEY` | *(from Step 6, optional)* | All |
+   | `TURNSTILE_SECRET_KEY` | *(from Step 6, optional)* | All |
 
-   > **Note:** Don't worry about Brevo values yet — come back after completing Section 4.
+   > **Note:** Don't worry about Brevo or Admin Panel values yet — come back after completing Sections 4 and 6.
 
 5. **Deploy:**
    - Click **Deploy**
@@ -336,90 +342,93 @@ In your Plausible dashboard:
 
 ---
 
-## 6. Decap CMS (Content Editor)
+## 6. Admin Panel (Custom Content Editor)
 
-**Purpose:** Visual web-based content editor for non-technical editors.
+**Purpose:** Built-in web-based admin panel for managing events and blog posts.
 
-**You need:** The deployed site + GitHub account.
+**You need:** The deployed site + a GitHub Personal Access Token.
 
-### Option A: GitHub Backend (Simplest)
+### Step 6.1 — Generate a GitHub Personal Access Token
 
-This lets editors log in with their GitHub account.
+The admin panel uses the GitHub API to save content files to the repository.
 
-1. **Edit `public/admin/config.yml`** — update the backend:
+1. Go to [github.com/settings/tokens?type=beta](https://github.com/settings/tokens?type=beta)
+2. Click **Generate new token (Fine-grained)**
+3. Configure:
+   - Token name: `bangkok-shambhala-admin`
+   - Expiration: 90 days (set a calendar reminder to rotate)
+   - Repository access: **Only select repositories** → `braisntext/shambhalaBangkok`
+   - Permissions → Repository permissions:
+     - **Contents**: Read and write
+4. Click **Generate token**
+5. Copy the token immediately
 
-   ```yaml
-   backend:
-     name: github
-     repo: braisntext/shambhalaBangkok
-     branch: main
-   ```
+### Step 6.2 — Generate a Session Secret
 
-2. **Register an OAuth Application on GitHub:**
-   - Go to [github.com/settings/applications/new](https://github.com/settings/applications/new)
-   - Application name: `Bangkok Shambhala CMS`
-   - Homepage URL: `https://shambhala-bangkok.org`
-   - Authorization callback URL: `https://shambhala-bangkok.org/admin/`
-   - Click **Register application**
-   - Note the **Client ID**
-   - Generate a **Client Secret** — copy it immediately
+The admin panel uses HMAC-SHA256 signed cookies for authentication. You need a random secret:
 
-3. **Deploy an OAuth proxy** (required by Decap CMS for GitHub):
+```bash
+openssl rand -hex 32
+```
 
-   The simplest option is using Netlify's open-source proxy. Deploy this to Vercel or use a service:
+Copy the output.
 
-   **Option: Use `netlify-cms-oauth-provider-node`**
-   - Fork [this repo](https://github.com/vencax/netlify-cms-github-oauth-provider)
-   - Deploy to Vercel/Heroku/Railway
-   - Set env vars: `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET`
-   - Note the deployed URL
+### Step 6.3 — Set Environment Variables in Vercel
 
-   **Option: Use a pre-built service like [Sveltia CMS Auth](https://github.com/sveltia/sveltia-cms-auth)**
-   - Deploy to Cloudflare Workers (free)
-   - Set Client ID and Secret
-   - Note the deployed URL
+Go to Vercel → Project Settings → Environment Variables and add:
 
-4. **Update `public/admin/config.yml`** to use your auth proxy:
+| Variable | Value | Required |
+|----------|-------|----------|
+| `ADMIN_EMAIL` | `shambalabangkok@gmail.com` *(your admin email)* | ✅ Yes |
+| `ADMIN_PASSWORD` | *(your chosen password)* | ✅ Yes |
+| `ADMIN_SESSION_SECRET` | *(from Step 6.2)* | ✅ Yes |
+| `GITHUB_TOKEN` | *(from Step 6.1)* | ✅ Yes |
+| `TURNSTILE_SITE_KEY` | *(from Cloudflare dashboard)* | Optional |
+| `TURNSTILE_SECRET_KEY` | *(from Cloudflare dashboard)* | Optional |
 
-   ```yaml
-   backend:
-     name: github
-     repo: braisntext/shambhalaBangkok
-     branch: main
-     base_url: https://your-oauth-proxy.vercel.app
-   ```
+> **Security:** Use a strong, unique password. The session secret must be at least 32 characters.
 
-5. **Commit and push** — the CMS will be available at `/admin/`
+### Step 6.4 — Optional: Enable Cloudflare Turnstile (Captcha)
 
-### Option B: Netlify Identity + Git Gateway
+To add bot protection on the login page:
 
-If you prefer not to require GitHub accounts for editors:
+1. Go to [dash.cloudflare.com](https://dash.cloudflare.com) → **Turnstile**
+2. Click **Add Site**
+3. Site name: `Bangkok Shambhala`
+4. Domain: `shambhala-bangkok.org`
+5. Widget type: **Managed** (recommended)
+6. Copy **Site Key** and **Secret Key**
+7. Add both to Vercel env vars (see table above)
 
-1. Create a free site on [netlify.com](https://netlify.com) linked to the same repo
-2. Go to **Site settings** → **Identity** → **Enable Identity**
-3. Go to **Settings** → **Identity** → **Services** → **Enable Git Gateway**
-4. Invite editors: Identity → **Invite users** → enter their emails
-5. `public/admin/config.yml` already uses `git-gateway` — no changes needed
-6. Editors receive an email invite, set a password, and can log in at `/admin/`
+> If these keys are not set, the login page works without captcha.
 
-### Test the CMS
+### Step 6.5 — Test the Admin Panel
 
-1. Navigate to `https://shambhala-bangkok.org/admin/`
-2. Log in with your credentials
-3. Try creating a test event:
-   - Click **Events** → **New Event**
+1. Navigate to `https://shambhala-bangkok.org/admin/login`
+2. Enter your admin email and password
+3. Complete the captcha (if enabled)
+4. Click **Sign In**
+5. Try creating a test event:
+   - Click **Events** → **+ New Event**
    - Fill in the fields
-   - Click **Publish**
-4. Wait 1-2 minutes for Vercel to rebuild
-5. Check the event appears on the website
+   - Click **Save Event**
+6. Wait 1-2 minutes for Vercel to rebuild
+7. Check the event appears on the website
+
+### How It Works
+
+- **Authentication:** Email/password checked against env vars → HMAC-SHA256 signed session cookie (24h expiry)
+- **Content saving:** Admin panel → API route → GitHub API → commits Markdown file to repo → Vercel auto-rebuilds
+- **No external CMS:** Everything runs within the Next.js application
 
 ### Verification
 
-- [ ] CMS accessible at `/admin/`
-- [ ] Login works (GitHub or Netlify Identity)
-- [ ] Can create, edit, and publish content
-- [ ] Published content appears on site after rebuild
-- [ ] Invited editors can access the CMS
+- [ ] Admin panel accessible at `/admin/login`
+- [ ] Login works with configured email/password
+- [ ] Can create, edit, and save events
+- [ ] Can create, edit, and save blog posts
+- [ ] Saved content appears on site after rebuild (~1-2 min)
+- [ ] Turnstile captcha works (if configured)
 
 ---
 
@@ -860,7 +869,7 @@ curl -X POST https://your-n8n.app.n8n.cloud/webhook/event-published \
 
 5. **Upload images** via Cloudinary's dashboard or API
 
-> **Note:** Cloudinary is optional. Images stored in `public/images/` or uploaded via Decap CMS work fine for a site this size.
+> **Note:** Cloudinary is optional. Images stored in `public/images/` or referenced by URL work fine for a site this size.
 
 ### Verification
 
@@ -880,6 +889,12 @@ After completing all services, your Vercel environment should have:
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Plausible (Section 5) | ✅ Yes |
 | `BREVO_API_KEY` | Brevo (Section 4) | ✅ Yes |
 | `BREVO_LIST_ID` | Brevo (Section 4) | ✅ Yes |
+| `ADMIN_EMAIL` | Admin Panel (Section 6) | ✅ Yes |
+| `ADMIN_PASSWORD` | Admin Panel (Section 6) | ✅ Yes |
+| `ADMIN_SESSION_SECRET` | Admin Panel (Section 6) | ✅ Yes |
+| `GITHUB_TOKEN` | Admin Panel (Section 6) | ✅ Yes |
+| `TURNSTILE_SITE_KEY` | Cloudflare (Section 6) | Optional |
+| `TURNSTILE_SECRET_KEY` | Cloudflare (Section 6) | Optional |
 | `CLOUDINARY_CLOUD_NAME` | Cloudinary (Section 15) | Optional |
 | `CLOUDINARY_API_KEY` | Cloudinary (Section 15) | Optional |
 | `CLOUDINARY_API_SECRET` | Cloudinary (Section 15) | Optional |
@@ -903,8 +918,8 @@ Once all services are configured, run through this final checklist:
 - [ ] Site loads at `https://shambhala-bangkok.org`
 - [ ] Newsletter signup form works (check email appears in Brevo)
 - [ ] Plausible shows real-time visitors
-- [ ] Decap CMS login works at `/admin/`
-- [ ] Create a test event in CMS → appears on site after rebuild
+- [ ] Admin panel login works at `/admin/login`
+- [ ] Create a test event in admin panel → appears on site after rebuild
 - [ ] Calendar feed works at `/api/calendar/feed.ics`
 - [ ] WhatsApp button opens the correct group
 - [ ] LINE button opens the correct group

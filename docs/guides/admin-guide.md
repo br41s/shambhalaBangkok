@@ -47,38 +47,39 @@ Welcome to the Bangkok Shambhala website administration guide. This document wal
 
 **What you'll need:**
 - A modern web browser (Chrome, Firefox, Safari, or Edge)
-- Your CMS login credentials (provided by the site administrator)
-- Access to the GitHub repository (for advanced operations)
+- Your admin login credentials (email and password, configured by the site administrator)
 
 ---
 
 ## 2. Accessing the Admin Area
 
-### 2.1 Admin Dashboard
-
-The internal admin dashboard provides a quick overview of your content:
+### 2.1 Logging In
 
 1. Open your browser
-2. Navigate to `https://shambhala-bangkok.org/admin-dashboard`
-3. You'll see:
-   - **Stats tiles** — total events, blog posts, and pages
-   - **Quick actions** — links to create new content or open the CMS
-   - **Upcoming events** — next scheduled events
-   - **Recent posts** — latest blog articles
+2. Navigate to `https://shambhala-bangkok.org/admin/login`
+3. Enter your **email** and **password**
+4. If captcha is enabled, complete the Cloudflare Turnstile challenge
+5. Click **Sign In**
 
-> **Note:** The admin dashboard is informational. To create or edit content, use the Decap CMS.
+> **Note:** Your session lasts 24 hours. After that, you'll need to log in again.
 
-### 2.2 Decap CMS (Content Editor)
+### 2.2 Admin Dashboard
 
-The visual content editor is where you create and manage all content:
+After logging in, you'll see the dashboard at `/admin/`:
 
-1. Navigate to `https://shambhala-bangkok.org/admin/`
-2. Click **Login with GitHub** (or your configured auth provider)
-3. Authorize the application if prompted
-4. You'll see the **Content Manager** with collections:
-   - **Events** — meditation sessions, workshops, retreats
-   - **Blog** — articles, announcements, reflections
-   - **Pages** — static page content
+- **Stats tiles** — total events, blog posts
+- **Quick actions** — links to create new events or posts
+- **Upcoming events** — next scheduled events
+- **Recent posts** — latest blog articles
+
+### 2.3 Navigation
+
+The admin sidebar includes:
+- **Dashboard** — overview and quick actions
+- **Events** — list all events, create new, edit existing
+- **Posts** — list all blog posts, create new, edit existing
+- **View Site** — open the public website
+- **Logout** — end your session
 
 ---
 
@@ -86,42 +87,47 @@ The visual content editor is where you create and manage all content:
 
 ### 3.1 Creating a New Event
 
-1. In Decap CMS, click **Events** in the sidebar
-2. Click the **New Event** button
-3. Fill in the required fields:
+1. Click **Events** in the admin navigation, then **+ New Event**
+   Or click **+ New Event** from the dashboard
+2. Fill in the required fields:
 
 | Field | Required | Description |
 |-------|----------|-------------|
 | Title | Yes | Event name (e.g., "Wednesday Evening Meditation") |
-| Slug | Yes | URL path — auto-generated from title |
-| Start Date | Yes | Event start with time (Bangkok timezone GMT+7) |
+| Slug | Auto | URL path — auto-generated from title, editable |
+| Start Date | Yes | Event start with time (timezone auto-appended as +07:00) |
 | End Date | Yes | Event end with time |
 | Summary | Yes | 1-2 sentences for event cards and search results |
-| Body | Yes | Full description in Markdown |
+| Body | Yes | Full description using the Markdown editor |
 | Modality | Yes | `in-person`, `online`, or `hybrid` |
 | Pricing | Yes | `free`, `donation`, or `paid` |
 | Status | Yes | `upcoming`, `cancelled`, or `past` |
+| Location | Yes | Pre-filled with default venue address |
 
 **Optional fields:**
 
 | Field | Description |
 |-------|-------------|
 | Tags | Categories: meditation, workshop, retreat, online, etc. |
-| Featured Image | Upload or provide URL for the event banner |
-| Registration URL | External link (Meetup, Google Form) |
-| Max Participants | Capacity limit (leave empty for unlimited) |
-| Facilitator Name | Who leads the session |
-| Facilitator Bio | Short bio of the facilitator |
-| Location Override | If different from default (Young Place Building) |
+| Featured Image | URL for the event banner image |
+| Facilitator | Who leads the session |
+| Capacity | Limit (leave empty for unlimited) |
 | Price Amount | Numeric amount for paid events |
 | Price Currency | THB, USD, EUR |
 
-4. Preview your content in the right panel
-5. Click **Publish** to make it live
+3. Use the **Markdown toolbar** to format the body (Bold, Italic, Headings, Lists, Links, Images)
+4. Click **Save Event**
 
-> **Important:** After publishing, the site rebuilds automatically. Changes appear within 1-2 minutes.
+> **Important:** After saving, the site rebuilds automatically. Changes appear within 1-2 minutes.
 
-### 3.2 Event Lifecycle
+### 3.2 Editing an Event
+
+1. Go to **Events** in the admin navigation
+2. Find the event and click **Edit**
+3. Make your changes
+4. Click **Save Event**
+
+### 3.3 Event Lifecycle
 
 Follow this workflow for every event:
 
@@ -130,29 +136,29 @@ CREATE event (status: upcoming)
     ↓
 EVENT HAPPENS
     ↓
-UPDATE status to "past"
+Edit → change status to "past"
     ↓
 (Optional) Add recap or photos to the body
 ```
 
 **Cancelling an event:**
-1. Open the event
+1. Open the event for editing
 2. Change Status to `cancelled`
 3. Add a notice at the top of the body: `> **This event has been cancelled.**`
-4. Publish
+4. Save
 
-### 3.3 Recurring Events
+### 3.4 Recurring Events
 
 For weekly sessions (e.g., Wednesday Meditation):
 
 1. Create one event per session date
 2. Use a consistent naming convention: `Wednesday Evening Meditation — March 25`
 3. Keep the same slug prefix: `wednesday-evening-meditation-2026-03-25`
-4. Copy the previous week's event and update the date
+4. You can create a new event and reuse similar content from a previous one
 
 > **Tip:** Create events at least 2 weeks in advance so they appear in the weekly digest.
 
-### 3.4 Event Calendar Feed
+### 3.5 Event Calendar Feed
 
 The site automatically generates an ICS calendar feed at:
 - **All events:** `/api/calendar/feed.ics`
@@ -166,22 +172,22 @@ Users can subscribe to the feed in Google Calendar, Apple Calendar, or Outlook. 
 
 ### 4.1 Creating a New Post
 
-1. In Decap CMS, click **Blog** in the sidebar
-2. Click **New Blog Post**
-3. Fill in the fields:
+1. Click **Posts** in the admin navigation, then **+ New Post**
+2. Fill in the fields:
 
 | Field | Required | Description |
 |-------|----------|-------------|
 | Title | Yes | Article headline |
-| Slug | Yes | URL path (auto-generated) |
+| Slug | Auto | URL path (auto-generated from title) |
 | Date | Yes | Publication date |
-| Author | Yes | Author name |
+| Author | Yes | Author name (defaults to "Bangkok Shambhala") |
 | Excerpt | Yes | 2-3 sentence summary for cards |
-| Body | Yes | Full article in Markdown |
+| Body | Yes | Full article using the Markdown editor |
 | Tags | No | Categories for organization |
-| Featured Image | No | Header image |
+| Featured Image | No | URL for header image |
+| Published | Yes | Toggle — only published posts appear on the site |
 
-4. Click **Publish**
+3. Click **Save Post**
 
 ### 4.2 Writing Best Practices
 
@@ -192,26 +198,21 @@ Users can subscribe to the feed in Google Calendar, Apple Calendar, or Outlook. 
 - **Add images** to increase engagement
 - **Use internal links** when referencing events or other pages
 
-### 4.3 Markdown Quick Reference
+### 4.3 Using the Markdown Editor
 
-```markdown
-## Heading 2
-### Heading 3
+The editor includes a toolbar with these buttons:
 
-**Bold text** and *italic text*
+| Button | What It Does | Markdown Inserted |
+|--------|-------------|-------------------|
+| **B** | Bold text | `**text**` |
+| *I* | Italic text | `*text*` |
+| H2 | Heading 2 | `## Heading` |
+| H3 | Heading 3 | `### Heading` |
+| List | Bullet list | `- item` |
+| Link | Insert link | `[text](url)` |
+| Image | Insert image | `![alt](url)` |
 
-[Link text](https://example.com)
-
-![Image description](image-url.jpg)
-
-- Bullet point
-- Another point
-
-1. Numbered list
-2. Second item
-
-> Blockquote — great for callouts or quotes
-```
+You can also type Markdown directly in the text area.
 
 ### 4.4 Content Calendar
 
@@ -238,12 +239,13 @@ Suggested publishing schedule:
 | Naming | Descriptive: `wednesday-meditation-group.jpg` |
 | Alt text | Always describe the image content |
 
-### 5.2 Uploading Images
+### 5.2 Adding Images to Content
 
-1. In the CMS editor, click the **+** button or image icon
-2. Choose **Upload** to select from your computer
-3. Add descriptive **alt text** (required for accessibility)
-4. The image is stored in the Git repository
+1. Upload your image to a hosting service (e.g., Cloudinary, Imgur, or your preferred CDN)
+2. Copy the image URL
+3. In the admin editor, click the **Image** toolbar button or type `![description](url)` directly
+4. Paste the image URL
+5. Always add a descriptive alt text for accessibility
 
 > **Tip:** Compress images before uploading using [squoosh.app](https://squoosh.app) or [tinypng.com](https://tinypng.com).
 
@@ -366,9 +368,9 @@ Your hosting dashboard at [vercel.com](https://vercel.com) shows:
 
 | Problem | Solution |
 |---------|----------|
-| Changes don't appear after publishing | Wait 1-2 min for rebuild. Check Vercel dashboard for build errors. |
-| CMS login fails | Clear browser cache. Try incognito mode. Verify GitHub access. |
-| Images don't load | Check file size (< 5MB). Verify the image URL is correct. |
+| Changes don't appear after saving | Wait 1-2 min for rebuild. Check Vercel dashboard for build errors. |
+| Admin login fails | Clear browser cache. Try incognito mode. Verify ADMIN_EMAIL and ADMIN_PASSWORD env vars. |
+| Images don't load | Verify the image URL is correct and publicly accessible. |
 | Event not on homepage | Verify status is `upcoming` and date is in the future. |
 | Newsletter signup fails | Check Brevo API key in Vercel env vars. Check API logs. |
 | 404 errors for old URLs | Add a redirect in `next.config.js` (developer task). |
@@ -379,10 +381,10 @@ Your hosting dashboard at [vercel.com](https://vercel.com) shows:
 
 ## 11. Security Reminders
 
-- **Never share** CMS credentials publicly
-- **Never commit** API keys to the repository
-- **Review** editor access quarterly — remove departed members
-- **Rotate** API keys (Brevo, n8n) every 3-6 months
+- **Never share** admin credentials (email/password) publicly
+- **Never commit** API keys or secrets to the repository
+- **Review** who has admin credentials quarterly — change password if a member departs
+- **Rotate** API keys (GitHub token, Brevo, n8n) every 3-6 months
 - **Report** any suspicious activity to the site administrator immediately
 
 ---
@@ -393,7 +395,7 @@ Your hosting dashboard at [vercel.com](https://vercel.com) shows:
 |-------------|---------|
 | Content questions | Community coordinator |
 | Technical issues | Site developer |
-| CMS access | Site administrator |
+| Admin panel access | Site administrator |
 | Brevo / newsletters | Site administrator |
 | n8n automations | Site developer |
 

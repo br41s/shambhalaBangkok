@@ -174,16 +174,29 @@ Test with:
 
 ---
 
-## CMS (Decap)
+## Admin Panel
 
-- [ ] Admin page loads at `/admin/`
-- [ ] Login works (Git gateway or GitHub OAuth)
-- [ ] Can create new event
-- [ ] Can edit existing event
-- [ ] Can create new blog post
-- [ ] Can upload images
-- [ ] Publishing triggers site rebuild
-- [ ] Published content appears on site after rebuild
+- [ ] Login page loads at `/admin/login`
+- [ ] Login with valid email/password succeeds → redirects to dashboard
+- [ ] Login with wrong credentials shows error
+- [ ] Dashboard shows stats (events count, posts count)
+- [ ] Can create new event from `/admin/events/new`
+- [ ] Can edit existing event from `/admin/events/[slug]/edit`
+- [ ] Can create new blog post from `/admin/posts/new`
+- [ ] Can edit existing blog post from `/admin/posts/[slug]/edit`
+- [ ] Saving content triggers GitHub commit
+- [ ] Published content appears on site after Vercel rebuild (~1-2 min)
+- [ ] Logout works (cookie cleared, redirects to login)
+- [ ] Unauthenticated access to `/admin/` redirects to `/admin/login`
+
+### Admin API Routes
+
+- [ ] `POST /api/admin/login` — valid credentials → sets session cookie
+- [ ] `POST /api/admin/login` — invalid credentials → returns 401
+- [ ] `POST /api/admin/logout` — clears session cookie
+- [ ] `POST /api/admin/content` — creates Markdown file in GitHub repo
+- [ ] `DELETE /api/admin/content` — removes file from GitHub repo
+- [ ] All admin API routes reject unauthenticated requests
 
 ---
 

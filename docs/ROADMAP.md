@@ -15,8 +15,9 @@ Core website with all essential features.
 - [x] About pages (Shambhala, Vision, Lineage)
 - [x] SEO optimization (Schema.org, Open Graph, sitemap)
 - [x] Security headers (CSP, HSTS, X-Frame-Options)
-- [x] Decap CMS for content management
-- [x] Admin dashboard
+- [x] Custom admin panel with email/password login
+- [x] Markdown editor with toolbar
+- [x] Event & blog post CRUD via GitHub API
 - [x] Newsletter signup with anti-spam
 - [x] n8n automation workflows
 - [x] Privacy policy (PDPA compliant)
@@ -50,7 +51,7 @@ Focus on user engagement and content optimization.
 - [ ] **i18n routing**: `/en/` and `/th/` URL prefixes
 - [ ] **Thai translation**: Full Thai translation of all pages
 - [ ] **Language switcher**: Header toggle between EN/TH
-- [ ] **CMS support**: Bilingual content editing in Decap CMS
+- [ ] **Admin support**: Bilingual content editing in admin panel
 - [ ] **SEO**: `hreflang` tags for language variants
 - [ ] **RTL-aware layout**: Thai doesn't need RTL but ensure proper spacing
 

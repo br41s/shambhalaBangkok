@@ -13,7 +13,7 @@
    git init
    git add .
    git commit -m "Initial commit"
-   git remote add origin https://github.com/your-org/shambala-bangkok.git
+   git remote add origin https://github.com/braisntext/shambhalaBangkok.git
    git push -u origin main
    ```
 
@@ -29,13 +29,23 @@
    | Variable | Value | Environment |
    |---|---|---|
    | `NEXT_PUBLIC_SITE_URL` | `https://shambhalabangkok.vercel.app` (or custom domain) | All |
-   | `NEXT_PUBLIC_GA_ID` | Your Plausible domain | All |
+   | `ADMIN_EMAIL` | Admin login email | Production |
+   | `ADMIN_PASSWORD` | Strong admin password | Production |
+   | `ADMIN_SESSION_SECRET` | Random 32+ char string (`openssl rand -hex 32`) | Production |
+   | `GITHUB_TOKEN` | GitHub PAT with Contents read/write scope | Production |
+   | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Your Plausible domain | All |
    | `BREVO_API_KEY` | Your Brevo API key | Production |
-   | `WEBHOOK_SECRET` | Random 32-char string | Production |
+   | `BREVO_LIST_ID` | Brevo contact list ID | Production |
+   | `TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key (optional) | Production |
+   | `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret (optional) | Production |
 
-4. **Configure Domain**
+   > **To generate `ADMIN_SESSION_SECRET`:** run `openssl rand -hex 32` in your terminal.
+   >
+   > **To create `GITHUB_TOKEN`:** go to GitHub → Settings → Developer settings → Fine-grained tokens → create one with Contents read/write for the `shambhalaBangkok` repo.
+
+4. **Configure Domain** (when ready)
    - Go to Settings → Domains
-   - Add `shambhala-bangkok.org`
+   - Add your custom domain
    - Update DNS records as instructed by Vercel
    - SSL is automatic
 
@@ -52,92 +62,43 @@ These should be auto-detected, but verify:
 
 ---
 
-## Alternative: Cloudflare Pages
+## Admin Panel Setup
 
-### Steps
+The admin panel is built into the site — no external CMS required.
 
-1. **Connect GitHub** in Cloudflare Pages dashboard
+### How It Works
+1. Admin logs in at `/admin/login` with email and password
+2. Credentials are verified against `ADMIN_EMAIL` and `ADMIN_PASSWORD` env vars
+3. Session is stored as an HMAC-signed HTTP-only cookie (24h expiry)
+4. Content changes are committed to GitHub via the Contents API using `GITHUB_TOKEN`
+5. Each commit triggers a Vercel rebuild (~1-2 min)
 
-2. **Build Settings**
-   - Build command: `pnpm build`
-   - Build output: `.next`
-   - Root directory: `shambala-bangkok`
+### First Login
+1. Set `ADMIN_EMAIL` and `ADMIN_PASSWORD` in Vercel environment variables
+2. Set `ADMIN_SESSION_SECRET` and `GITHUB_TOKEN`
+3. Redeploy the site (Settings → Deployments → Redeploy)
+4. Navigate to `/admin/login`
+5. Log in with the email and password you configured
 
-3. **Environment Variables**
-   Same as Vercel (see above)
-
-4. **Custom Domain**
-   - Add domain in Cloudflare DNS
-   - Enable proxied mode for CDN benefits
-
-> **Note**: Some API routes may need adjustment for Cloudflare Workers compatibility.
-
----
-
-## Decap CMS Setup
-
-### Git Gateway (Netlify Identity)
-
-1. Enable Netlify Identity on a Netlify site (can be separate from hosting)
-2. Enable Git Gateway in Identity settings
-3. Invite editors via email
-4. Update `public/admin/config.yml`:
-   ```yaml
-   backend:
-     name: git-gateway
-     branch: main
-   ```
-
-### GitHub Backend (Direct)
-
-Alternative if not using Netlify Identity:
-
-```yaml
-backend:
-  name: github
-  repo: your-org/shambala-bangkok
-  branch: main
-```
-
-Editors need GitHub accounts with repository access.
-
----
-
-## Decap CMS with Vercel
-
-Since Vercel doesn't natively support Netlify Identity/Git Gateway, choose one of:
-
-### Option A: GitHub Backend
-Use the GitHub backend directly (editors need GitHub accounts):
-```yaml
-backend:
-  name: github
-  repo: your-org/shambala-bangkok
-  branch: main
-```
-
-### Option B: External Auth
-Use an external OAuth provider:
-1. Deploy a small OAuth app (e.g., using [netlify-cms-oauth-provider-node](https://github.com/vencax/netlify-cms-github-oauth-provider))
-2. Configure the base_url in config.yml
-
-### Option C: Netlify Identity (Separate)
-1. Create a free Netlify site pointing to the same repo
-2. Enable Identity + Git Gateway on Netlify
-3. Use Netlify's identity endpoint in Decap CMS config
+### Optional: Cloudflare Turnstile Captcha
+To add captcha protection on the login page:
+1. Create a Turnstile widget at [dash.cloudflare.com/turnstile](https://dash.cloudflare.com/turnstile)
+2. Add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` to Vercel env vars
+3. The login page automatically shows the captcha when the keys are present
 
 ---
 
 ## Post-Deployment Checklist
 
-- [ ] Site loads at custom domain with HTTPS
+- [ ] Site loads at custom domain (or Vercel URL) with HTTPS
 - [ ] All pages render correctly
+- [ ] Admin login works at `/admin/login`
+- [ ] Can create events and posts from admin panel
 - [ ] Events display with correct dates (timezone: Asia/Bangkok GMT+7)
 - [ ] Calendar ICS feed works: `/api/calendar/feed.ics`
 - [ ] Sitemap accessible: `/sitemap.xml`
 - [ ] Robots.txt accessible: `/robots.txt`
 - [ ] Newsletter signup works (test with real email)
-- [ ] Decap CMS accessible at `/admin/`
 - [ ] Markdown rendering: blog posts & event descriptions render formatted HTML
 - [ ] Google Translate widget: appears in bottom-right, auto-detects language
 - [ ] SVG logo: displays correctly in header across all pages
@@ -153,18 +114,11 @@ Use an external OAuth provider:
 
 ## DNS Configuration
 
-### For Vercel
+### For Vercel (custom domain)
 ```
 Type    Name    Value
 A       @       76.76.21.21
 CNAME   www     cname.vercel-dns.com
-```
-
-### For Cloudflare
-```
-Type    Name    Value
-CNAME   @       shambala-bangkok.pages.dev
-CNAME   www     shambala-bangkok.pages.dev
 ```
 
 ---
@@ -174,7 +128,6 @@ CNAME   www     shambala-bangkok.pages.dev
 If a deployment breaks:
 
 1. **Vercel**: Go to Deployments → click on a previous successful deployment → "Promote to Production"
-2. **Cloudflare**: Go to Pages → Deployments → "Rollback"
 
 Or revert the Git commit and push:
 ```bash

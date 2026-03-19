@@ -44,24 +44,32 @@ Visit [securityheaders.com](https://securityheaders.com) and enter the site URL.
 
 ## Content Security
 
-### Git-Based CMS
-- All content changes are Git commits → full audit trail
-- Decap CMS authenticates via Git provider (GitHub OAuth)
+### Git-Based Content
+- All content changes are Git commits via GitHub API → full audit trail
+- Admin panel authenticates via email/password, then uses a GitHub PAT for commits
 - No direct database writes or SQL injection vectors
-- Content is sanitized at build time (Markdown → HTML)
+- Content is sanitized at build time (Markdown → HTML with `sanitize: true`)
+
+### Admin Authentication
+- Email/password login verified against environment variables
+- HMAC-SHA256 signed session tokens with 24-hour expiry
+- HTTP-only, secure cookies prevent XSS access to tokens
+- Timing-safe comparison prevents timing attacks
+- Optional Cloudflare Turnstile captcha on login
+- All admin pages and API routes verify session before processing
 
 ### No User-Generated Content
 - No comment system
-- No user accounts or registration
+- No public user accounts or registration
 - No file upload by public users
 - Newsletter signup is the only public input
 
 ## Third-Party Dependencies
 
 ### CDN Resources
-- Decap CMS loaded from `unpkg.com/decap-cms@^3.0.0`
 - Plausible Analytics (privacy-first, GDPR-compliant)
 - Google Maps embed (iframe, controlled by CSP)
+- Google Translate widget (auto-translation)
 
 ### npm Dependencies
 Keep dependencies updated:
@@ -95,10 +103,10 @@ pnpm outdated           # Check for outdated packages
 
 ### If the Site is Compromised
 
-1. **Immediately**: Revoke Git deploy token in Vercel
+1. **Immediately**: Change admin password (`ADMIN_PASSWORD` in Vercel), rotate `GITHUB_TOKEN` and `ADMIN_SESSION_SECRET`
 2. **Audit**: Check recent Git commits for unauthorized changes
 3. **Rollback**: Deploy previous known-good commit
-4. **Investigate**: Review Decap CMS access logs
+4. **Investigate**: Review GitHub commit history and Vercel deployment logs
 5. **Remediate**: Rotate all API keys and tokens
 6. **Notify**: Inform community if any data was exposed
 
@@ -114,7 +122,8 @@ pnpm outdated           # Check for outdated packages
 - [ ] Run `pnpm audit` and fix vulnerabilities
 - [ ] Update dependencies to latest versions
 - [ ] Test security headers at securityheaders.com
-- [ ] Verify Decap CMS access list (remove departed editors)
+- [ ] Change admin password and rotate `ADMIN_SESSION_SECRET`
+- [ ] Rotate `GITHUB_TOKEN` (create new fine-grained token, delete old)
 - [ ] Rotate API keys (Brevo, n8n webhooks)
 - [ ] Review Vercel access and team members
 - [ ] Check Plausible for unusual traffic patterns

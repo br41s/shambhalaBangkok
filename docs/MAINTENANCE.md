@@ -3,7 +3,7 @@
 ## Routine Tasks
 
 ### Weekly
-- [ ] Review and publish any pending content in Decap CMS
+- [ ] Log in to admin panel (`/admin/`) and review content
 - [ ] Update event statuses (mark past events as `past`)
 - [ ] Check site is live and loading correctly
 
@@ -20,7 +20,7 @@
 - [ ] Test security headers at securityheaders.com
 - [ ] Run Lighthouse audit (target: all scores > 95)
 - [ ] Review and rotate API keys (Brevo, n8n webhooks)
-- [ ] Review CMS editor access (remove inactive users)
+- [ ] Change admin password and rotate `ADMIN_SESSION_SECRET` if needed
 - [ ] Test all forms and interactive elements
 - [ ] Review and update content for accuracy
 - [ ] Verify all external links still work
@@ -59,8 +59,8 @@ pnpm audit            # Check for vulnerabilities
 | next | 16.x | Monthly | Framework — test thoroughly |
 | react | 19.x | Monthly | Core dependency |
 | tailwindcss | 4.x | Quarterly | Styling — visual regression check |
-| typescript | 5.x | Quarterly | | Dev dependency, low risk |
-| decap-cms | 3.x | Quarterly | CMS — test admin panel |
+| typescript | 5.x | Quarterly | Dev dependency, low risk |
+| gray-matter | latest | Quarterly | Markdown frontmatter parsing |
 
 ---
 
@@ -110,8 +110,8 @@ tar -czf content-backup-$(date +%Y%m%d).tar.gz content/
 
 ### Content Issue
 1. Identify the problematic content file
-2. Fix in Decap CMS or edit the Markdown file directly
-3. Commit and push — auto-deploys in ~1 minute
+2. Fix via admin panel (`/admin/events` or `/admin/posts`) or edit the Markdown file directly
+3. Changes via admin panel auto-commit to GitHub → auto-deploys in ~1-2 minutes
 
 ### Security Issue
 1. Follow procedures in [SECURITY.md](SECURITY.md)
@@ -125,5 +125,5 @@ tar -czf content-backup-$(date +%Y%m%d).tar.gz content/
 | Role | Responsibility |
 |---|---|
 | Developer | Technical maintenance, deployments, bug fixes |
-| Content Lead | Editorial calendar, content updates, CMS management |
+| Content Lead | Editorial calendar, content updates, admin panel management |
 | Community Manager | Social channels, community engagement, event coordination |
