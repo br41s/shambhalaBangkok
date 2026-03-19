@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { siteConfig, footerNav } from '@/lib/config';
 import { SocialJoinButtons } from '@/components/ui/SocialJoinButtons';
 import { NewsletterForm } from '@/components/ui/NewsletterForm';
@@ -11,7 +12,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 font-semibold text-lg mb-4">
-              <span className="text-brand-blue">◈</span>
+              <Image src="/images/logo.svg" alt="Shambhala Bangkok logo" width={28} height={28} />
               <span>Shambhala Bangkok</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed mb-4">
@@ -76,6 +77,9 @@ export function Footer() {
             </Link>
             <Link href="/code-of-conduct" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
               Code of Conduct
+            </Link>
+            <Link href="/admin/" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
+              Admin
             </Link>
           </div>
         </div>
