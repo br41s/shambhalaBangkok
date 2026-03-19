@@ -19,6 +19,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState('');
   const turnstileRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string>('');
@@ -121,6 +122,18 @@ export default function LoginPage() {
               autoComplete="current-password"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
+            <button
+              type="button"
+              onClick={() => setShowForgot(!showForgot)}
+              className="text-xs text-blue-600 hover:text-blue-800 mt-1.5 transition-colors"
+            >
+              Forgot password?
+            </button>
+            {showForgot && (
+              <div className="mt-2 bg-amber-50 border border-amber-200 text-amber-800 text-xs rounded-lg px-3 py-2.5 leading-relaxed">
+                The admin password is configured as an environment variable. Contact the site administrator to update <code className="bg-amber-100 px-1 rounded">ADMIN_PASSWORD</code> in the Vercel project settings.
+              </div>
+            )}
           </div>
 
           {siteKey && <div ref={turnstileRef} className="flex justify-center" />}
