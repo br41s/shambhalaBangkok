@@ -79,7 +79,7 @@ This guide walks you through configuring every external service the Bangkok Sham
 1. **Sign in** to [github.com](https://github.com)
 
 2. **Repository already created** at:
-   `https://github.com/braisntext/shambalaBangkok`
+   `https://github.com/braisntext/shambhalaBangkok`
 
 3. **Add collaborators** (other admins/developers):
    - Go to repository → **Settings** → **Collaborators**
@@ -96,7 +96,7 @@ This guide walks you through configuring every external service the Bangkok Sham
 
 ### Verification
 
-- [ ] Repository accessible at `https://github.com/braisntext/shambalaBangkok`
+- [ ] Repository accessible at `https://github.com/braisntext/shambhalaBangkok`
 - [ ] CI workflow runs on push (check Actions tab)
 - [ ] Collaborators can access the repo
 
@@ -114,7 +114,7 @@ This guide walks you through configuring every external service the Bangkok Sham
 
 2. **Import project:**
    - Click **Add New → Project**
-   - Select the `braisntext/shambalaBangkok` repository
+   - Select the `braisntext/shambhalaBangkok` repository
    - Vercel auto-detects Next.js
 
 3. **Configure build settings:**
@@ -142,7 +142,7 @@ This guide walks you through configuring every external service the Bangkok Sham
 5. **Deploy:**
    - Click **Deploy**
    - Wait for the build to complete (~1-2 minutes)
-   - Vercel assigns a temporary URL: `shambalabangkok-xxx.vercel.app`
+   - Vercel assigns a temporary URL: `shambhalabangkok.vercel.app`
 
 6. **Verify the deployment:**
    - Open the temporary URL
@@ -351,7 +351,7 @@ This lets editors log in with their GitHub account.
    ```yaml
    backend:
      name: github
-     repo: braisntext/shambalaBangkok
+     repo: braisntext/shambhalaBangkok
      branch: main
    ```
 
@@ -384,7 +384,7 @@ This lets editors log in with their GitHub account.
    ```yaml
    backend:
      name: github
-     repo: braisntext/shambalaBangkok
+     repo: braisntext/shambhalaBangkok
      branch: main
      base_url: https://your-oauth-proxy.vercel.app
    ```

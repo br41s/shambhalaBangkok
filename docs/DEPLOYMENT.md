@@ -28,7 +28,7 @@
 
    | Variable | Value | Environment |
    |---|---|---|
-   | `NEXT_PUBLIC_SITE_URL` | `https://shambalabangkok.vercel.app` (or custom domain) | All |
+   | `NEXT_PUBLIC_SITE_URL` | `https://shambhalabangkok.vercel.app` (or custom domain) | All |
    | `NEXT_PUBLIC_GA_ID` | Your Plausible domain | All |
    | `BREVO_API_KEY` | Your Brevo API key | Production |
    | `WEBHOOK_SECRET` | Random 32-char string | Production |

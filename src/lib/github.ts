@@ -1,6 +1,6 @@
 import matter from 'gray-matter';
 
-const REPO = 'braisntext/shambalaBangkok';
+const REPO = 'braisntext/shambhalaBangkok';
 const BRANCH = 'main';
 const API = 'https://api.github.com';
 
