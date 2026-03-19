@@ -1,0 +1,81 @@
+{
+  "name": "Shambhala Bangkok — Social Copy Generator",
+  "nodes": [
+    {
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "generate-social-copy",
+        "authentication": "headerAuth"
+      },
+      "position": [250, 300]
+    },
+    {
+      "name": "Generate AI Copy",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "headers": {
+          "Authorization": "Bearer ={{$env.OPENAI_API_KEY}}"
+        },
+        "body": {
+          "model": "gpt-4o-mini",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a social media copywriter for Shambhala Bangkok, a non-profit meditation community. Write warm, inclusive, mindful copy. Always include relevant emojis. Keep Instagram captions under 150 words. Include 5-8 relevant hashtags."
+            },
+            {
+              "role": "user",
+              "content": "Write social media copy for this event:\nTitle: {{$json.title}}\nSummary: {{$json.summary}}\nDate: {{$json.date}}\nURL: {{$json.url}}\nModality: {{$json.modality}}\n\nPlease provide:\n1. Facebook post (2-3 paragraphs)\n2. Instagram caption (with hashtags)\n3. WhatsApp message (short, with link)\n4. LINE message (short, with link)"
+            }
+          ],
+          "temperature": 0.7
+        }
+      },
+      "position": [450, 300]
+    },
+    {
+      "name": "Parse Response",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst content = response.choices[0].message.content;\n\n// Split by platform headers\nconst sections = content.split(/\\d+\\.\\s+/);\n\nreturn [{\n  json: {\n    facebook: sections[1] || '',\n    instagram: sections[2] || '',\n    whatsapp: sections[3] || '',\n    line: sections[4] || '',\n    raw: content\n  }\n}];"
+      },
+      "position": [650, 300]
+    },
+    {
+      "name": "Store in Google Sheet",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/{{$env.GOOGLE_SHEET_ID}}/values/SocialCopy!A1:append",
+        "headers": {
+          "Authorization": "Bearer ={{$env.GOOGLE_ACCESS_TOKEN}}"
+        },
+        "body": {
+          "values": [
+            [
+              "={{$json.title}}",
+              "={{$json.date}}",
+              "={{$json.facebook}}",
+              "={{$json.instagram}}",
+              "={{$json.whatsapp}}",
+              "={{$json.line}}"
+            ]
+          ]
+        }
+      },
+      "position": [850, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": { "main": [["Generate AI Copy"]] },
+    "Generate AI Copy": { "main": [["Parse Response"]] },
+    "Parse Response": { "main": [["Store in Google Sheet"]] }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

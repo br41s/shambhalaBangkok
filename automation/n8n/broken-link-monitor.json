@@ -1,0 +1,86 @@
+{
+  "name": "Shambhala Bangkok — Broken Link Monitor",
+  "nodes": [
+    {
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "cronExpression", "expression": "0 3 * * 0" }
+          ]
+        }
+      },
+      "position": [250, 300],
+      "typeVersion": 1
+    },
+    {
+      "name": "Fetch Sitemap",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "={{$env.SITE_URL}}/sitemap.xml",
+        "responseFormat": "text"
+      },
+      "position": [450, 300]
+    },
+    {
+      "name": "Extract URLs",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "const sitemap = $input.first().json.data;\nconst urlRegex = /<loc>(.*?)<\\/loc>/g;\nconst urls = [];\nlet match;\nwhile ((match = urlRegex.exec(sitemap)) !== null) {\n  urls.push({ json: { url: match[1] } });\n}\nreturn urls;"
+      },
+      "position": [650, 300]
+    },
+    {
+      "name": "Check Each URL",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "HEAD",
+        "url": "={{$json.url}}",
+        "options": { "timeout": 10000 }
+      },
+      "position": [850, 300]
+    },
+    {
+      "name": "Filter Broken Links",
+      "type": "n8n-nodes-base.filter",
+      "parameters": {
+        "conditions": {
+          "number": [
+            { "value1": "={{$json.statusCode}}", "operation": "greaterEqual", "value2": 400 }
+          ]
+        }
+      },
+      "position": [1050, 300]
+    },
+    {
+      "name": "Send Alert Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/smtp/email",
+        "headers": {
+          "api-key": "={{$env.BREVO_API_KEY}}"
+        },
+        "body": {
+          "sender": { "name": "Site Monitor", "email": "monitor@shambhala-bangkok.org" },
+          "to": [{ "email": "={{$env.ADMIN_EMAIL}}" }],
+          "subject": "⚠️ Broken Links Detected on Shambhala Bangkok",
+          "htmlContent": "<h2>Broken Links Report</h2><p>The following URLs returned errors:</p><ul>{{$json.brokenList}}</ul>"
+        }
+      },
+      "position": [1250, 300]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": { "main": [["Fetch Sitemap"]] },
+    "Fetch Sitemap": { "main": [["Extract URLs"]] },
+    "Extract URLs": { "main": [["Check Each URL"]] },
+    "Check Each URL": { "main": [["Filter Broken Links"]] },
+    "Filter Broken Links": { "main": [["Send Alert Email"]] }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

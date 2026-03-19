@@ -1,0 +1,74 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "events"
+    label: "Events"
+    folder: "content/events"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Start Date", name: "startDate", widget: "datetime" }
+      - { label: "End Date", name: "endDate", widget: "datetime" }
+      - { label: "Timezone", name: "timezone", widget: "string", default: "Asia/Bangkok" }
+      - { label: "Location", name: "location", widget: "string", default: "Shambhala Bangkok, Young Place Building, Sukhumvit Soi 23" }
+      - label: "Modality"
+        name: "modality"
+        widget: "select"
+        options: ["in-person", "online", "hybrid"]
+        default: "in-person"
+      - { label: "Registration URL", name: "registrationUrl", widget: "string", required: false }
+      - { label: "Video Call URL", name: "videoCallUrl", widget: "string", required: false }
+      - { label: "Organizer", name: "organizer", widget: "string", default: "Shambhala Bangkok" }
+      - { label: "Facilitator", name: "facilitator", widget: "string", required: false }
+      - label: "Pricing"
+        name: "pricing"
+        widget: "select"
+        options: ["free", "donation", "fixed"]
+        default: "free"
+      - { label: "Price", name: "price", widget: "number", required: false }
+      - { label: "Suggested Donation", name: "suggestedDonation", widget: "number", required: false }
+      - { label: "Currency", name: "currency", widget: "string", default: "THB", required: false }
+      - { label: "Capacity", name: "capacity", widget: "number", required: false }
+      - { label: "Tags", name: "tags", widget: "list", default: ["meditation"] }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["draft", "published", "cancelled", "completed", "recurring"]
+        default: "draft"
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Date", name: "date", widget: "date" }
+      - { label: "Author", name: "author", widget: "string", default: "Shambhala Bangkok" }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Published", name: "published", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "pages"
+    label: "Pages"
+    folder: "content/pages"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Template", name: "template", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }

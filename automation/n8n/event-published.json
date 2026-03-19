@@ -1,0 +1,75 @@
+{
+  "name": "Shambhala Bangkok — Event Published",
+  "nodes": [
+    {
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "event-published",
+        "authentication": "headerAuth"
+      },
+      "position": [250, 300]
+    },
+    {
+      "name": "Parse Event Data",
+      "type": "n8n-nodes-base.set",
+      "parameters": {
+        "values": {
+          "string": [
+            { "name": "title", "value": "={{$json.title}}" },
+            { "name": "summary", "value": "={{$json.summary}}" },
+            { "name": "date", "value": "={{$json.startDate}}" },
+            { "name": "url", "value": "={{$json.canonicalUrl}}" },
+            { "name": "socialCopy", "value": "={{$json.socialCopyShort}}" }
+          ]
+        }
+      },
+      "position": [450, 300]
+    },
+    {
+      "name": "Send Newsletter (Brevo)",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/smtp/email",
+        "headers": {
+          "api-key": "={{$env.BREVO_API_KEY}}"
+        },
+        "body": {
+          "sender": { "name": "Shambhala Bangkok", "email": "bangkok@shambhala.info" },
+          "to": [{ "email": "list-subscribers" }],
+          "subject": "New Event: {{$json.title}}",
+          "htmlContent": "<h2>{{$json.title}}</h2><p>{{$json.summary}}</p><a href='{{$json.url}}'>View Event</a>"
+        }
+      },
+      "position": [650, 200]
+    },
+    {
+      "name": "Prepare Social Copy",
+      "type": "n8n-nodes-base.set",
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "facebookPost",
+              "value": "🧘 {{$json.title}}\n\n{{$json.summary}}\n\n📅 {{$json.date}}\n🔗 {{$json.url}}\n\n#meditation #bangkok #mindfulness #shambhala"
+            },
+            {
+              "name": "whatsappMessage",
+              "value": "🧘 *{{$json.title}}*\n{{$json.summary}}\n📅 {{$json.date}}\n👉 {{$json.url}}"
+            }
+          ]
+        }
+      },
+      "position": [650, 400]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": { "main": [["Parse Event Data"]] },
+    "Parse Event Data": { "main": [["Send Newsletter (Brevo)", "Prepare Social Copy"]] }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

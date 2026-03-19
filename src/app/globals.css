@@ -1,0 +1,112 @@
+@import "tailwindcss";
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
+
+/* ========================================
+   Shambhala Bangkok — Design Tokens
+   ======================================== */
+
+@theme {
+  /* Brand Colors */
+  --color-brand-blue: #2563EB;
+  --color-brand-blue-light: #3B82F6;
+  --color-brand-blue-dark: #1D4ED8;
+  --color-brand-yellow: #F59E0B;
+  --color-brand-yellow-light: #FBBF24;
+  --color-brand-yellow-dark: #D97706;
+
+  /* Neutral palette */
+  --color-text-primary: rgba(0, 0, 0, 0.82);
+  --color-text-secondary: rgba(0, 0, 0, 0.58);
+  --color-text-tertiary: rgba(0, 0, 0, 0.40);
+  --color-surface: #FFFFFF;
+  --color-surface-soft: #F9FAFB;
+  --color-surface-muted: #F3F4F6;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(0, 0, 0, 0.15);
+
+  /* Fonts */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Spacing scale */
+  --spacing-section: 5rem;
+  --spacing-block: 3rem;
+}
+
+/* ========================================
+   Base Styles
+   ======================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    font-family: var(--font-sans);
+  }
+
+  /* Accessible focus styles */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ========================================
+   Component Utilities
+   ======================================== */
+
+@layer utilities {
+  .section-padding {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
+  }
+
+  .container-content {
+    max-width: 72rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* ========================================
+   Prose / Rich text
+   ======================================== */
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.prose p {
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+}
+
+.prose a {
+  color: var(--color-brand-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: var(--color-brand-blue-dark);
+}

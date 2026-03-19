@@ -1,0 +1,74 @@
+{
+  "name": "Shambhala Bangkok — Weekly Event Reminder",
+  "nodes": [
+    {
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "cronExpression", "expression": "0 9 * * 1" }
+          ]
+        }
+      },
+      "position": [250, 300],
+      "typeVersion": 1
+    },
+    {
+      "name": "Fetch Upcoming Events",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "={{$env.SITE_URL}}/api/calendar/feed.ics",
+        "responseFormat": "text"
+      },
+      "position": [450, 300]
+    },
+    {
+      "name": "Build Weekly Digest",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// Parse ICS and build digest of this week's events\nconst events = $input.first().json;\nconst now = new Date();\nconst weekEnd = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);\n\nreturn [{\n  json: {\n    subject: `This Week at Shambhala Bangkok`,\n    preheader: `Upcoming meditation sessions and events`,\n    weekStart: now.toISOString(),\n    weekEnd: weekEnd.toISOString()\n  }\n}];"
+      },
+      "position": [650, 300]
+    },
+    {
+      "name": "Send to WhatsApp Group",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.whatsapp.com/send",
+        "body": {
+          "text": "🗓️ *This Week at Shambhala Bangkok*\n\nHere are the upcoming sessions:\n\n{{$json.eventList}}\n\n👉 Full calendar: {{$env.SITE_URL}}/events"
+        }
+      },
+      "position": [850, 200]
+    },
+    {
+      "name": "Send Email Digest (Brevo)",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/smtp/email",
+        "headers": {
+          "api-key": "={{$env.BREVO_API_KEY}}"
+        },
+        "body": {
+          "sender": { "name": "Shambhala Bangkok", "email": "bangkok@shambhala.info" },
+          "to": [{ "email": "list-subscribers" }],
+          "subject": "{{$json.subject}}",
+          "htmlContent": "<h2>This Week at Shambhala Bangkok</h2>{{$json.eventListHtml}}"
+        }
+      },
+      "position": [850, 400]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": { "main": [["Fetch Upcoming Events"]] },
+    "Fetch Upcoming Events": { "main": [["Build Weekly Digest"]] },
+    "Build Weekly Digest": { "main": [["Send to WhatsApp Group", "Send Email Digest (Brevo)"]] }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

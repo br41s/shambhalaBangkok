@@ -1,0 +1,60 @@
+import { getAllPosts } from '@/lib/blog';
+import { formatDate } from '@/lib/utils';
+import Link from 'next/link';
+
+export default function AdminPostsPage() {
+  const posts = getAllPosts();
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold">Blog Posts</h1>
+        <p className="text-sm text-text-secondary">Manage posts via Markdown files in content/blog/</p>
+      </div>
+
+      <div className="bg-white rounded-xl border border-black/[0.06] overflow-hidden">
+        <table className="w-full text-sm">
+          <thead className="bg-surface-soft border-b border-black/[0.06]">
+            <tr>
+              <th className="text-left px-4 py-3 font-medium text-text-secondary">Title</th>
+              <th className="text-left px-4 py-3 font-medium text-text-secondary">Date</th>
+              <th className="text-left px-4 py-3 font-medium text-text-secondary">Tags</th>
+              <th className="text-right px-4 py-3 font-medium text-text-secondary">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-black/[0.04]">
+            {posts.map((post) => (
+              <tr key={post.slug} className="hover:bg-surface-soft/50">
+                <td className="px-4 py-3">
+                  <Link href={`/blog/${post.slug}`} className="font-medium hover:text-brand-blue transition-colors">
+                    {post.title}
+                  </Link>
+                </td>
+                <td className="px-4 py-3 text-text-secondary">{formatDate(post.date)}</td>
+                <td className="px-4 py-3">
+                  <div className="flex gap-1">
+                    {post.tags?.slice(0, 3).map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 text-xs bg-surface-muted rounded-full text-text-secondary">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <Link href={`/blog/${post.slug}`} className="text-brand-blue hover:text-brand-blue-dark transition-colors text-xs">
+                    View →
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {posts.length === 0 && (
+          <div className="px-4 py-8 text-center text-text-tertiary">
+            No posts found. Create a .md file in content/blog/ to add one.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
