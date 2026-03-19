@@ -1,6 +1,6 @@
 # Editorial Guide
 
-A guide for non-technical editors managing content on the Shambhala Bangkok website.
+A guide for non-technical editors managing content on the Bangkok Shambhala website.
 
 ## Accessing the CMS
 

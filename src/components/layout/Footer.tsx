@@ -12,8 +12,8 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 font-semibold text-lg mb-4">
-              <Image src="/images/logo.svg" alt="Shambhala Bangkok logo" width={28} height={28} />
-              <span>Shambhala Bangkok</span>
+              <Image src="/images/logo.svg" alt="Bangkok Shambhala logo" width={28} height={28} />
+              <span>Bangkok Shambhala</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed mb-4">
               {siteConfig.description}

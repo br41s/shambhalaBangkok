@@ -7,7 +7,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Events',
   description:
-    'Upcoming meditation events, workshops and community gatherings at Shambhala Bangkok.',
+    'Upcoming meditation events, workshops and community gatherings at Bangkok Shambhala.',
 };
 
 export default function EventsPage() {

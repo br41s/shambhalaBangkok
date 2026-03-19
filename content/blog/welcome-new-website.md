@@ -2,7 +2,7 @@
 title: "Welcome to Our New Website"
 excerpt: "We are excited to launch our new website, designed to make it easier to find events, connect with the community, and start your meditation practice."
 date: "2026-03-19"
-author: "Shambhala Bangkok"
+author: "Bangkok Shambhala"
 tags: ["announcement", "community"]
 image: ""
 published: true

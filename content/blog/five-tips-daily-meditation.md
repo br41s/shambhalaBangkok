@@ -2,7 +2,7 @@
 title: "Five Tips for Starting a Daily Meditation Practice"
 excerpt: "Practical advice for building a sustainable meditation habit, even if you only have five minutes a day."
 date: "2026-03-15"
-author: "Shambhala Bangkok"
+author: "Bangkok Shambhala"
 tags: ["meditation", "tips", "beginners"]
 image: ""
 published: true

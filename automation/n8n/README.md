@@ -1,6 +1,6 @@
 # n8n Automation Workflows
 
-Pre-built workflow templates for Shambhala Bangkok operations.
+Pre-built workflow templates for Bangkok Shambhala operations.
 Import these JSON files into your n8n instance.
 
 ## Workflows

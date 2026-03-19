@@ -6,7 +6,7 @@ import { CTAStrip } from '@/components/ui/CTAStrip';
 export const metadata: Metadata = {
   title: 'Location',
   description:
-    'Find Shambhala Bangkok at Young Place Building, Sukhumvit Soi 23. Near BTS Asoke / MRT Sukhumvit.',
+    'Find Bangkok Shambhala at Young Place Building, Sukhumvit Soi 23. Near BTS Asoke / MRT Sukhumvit.',
 };
 
 export default function LocationPage() {

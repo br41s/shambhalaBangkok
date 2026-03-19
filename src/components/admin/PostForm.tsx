@@ -23,7 +23,7 @@ const defaultValues = {
   title: '',
   slug: '',
   date: new Date().toISOString().slice(0, 10),
-  author: 'Shambhala Bangkok',
+  author: 'Bangkok Shambhala',
   tags: '',
   excerpt: '',
   image: '',
@@ -58,7 +58,7 @@ export function PostForm({ initial }: PostFormProps) {
     const frontmatter: Record<string, unknown> = {
       title: form.title,
       date: form.date,
-      author: form.author || 'Shambhala Bangkok',
+      author: form.author || 'Bangkok Shambhala',
       tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean),
       excerpt: form.excerpt,
       published: form.published,

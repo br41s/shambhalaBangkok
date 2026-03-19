@@ -144,11 +144,11 @@ export default function HomePage() {
       <section className="section-padding bg-surface-soft" id="about">
         <div className="container-content max-w-3xl">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-            About Shambhala Bangkok
+            About Bangkok Shambhala
           </h2>
           <div className="prose max-w-none text-center">
             <p>
-              Shambhala Bangkok is part of a global network of meditation centres founded on the
+              Bangkok Shambhala is part of a global network of meditation centres founded on the
               principle that every human being has a natural capacity for wisdom and compassion.
               Located in the Young Place building on Sukhumvit Soi 23, our centre offers a
               peaceful space for practice in the heart of the city.

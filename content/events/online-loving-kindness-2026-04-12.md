@@ -6,7 +6,7 @@ endDate: "2026-04-12T19:30:00+07:00"
 timezone: "Asia/Bangkok"
 location: "Online (Zoom)"
 modality: "online"
-organizer: "Shambhala Bangkok"
+organizer: "Bangkok Shambhala"
 pricing: "free"
 tags: ["online", "loving-kindness", "meditation"]
 image: ""

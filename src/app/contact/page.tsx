@@ -7,7 +7,7 @@ import { Mail } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Contact Shambhala Bangkok. Email, location, and social media links.',
+  description: 'Contact Bangkok Shambhala. Email, location, and social media links.',
 };
 
 export default function ContactPage() {

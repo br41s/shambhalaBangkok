@@ -32,7 +32,7 @@ export function DonateWidget({ compact, className }: DonateWidgetProps) {
   return (
     <div className={cn('space-y-6', className)}>
       <div className="text-center max-w-xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3">Support Shambhala Bangkok</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-3">Support Bangkok Shambhala</h2>
         <p className="text-text-secondary leading-relaxed">
           All donations go directly toward maintaining our meditation space, offering free instruction,
           and keeping the community accessible to everyone. Every contribution matters.

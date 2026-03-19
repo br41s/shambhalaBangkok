@@ -1,5 +1,5 @@
 {
-  "name": "Shambhala Bangkok — Weekly Event Reminder",
+  "name": "Bangkok Shambhala — Weekly Event Reminder",
   "nodes": [
     {
       "name": "Schedule Trigger",
@@ -28,7 +28,7 @@
       "name": "Build Weekly Digest",
       "type": "n8n-nodes-base.code",
       "parameters": {
-        "jsCode": "// Parse ICS and build digest of this week's events\nconst events = $input.first().json;\nconst now = new Date();\nconst weekEnd = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);\n\nreturn [{\n  json: {\n    subject: `This Week at Shambhala Bangkok`,\n    preheader: `Upcoming meditation sessions and events`,\n    weekStart: now.toISOString(),\n    weekEnd: weekEnd.toISOString()\n  }\n}];"
+        "jsCode": "// Parse ICS and build digest of this week's events\nconst events = $input.first().json;\nconst now = new Date();\nconst weekEnd = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);\n\nreturn [{\n  json: {\n    subject: `This Week at Bangkok Shambhala`,\n    preheader: `Upcoming meditation sessions and events`,\n    weekStart: now.toISOString(),\n    weekEnd: weekEnd.toISOString()\n  }\n}];"
       },
       "position": [650, 300]
     },
@@ -39,7 +39,7 @@
         "method": "POST",
         "url": "https://api.whatsapp.com/send",
         "body": {
-          "text": "🗓️ *This Week at Shambhala Bangkok*\n\nHere are the upcoming sessions:\n\n{{$json.eventList}}\n\n👉 Full calendar: {{$env.SITE_URL}}/events"
+          "text": "🗓️ *This Week at Bangkok Shambhala*\n\nHere are the upcoming sessions:\n\n{{$json.eventList}}\n\n👉 Full calendar: {{$env.SITE_URL}}/events"
         }
       },
       "position": [850, 200]
@@ -54,10 +54,10 @@
           "api-key": "={{$env.BREVO_API_KEY}}"
         },
         "body": {
-          "sender": { "name": "Shambhala Bangkok", "email": "bangkok@shambhala.info" },
+          "sender": { "name": "Bangkok Shambhala", "email": "bangkok@shambhala.info" },
           "to": [{ "email": "list-subscribers" }],
           "subject": "{{$json.subject}}",
-          "htmlContent": "<h2>This Week at Shambhala Bangkok</h2>{{$json.eventListHtml}}"
+          "htmlContent": "<h2>This Week at Bangkok Shambhala</h2>{{$json.eventListHtml}}"
         }
       },
       "position": [850, 400]

@@ -1,6 +1,6 @@
-# Shambhala Bangkok Website
+# Bangkok Shambhala Website
 
-Modern, fast, community-focused website for [Shambhala Bangkok](https://shambalabangkok.vercel.app) — a non-profit meditation community in the heart of Bangkok.
+Modern, fast, community-focused website for [Bangkok Shambhala](https://shambalabangkok.vercel.app) — a non-profit meditation community in the heart of Bangkok.
 
 ## Tech Stack
 
@@ -118,7 +118,7 @@ Create a Markdown file in `content/blog/`:
 title: "Welcome to Our New Website"
 slug: "welcome-new-website"
 date: "2025-01-01"
-author: "Shambhala Bangkok"
+author: "Bangkok Shambhala"
 tags: ["community", "announcement"]
 excerpt: "Short description for cards."
 ---
@@ -163,4 +163,4 @@ Copy `.env.example` to `.env.local` and configure:
 
 ## License
 
-This project is maintained by Shambhala Bangkok. All rights reserved.
+This project is maintained by Bangkok Shambhala. All rights reserved.

@@ -1,5 +1,5 @@
 /* ========================================
-   Shambhala Bangkok — Core Types
+   Bangkok Shambhala — Core Types
    ======================================== */
 
 // --- Events ---

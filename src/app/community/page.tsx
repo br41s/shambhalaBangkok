@@ -6,7 +6,7 @@ import { CTAStrip } from '@/components/ui/CTAStrip';
 export const metadata: Metadata = {
   title: 'Community',
   description:
-    'Join the Shambhala Bangkok community. Connect via WhatsApp, LINE, Facebook, and Instagram.',
+    'Join the Bangkok Shambhala community. Connect via WhatsApp, LINE, Facebook, and Instagram.',
 };
 
 export default function CommunityPage() {
@@ -16,7 +16,7 @@ export default function CommunityPage() {
 
       <h1 className="text-3xl md:text-4xl font-bold mb-4">Join the Community</h1>
       <p className="text-lg text-text-secondary mb-12">
-        Shambhala Bangkok is more than a meditation centre — it is a community of people
+        Bangkok Shambhala is more than a meditation centre — it is a community of people
         exploring mindfulness, compassion, and genuine connection. Here is how to stay
         connected.
       </p>

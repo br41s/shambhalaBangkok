@@ -4,9 +4,9 @@ summary: "Weekly open meditation session with instruction for newcomers. All lev
 startDate: "2026-03-25T19:00:00+07:00"
 endDate: "2026-03-25T20:30:00+07:00"
 timezone: "Asia/Bangkok"
-location: "Shambhala Bangkok, Young Place Building, Sukhumvit Soi 23"
+location: "Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23"
 modality: "in-person"
-organizer: "Shambhala Bangkok"
+organizer: "Bangkok Shambhala"
 pricing: "free"
 tags: ["meditation", "weekly", "beginners"]
 image: ""

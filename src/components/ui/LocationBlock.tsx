@@ -56,7 +56,7 @@ export function LocationBlock({ showMap = true, compact }: LocationBlockProps) {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Shambhala Bangkok location map"
+            title="Bangkok Shambhala location map"
           />
         </div>
       )}

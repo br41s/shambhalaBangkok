@@ -26,7 +26,7 @@ css: |-
 
 <div class="cover">
 
-# Shambhala Bangkok
+# Bangkok Shambhala
 
 # User Guide
 
@@ -38,7 +38,7 @@ Version 1.0 — March 2026
 
 ## Welcome
 
-Welcome to the Shambhala Bangkok website! We're a non-profit meditation community based in the heart of Bangkok, offering regular meditation sessions, workshops, and retreats for people of all experience levels.
+Welcome to the Bangkok Shambhala website! We're a non-profit meditation community based in the heart of Bangkok, offering regular meditation sessions, workshops, and retreats for people of all experience levels.
 
 This guide will help you navigate the website and make the most of what our community has to offer.
 
@@ -232,7 +232,7 @@ As a non-profit, we rely on community generosity. Visit the **Donate** page to c
 
 ### 6.1 Address
 
-**Shambhala Bangkok Meditation Centre**
+**Bangkok Shambhala Meditation Centre**
 Young Place Building, 3rd Floor
 Sukhumvit Soi 23
 Klongtoey Nua, Wattana
@@ -276,7 +276,7 @@ Our blog features:
 
 ---
 
-## 8. About Shambhala Bangkok
+## 8. About Bangkok Shambhala
 
 ### 8.1 About Pages
 
@@ -384,7 +384,7 @@ Visit the **Contact** page at `/contact` for all contact options.
 
 ## Quick Start Checklist
 
-New to Shambhala Bangkok? Here's how to get started:
+New to Bangkok Shambhala? Here's how to get started:
 
 - [ ] Browse upcoming events at `/events`
 - [ ] Subscribe to the calendar feed (see Section 2.2)
@@ -399,5 +399,5 @@ New to Shambhala Bangkok? Here's how to get started:
 
 ---
 
-*Shambhala Bangkok User Guide v1.0 — March 2026*
+*Bangkok Shambhala User Guide v1.0 — March 2026*
 *Visit us at shambhala-bangkok.org*

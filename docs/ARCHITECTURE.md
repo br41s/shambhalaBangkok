@@ -2,7 +2,7 @@
 
 ## Overview
 
-Shambhala Bangkok is a static-first Next.js application with selective server-side rendering and API routes. The architecture prioritizes speed, simplicity, and maintainability by a small non-technical team.
+Bangkok Shambhala is a static-first Next.js application with selective server-side rendering and API routes. The architecture prioritizes speed, simplicity, and maintainability by a small non-technical team.
 
 ## Design Decisions
 

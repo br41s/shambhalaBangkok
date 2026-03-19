@@ -4,9 +4,9 @@ summary: "Extended meditation practice followed by a short talk. Open to all lev
 startDate: "2026-03-29T10:00:00+07:00"
 endDate: "2026-03-29T12:00:00+07:00"
 timezone: "Asia/Bangkok"
-location: "Shambhala Bangkok, Young Place Building, Sukhumvit Soi 23"
+location: "Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23"
 modality: "in-person"
-organizer: "Shambhala Bangkok"
+organizer: "Bangkok Shambhala"
 pricing: "donation"
 suggestedDonation: 200
 currency: "THB"

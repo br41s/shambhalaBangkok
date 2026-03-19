@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the security measures implemented in the Shambhala Bangkok website. The site has a minimal attack surface since it has no user authentication, no database, and no payment processing.
+This document describes the security measures implemented in the Bangkok Shambhala website. The site has a minimal attack surface since it has no user authentication, no database, and no payment processing.
 
 ## Security Headers
 

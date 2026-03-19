@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Terms of Use',
-  description: 'Terms of use for the Shambhala Bangkok website.',
+  description: 'Terms of use for the Bangkok Shambhala website.',
 };
 
 export default function TermsPage() {
@@ -34,12 +34,12 @@ export default function TermsPage() {
         <h2>Donations</h2>
         <p>
           All donations are voluntary and non-refundable. Donations support the operations
-          of Shambhala Bangkok as a non-profit community.
+          of Bangkok Shambhala as a non-profit community.
         </p>
 
         <h2>Limitation of Liability</h2>
         <p>
-          This website is provided &quot;as is&quot; without warranties. Shambhala Bangkok is not
+          This website is provided &quot;as is&quot; without warranties. Bangkok Shambhala is not
           liable for any damages arising from your use of the site.
         </p>
 

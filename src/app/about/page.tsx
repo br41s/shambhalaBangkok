@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'About Shambhala Bangkok — a meditation community in the heart of Bangkok.',
+  description: 'About Bangkok Shambhala — a meditation community in the heart of Bangkok.',
 };
 
 export default function AboutPage() {
@@ -13,11 +13,11 @@ export default function AboutPage() {
     <div className="container-content py-8 max-w-3xl">
       <Breadcrumbs items={[{ label: 'About', href: '/about' }]} />
 
-      <h1 className="text-3xl md:text-4xl font-bold mb-4">About Shambhala Bangkok</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-4">About Bangkok Shambhala</h1>
 
       <div className="prose max-w-none mb-12">
         <p>
-          Shambhala Bangkok is a meditation community located in the Young Place building
+          Bangkok Shambhala is a meditation community located in the Young Place building
           on Sukhumvit Soi 23, in the heart of Bangkok. We are part of Shambhala, a global
           network of meditation centres and groups dedicated to the principle that every
           human being has a fundamental nature of goodness, warmth, and intelligence.

@@ -30,7 +30,7 @@ css: |-
 
 <div class="cover">
 
-# Shambhala Bangkok
+# Bangkok Shambhala
 
 # Services Configuration Guide
 
@@ -42,7 +42,7 @@ Version 1.0 — March 2026
 
 ## Overview & Checklist
 
-This guide walks you through configuring every external service the Shambhala Bangkok website depends on. Complete them in order — some services depend on others.
+This guide walks you through configuring every external service the Bangkok Shambhala website depends on. Complete them in order — some services depend on others.
 
 **Master Checklist:**
 
@@ -213,7 +213,7 @@ This guide walks you through configuring every external service the Shambhala Ba
 2. Sign up with email
 3. Confirm your email address
 4. Complete the onboarding wizard:
-   - Company: `Shambhala Bangkok`
+   - Company: `Bangkok Shambhala`
    - Industry: `Non-profit / Education`
    - Team size: `1-10`
 
@@ -245,7 +245,7 @@ This guide walks you through configuring every external service the Shambhala Ba
 1. Go to **Settings** → **Senders & IP** → **Senders**
 2. Click **Add a sender**
 3. Fill in:
-   - Name: `Shambhala Bangkok`
+   - Name: `Bangkok Shambhala`
    - Email: `bangkok@shambhala.info` *(or your email)*
 4. Brevo sends a verification email — click the link to confirm
 
@@ -357,7 +357,7 @@ This lets editors log in with their GitHub account.
 
 2. **Register an OAuth Application on GitHub:**
    - Go to [github.com/settings/applications/new](https://github.com/settings/applications/new)
-   - Application name: `Shambhala Bangkok CMS`
+   - Application name: `Bangkok Shambhala CMS`
    - Homepage URL: `https://shambhala-bangkok.org`
    - Authorization callback URL: `https://shambhala-bangkok.org/admin/`
    - Click **Register application**
@@ -484,7 +484,7 @@ If you prefer not to require GitHub accounts for editors:
 
    | Field | Value |
    |-------|-------|
-   | Business name | Shambhala Bangkok Meditation Centre |
+   | Business name | Bangkok Shambhala Meditation Centre |
    | Category | Meditation Centre |
    | Address | Young Place Building, 3rd Floor, Sukhumvit Soi 23, Bangkok 10110 |
    | Phone | *(your community phone)* |
@@ -498,7 +498,7 @@ If you prefer not to require GitHub accounts for editors:
      - Sunday: 10:00 – 11:30
    - Upload photos of the meditation space
    - Write a business description:
-     > "Shambhala Bangkok is a non-profit meditation community offering free weekly meditation sessions, workshops, and retreats in the Asok area of Bangkok. All experience levels welcome."
+     > "Bangkok Shambhala is a non-profit meditation community offering free weekly meditation sessions, workshops, and retreats in the Asok area of Bangkok. All experience levels welcome."
    - Add attributes: Free Wi-Fi, Wheelchair accessible (if applicable)
 
 6. **Link to your site** — ensure the website URL is correct
@@ -519,7 +519,7 @@ If you prefer not to require GitHub accounts for editors:
 ### 9.1 WhatsApp Group
 
 1. Open WhatsApp → **New Group**
-2. Name: `Shambhala Bangkok Community`
+2. Name: `Bangkok Shambhala Community`
 3. Set group description with website link
 4. Go to **Group settings** → **Invite via link**
 5. Copy the invite link
@@ -532,7 +532,7 @@ If you prefer not to require GitHub accounts for editors:
 
 **Option A: LINE Official Account (Recommended)**
 1. Go to [manager.line.biz](https://manager.line.biz)
-2. Create an official account: `Shambhala Bangkok`
+2. Create an official account: `Bangkok Shambhala`
 3. Customize: add profile photo, greeting message
 4. Get the friend-add URL from Account settings
 5. Update `src/lib/config.ts` with the LINE URL
@@ -546,7 +546,7 @@ If you prefer not to require GitHub accounts for editors:
 
 1. Go to [facebook.com/pages/create](https://facebook.com/pages/create)
 2. Choose category: **Religious Organization** or **Non-Profit**
-3. Page name: `Shambhala Bangkok`
+3. Page name: `Bangkok Shambhala`
 4. Complete setup: add cover photo, about text, location
 5. Note the page URL
 6. Update `src/lib/config.ts` if different from current placeholder
@@ -562,7 +562,7 @@ If you prefer not to require GitHub accounts for editors:
 ### 9.5 Meetup Group
 
 1. Go to [meetup.com/create](https://www.meetup.com/create/)
-2. Create group: `Shambhala Bangkok`
+2. Create group: `Bangkok Shambhala`
 3. Category: Spirituality → Meditation
 4. Location: Bangkok
 5. Add regular events to match your schedule
@@ -609,7 +609,7 @@ The site rebuilds automatically with the real links.
    - Bank name/code (SWIFT/BIC)
 6. **Create a payment link:**
    - Go to **Payment links** or **Request money**
-   - Create a link for `Shambhala Bangkok Donation`
+   - Create a link for `Bangkok Shambhala Donation`
    - Choose: **any amount** (let supporters decide)
    - Copy the payment link
 
@@ -802,7 +802,7 @@ curl -X POST https://your-n8n.app.n8n.cloud/webhook/event-published \
 ### Steps
 
 1. Go to [sheets.google.com](https://sheets.google.com) → **Create new spreadsheet**
-2. Name it: `Shambhala Bangkok — Social Copy`
+2. Name it: `Bangkok Shambhala — Social Copy`
 3. Add column headers in Row 1:
 
    | A | B | C | D | E | F |
@@ -916,8 +916,8 @@ Once all services are configured, run through this final checklist:
 - [ ] Security headers grade: test at [securityheaders.com](https://securityheaders.com)
 - [ ] Performance: test at [pagespeed.web.dev](https://pagespeed.web.dev)
 
-**Congratulations!** 🎉 All services are configured and the Shambhala Bangkok website is fully operational.
+**Congratulations!** 🎉 All services are configured and the Bangkok Shambhala website is fully operational.
 
 ---
 
-*Shambhala Bangkok Services Configuration Guide v1.0 — March 2026*
+*Bangkok Shambhala Services Configuration Guide v1.0 — March 2026*

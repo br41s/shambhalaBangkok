@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy policy for Shambhala Bangkok website.',
+  description: 'Privacy policy for Bangkok Shambhala website.',
 };
 
 export default function PrivacyPage() {
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
 
         <h2>Who We Are</h2>
         <p>
-          Shambhala Bangkok is a non-profit meditation community located in Bangkok, Thailand.
+          Bangkok Shambhala is a non-profit meditation community located in Bangkok, Thailand.
           This policy describes how we collect, use, and protect your information when you
           visit our website.
         </p>

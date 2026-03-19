@@ -5,7 +5,7 @@ import { getAllPosts } from '@/lib/blog';
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: 'News, updates, and reflections from the Shambhala Bangkok community.',
+  description: 'News, updates, and reflections from the Bangkok Shambhala community.',
 };
 
 export default function BlogPage() {

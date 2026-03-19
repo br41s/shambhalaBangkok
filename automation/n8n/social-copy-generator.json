@@ -1,5 +1,5 @@
 {
-  "name": "Shambhala Bangkok — Social Copy Generator",
+  "name": "Bangkok Shambhala — Social Copy Generator",
   "nodes": [
     {
       "name": "Webhook Trigger",
@@ -25,7 +25,7 @@
           "messages": [
             {
               "role": "system",
-              "content": "You are a social media copywriter for Shambhala Bangkok, a non-profit meditation community. Write warm, inclusive, mindful copy. Always include relevant emojis. Keep Instagram captions under 150 words. Include 5-8 relevant hashtags."
+              "content": "You are a social media copywriter for Bangkok Shambhala, a non-profit meditation community. Write warm, inclusive, mindful copy. Always include relevant emojis. Keep Instagram captions under 150 words. Include 5-8 relevant hashtags."
             },
             {
               "role": "user",

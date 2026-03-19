@@ -4,9 +4,9 @@ summary: "A weekend retreat-in-the-city exploring urban mindfulness and contempl
 startDate: "2026-04-19T09:00:00+07:00"
 endDate: "2026-04-20T17:00:00+07:00"
 timezone: "Asia/Bangkok"
-location: "Shambhala Bangkok, Young Place Building, Sukhumvit Soi 23"
+location: "Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23"
 modality: "in-person"
-organizer: "Shambhala Bangkok"
+organizer: "Bangkok Shambhala"
 facilitator: "Michael Torres"
 pricing: "fixed"
 price: 1500

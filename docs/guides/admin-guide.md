@@ -26,7 +26,7 @@ css: |-
 
 <div class="cover">
 
-# Shambhala Bangkok
+# Bangkok Shambhala
 
 # Admin Walkthrough Guide
 
@@ -38,7 +38,7 @@ Version 1.0 — March 2026
 
 ## 1. Introduction
 
-Welcome to the Shambhala Bangkok website administration guide. This document walks you through every aspect of managing the site, from creating events to publishing blog posts and monitoring site health.
+Welcome to the Bangkok Shambhala website administration guide. This document walks you through every aspect of managing the site, from creating events to publishing blog posts and monitoring site health.
 
 **Who is this guide for?**
 - Community coordinators who manage events
@@ -219,7 +219,7 @@ Suggested publishing schedule:
 
 | Day | Content Type | Example |
 |-----|-------------|---------|
-| Monday | Weekly preview | "This Week at Shambhala Bangkok" |
+| Monday | Weekly preview | "This Week at Bangkok Shambhala" |
 | Wednesday | Post-session update | Recap + reflection |
 | Friday | Weekend preview | Upcoming workshop details |
 | 1st of month | Monthly newsletter | Events digest + community news |
@@ -399,5 +399,5 @@ Your hosting dashboard at [vercel.com](https://vercel.com) shows:
 
 ---
 
-*Shambhala Bangkok Admin Guide v1.0 — March 2026*
+*Bangkok Shambhala Admin Guide v1.0 — March 2026*
 *For the latest version, check the repository at `/docs/guides/`*

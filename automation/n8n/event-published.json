@@ -1,5 +1,5 @@
 {
-  "name": "Shambhala Bangkok — Event Published",
+  "name": "Bangkok Shambhala — Event Published",
   "nodes": [
     {
       "name": "Webhook Trigger",
@@ -37,7 +37,7 @@
           "api-key": "={{$env.BREVO_API_KEY}}"
         },
         "body": {
-          "sender": { "name": "Shambhala Bangkok", "email": "bangkok@shambhala.info" },
+          "sender": { "name": "Bangkok Shambhala", "email": "bangkok@shambhala.info" },
           "to": [{ "email": "list-subscribers" }],
           "subject": "New Event: {{$json.title}}",
           "htmlContent": "<h2>{{$json.title}}</h2><p>{{$json.summary}}</p><a href='{{$json.url}}'>View Event</a>"

@@ -1,10 +1,10 @@
 import type { SiteConfig, NavItem } from './types';
 
 export const siteConfig: SiteConfig = {
-  name: 'Shambhala Bangkok',
+  name: 'Bangkok Shambhala',
   tagline: 'Meditation & Mindfulness in the Heart of Bangkok',
   description:
-    'Shambhala Bangkok is an open meditation community in Sukhumvit, Bangkok. Weekly meditation classes, workshops, and retreats for beginners and experienced practitioners.',
+    'Bangkok Shambhala is an open meditation community in Sukhumvit, Bangkok. Weekly meditation classes, workshops, and retreats for beginners and experienced practitioners.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://shambhala-bangkok.org',
   locale: 'en',
   email: 'bangkok@shambhala.info',

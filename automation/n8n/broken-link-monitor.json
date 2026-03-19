@@ -1,5 +1,5 @@
 {
-  "name": "Shambhala Bangkok — Broken Link Monitor",
+  "name": "Bangkok Shambhala — Broken Link Monitor",
   "nodes": [
     {
       "name": "Schedule Trigger",
@@ -66,7 +66,7 @@
         "body": {
           "sender": { "name": "Site Monitor", "email": "monitor@shambhala-bangkok.org" },
           "to": [{ "email": "={{$env.ADMIN_EMAIL}}" }],
-          "subject": "⚠️ Broken Links Detected on Shambhala Bangkok",
+          "subject": "⚠️ Broken Links Detected on Bangkok Shambhala",
           "htmlContent": "<h2>Broken Links Report</h2><p>The following URLs returned errors:</p><ul>{{$json.brokenList}}</ul>"
         }
       },

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Code of Conduct',
-  description: 'Community code of conduct for Shambhala Bangkok.',
+  description: 'Community code of conduct for Bangkok Shambhala.',
 };
 
 export default function CodeOfConductPage() {
@@ -11,7 +11,7 @@ export default function CodeOfConductPage() {
       <h1 className="text-3xl md:text-4xl font-bold mb-6">Code of Conduct</h1>
       <div className="prose max-w-none">
         <p>
-          Shambhala Bangkok is committed to providing a safe, inclusive, and respectful
+          Bangkok Shambhala is committed to providing a safe, inclusive, and respectful
           environment for all participants. This code of conduct applies to all interactions
           within our community — in person and online.
         </p>

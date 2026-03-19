@@ -6,7 +6,7 @@ import { CTAStrip } from '@/components/ui/CTAStrip';
 export const metadata: Metadata = {
   title: 'Learn Meditation',
   description:
-    'Learn meditation at Shambhala Bangkok. Free instruction for beginners, weekly classes, and guided practice in Sukhumvit.',
+    'Learn meditation at Bangkok Shambhala. Free instruction for beginners, weekly classes, and guided practice in Sukhumvit.',
 };
 
 const meditationFAQ = [
@@ -53,7 +53,7 @@ export default function LearnPage() {
         <h2 className="text-2xl font-bold mb-4">What to Expect</h2>
         <div className="prose max-w-none">
           <p>
-            Meditation instruction at Shambhala Bangkok is available to anyone. At the start of
+            Meditation instruction at Bangkok Shambhala is available to anyone. At the start of
             each weekly session, we offer a brief introduction for newcomers. You will receive
             personal guidance on posture, breathing, and the basic technique of mindfulness meditation.
           </p>

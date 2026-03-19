@@ -5,7 +5,7 @@ import { DonateWidget } from '@/components/ui/DonateWidget';
 export const metadata: Metadata = {
   title: 'Donate',
   description:
-    'Support Shambhala Bangkok with a donation. Thai QR / PromptPay and international transfers available.',
+    'Support Bangkok Shambhala with a donation. Thai QR / PromptPay and international transfers available.',
 };
 
 export default function DonatePage() {
@@ -15,7 +15,7 @@ export default function DonatePage() {
 
       <h1 className="text-3xl md:text-4xl font-bold mb-4">Support Our Community</h1>
       <p className="text-lg text-text-secondary mb-12">
-        Shambhala Bangkok is a non-profit community that depends on the generosity
+        Bangkok Shambhala is a non-profit community that depends on the generosity
         of its members and friends. Every donation helps keep our meditation space
         open and accessible to all.
       </p>

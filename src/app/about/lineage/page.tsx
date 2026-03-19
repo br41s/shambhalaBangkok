@@ -38,7 +38,7 @@ export default function LineagePage() {
         </p>
         <h2>A Living Tradition</h2>
         <p>
-          The teachings offered at Shambhala Bangkok are rooted in this lineage and adapted
+          The teachings offered at Bangkok Shambhala are rooted in this lineage and adapted
           to our local context. Whether ancient or contemporary, the core message remains
           the same: we all have the capacity to wake up and live with greater awareness,
           kindness, and purpose.

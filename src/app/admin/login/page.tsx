@@ -89,9 +89,9 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Image src="/images/logo.svg" alt="Shambhala Bangkok" width={48} height={48} className="mx-auto mb-4" />
+          <Image src="/images/logo.svg" alt="Bangkok Shambhala" width={48} height={48} className="mx-auto mb-4" />
           <h1 className="text-xl font-bold text-gray-900">Admin Login</h1>
-          <p className="text-sm text-gray-500 mt-1">Shambhala Bangkok</p>
+          <p className="text-sm text-gray-500 mt-1">Bangkok Shambhala</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-4">

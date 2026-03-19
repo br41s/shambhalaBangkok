@@ -27,7 +27,7 @@ export default async function EditPostPage({ params }: Params) {
           title: data.title || '',
           slug,
           date: data.date?.slice(0, 10) || '',
-          author: data.author || 'Shambhala Bangkok',
+          author: data.author || 'Bangkok Shambhala',
           tags: data.tags?.join(', ') || '',
           excerpt: data.excerpt || '',
           image: data.image || '',
