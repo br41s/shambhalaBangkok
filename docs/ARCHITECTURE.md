@@ -62,12 +62,13 @@ src/
 └── lib/
     ├── types.ts         # All TypeScript interfaces
     ├── config.ts        # Site configuration & navigation
-    ├── content.ts       # File-system content reader
+    ├── content.ts       # File-system content reader (gray-matter)
+    ├── markdown.ts      # Markdown → HTML conversion (remark)
     ├── events.ts        # Event data access functions
     ├── blog.ts          # Blog data access functions
     ├── calendar.ts      # ICS generation
     ├── schema.ts        # Schema.org JSON-LD generators
-    └── utils.ts         # Shared utilities
+    └── utils.ts         # Shared utilities (formatting, slugify)
 ```
 
 ## Data Layer
@@ -87,6 +88,19 @@ Every page includes structured data via JSON-LD:
 - BlogPosting (blog posts)
 - BreadcrumbList (all pages)
 - FAQPage (FAQ sections)
+
+### Markdown Processing
+Content stored as Markdown is converted to sanitized HTML at build time:
+
+1. Raw Markdown files are read from `content/` by `content.ts` (with gray-matter for frontmatter)
+2. `markdown.ts` converts the Markdown body to HTML using `remark` + `remark-html` (sanitized)
+3. `events.ts` and `blog.ts` call `markdownToHtml()` before returning content
+4. Pages render the HTML via `dangerouslySetInnerHTML` inside Tailwind `prose` containers
+
+### Client-Side Features
+- **Google Translate** (`GoogleTranslate.tsx`): Auto-translate widget via Google's free Translate API, floating bottom-right
+- **Analytics**: Plausible (privacy-first, no cookies)
+- **Timezone**: All dates/times formatted in Asia/Bangkok (GMT+7) via `Intl.DateTimeFormat`
 
 ## Security Architecture
 
@@ -137,7 +151,7 @@ Every page includes structured data via JSON-LD:
 
 ## Future Considerations
 
-- **v1.1**: Multi-language support (EN/TH) via Next.js i18n routing
+- **v1.1**: Multi-language support (EN/TH) via Next.js i18n routing (Google Translate widget deployed as interim solution)
 - **v2**: Event registration with payment integration (PromptPay QR)
 - **v2**: Teacher/facilitator profiles with dedicated pages
 - See [ROADMAP.md](ROADMAP.md) for full timeline

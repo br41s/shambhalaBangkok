@@ -1,6 +1,6 @@
 # Shambhala Bangkok Website
 
-Modern, fast, community-focused website for [Shambhala Bangkok](https://shambhala-bangkok.org) — a non-profit meditation community in the heart of Bangkok.
+Modern, fast, community-focused website for [Shambhala Bangkok](https://shambalabangkok.vercel.app) — a non-profit meditation community in the heart of Bangkok.
 
 ## Tech Stack
 
@@ -10,10 +10,21 @@ Modern, fast, community-focused website for [Shambhala Bangkok](https://shambhal
 | Language | TypeScript 5.9 |
 | Styling | Tailwind CSS v4 |
 | CMS | Decap CMS (Git-based) |
-| Hosting | Vercel (recommended) |
+| Hosting | Vercel (shambalabangkok.vercel.app) |
 | Analytics | Plausible (privacy-first) |
 | Email | Brevo (Sendinblue) |
 | Automation | n8n |
+| Translation | Google Translate (auto-detect) |
+| Markdown | remark + remark-html |
+
+## Key Features
+
+- **Markdown → HTML**: Content files processed at build time via `remark` + `remark-html`
+- **Auto-translation**: Google Translate widget auto-detects browser language
+- **Bangkok timezone**: All dates/times display in Asia/Bangkok (GMT+7)
+- **SVG logo**: Custom brand logo served from `/public/images/logo.svg`
+- **Static-first**: All pages pre-rendered at build time for maximum speed
+- **Calendar integration**: ICS feed and per-event calendar downloads
 
 ## Quick Start
 

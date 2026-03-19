@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Outer circle (representing the Great Eastern Sun) -->
+  <circle cx="24" cy="24" r="22" stroke="#2563EB" stroke-width="2" fill="none"/>
+  <!-- Inner knot / endless knot simplified as a stylized lotus -->
+  <path d="M24 8 C20 14, 12 16, 12 24 C12 32, 20 38, 24 40 C28 38, 36 32, 36 24 C36 16, 28 14, 24 8Z" fill="#2563EB" opacity="0.1" stroke="#2563EB" stroke-width="1.5"/>
+  <!-- Central flame / meditation figure -->
+  <path d="M24 16 C22 20, 18 22, 18 26 C18 30, 20.5 33, 24 33 C27.5 33, 30 30, 30 26 C30 22, 26 20, 24 16Z" fill="#2563EB" opacity="0.25"/>
+  <!-- Dot at center -->
+  <circle cx="24" cy="25" r="2.5" fill="#2563EB"/>
+  <!-- Small rays -->
+  <line x1="24" y1="3" x2="24" y2="6" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="38.85" y1="10.15" x2="36.73" y2="12.27" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="45" y1="24" x2="42" y2="24" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="38.85" y1="37.85" x2="36.73" y2="35.73" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="24" y1="45" x2="24" y2="42" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="9.15" y1="37.85" x2="11.27" y2="35.73" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="3" y1="24" x2="6" y2="24" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="9.15" y1="10.15" x2="11.27" y2="12.27" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

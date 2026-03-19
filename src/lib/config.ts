@@ -5,7 +5,7 @@ export const siteConfig: SiteConfig = {
   tagline: 'Meditation & Mindfulness in the Heart of Bangkok',
   description:
     'Shambhala Bangkok is an open meditation community in Sukhumvit, Bangkok. Weekly meditation classes, workshops, and retreats for beginners and experienced practitioners.',
-  url: 'https://shambhala-bangkok.org',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://shambhala-bangkok.org',
   locale: 'en',
   email: 'bangkok@shambhala.info',
   location: {

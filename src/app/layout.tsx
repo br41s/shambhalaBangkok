@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { organizationSchema, localBusinessSchema } from '@/lib/schema';
 import { siteConfig } from '@/lib/config';
+import { GoogleTranslate } from '@/components/ui/GoogleTranslate';
 import './globals.css';
 
 const inter = Inter({
@@ -59,6 +60,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <GoogleTranslate />
       </body>
     </html>
   );

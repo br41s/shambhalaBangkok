@@ -14,6 +14,7 @@ export function formatDate(dateStr: string, options?: Intl.DateTimeFormatOptions
     month: 'short',
     day: 'numeric',
     year: 'numeric',
+    timeZone: 'Asia/Bangkok',
     ...options,
   });
 }
@@ -27,6 +28,7 @@ export function formatTime(dateStr: string): string {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,
+    timeZone: 'Asia/Bangkok',
   });
 }
 

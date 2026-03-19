@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { mainNav } from '@/lib/config';
 import { cn } from '@/lib/utils';
@@ -14,7 +15,7 @@ export function Header() {
       <div className="container-content flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-semibold text-lg tracking-tight">
-          <span className="text-brand-blue">◈</span>
+          <Image src="/images/logo.svg" alt="Shambhala Bangkok logo" width={36} height={36} priority />
           <span>Shambhala Bangkok</span>
         </Link>
 

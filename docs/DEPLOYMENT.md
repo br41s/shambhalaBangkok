@@ -28,7 +28,7 @@
 
    | Variable | Value | Environment |
    |---|---|---|
-   | `NEXT_PUBLIC_SITE_URL` | `https://shambhala-bangkok.org` | All |
+   | `NEXT_PUBLIC_SITE_URL` | `https://shambalabangkok.vercel.app` (or custom domain) | All |
    | `NEXT_PUBLIC_GA_ID` | Your Plausible domain | All |
    | `BREVO_API_KEY` | Your Brevo API key | Production |
    | `WEBHOOK_SECRET` | Random 32-char string | Production |
@@ -132,12 +132,15 @@ Use an external OAuth provider:
 
 - [ ] Site loads at custom domain with HTTPS
 - [ ] All pages render correctly
-- [ ] Events display with correct dates (timezone: Asia/Bangkok)
+- [ ] Events display with correct dates (timezone: Asia/Bangkok GMT+7)
 - [ ] Calendar ICS feed works: `/api/calendar/feed.ics`
 - [ ] Sitemap accessible: `/sitemap.xml`
 - [ ] Robots.txt accessible: `/robots.txt`
 - [ ] Newsletter signup works (test with real email)
 - [ ] Decap CMS accessible at `/admin/`
+- [ ] Markdown rendering: blog posts & event descriptions render formatted HTML
+- [ ] Google Translate widget: appears in bottom-right, auto-detects language
+- [ ] SVG logo: displays correctly in header across all pages
 - [ ] Google Search Console: submit sitemap
 - [ ] Plausible Analytics: verify data collection
 - [ ] Security headers: test at securityheaders.com

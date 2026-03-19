@@ -21,21 +21,26 @@ export function getContentBySlug<T>(
   subdir: string,
   slug: string
 ): { data: T; content: string } | null {
-  const dir = getContentDirectory(subdir);
-  const mdxPath = path.join(dir, `${slug}.mdx`);
-  const mdPath = path.join(dir, `${slug}.md`);
+  try {
+    const dir = getContentDirectory(subdir);
+    const mdxPath = path.join(dir, `${slug}.mdx`);
+    const mdPath = path.join(dir, `${slug}.md`);
 
-  const filePath = fs.existsSync(mdxPath)
-    ? mdxPath
-    : fs.existsSync(mdPath)
-      ? mdPath
-      : null;
+    const filePath = fs.existsSync(mdxPath)
+      ? mdxPath
+      : fs.existsSync(mdPath)
+        ? mdPath
+        : null;
 
-  if (!filePath) return null;
+    if (!filePath) return null;
 
-  const raw = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(raw);
-  return { data: data as T, content };
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const { data, content } = matter(raw);
+    return { data: data as T, content };
+  } catch (error) {
+    console.error(`Failed to read content: ${subdir}/${slug}`, error);
+    return null;
+  }
 }
 
 export function getAllContent<T>(

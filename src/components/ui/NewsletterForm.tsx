@@ -24,7 +24,8 @@ export function NewsletterForm({ className }: { className?: string }) {
       } else {
         setStatus('error');
       }
-    } catch {
+    } catch (error) {
+      console.error('Newsletter signup failed:', error);
       setStatus('error');
     }
   };

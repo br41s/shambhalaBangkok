@@ -110,6 +110,7 @@ export default async function EventDetailPage({ params }: Params) {
             <Clock className="w-5 h-5 text-brand-blue shrink-0" />
             <p>
               {formatTime(event.startDate)} – {formatTime(event.endDate)}
+              <span className="text-xs text-text-tertiary ml-1">(GMT+7)</span>
             </p>
           </div>
           <div className="flex items-center gap-3">
