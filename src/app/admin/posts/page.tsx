@@ -1,15 +1,25 @@
+import { requireAuth } from '@/lib/auth';
 import { getAllPosts } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
-export default function AdminPostsPage() {
+export default async function AdminPostsPage() {
+  await requireAuth();
   const posts = getAllPosts();
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Blog Posts</h1>
-        <p className="text-sm text-text-secondary">Manage posts via Markdown files in content/blog/</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Blog Posts</h1>
+          <p className="text-sm text-text-secondary">Create and manage blog posts.</p>
+        </div>
+        <Link
+          href="/admin/posts/new"
+          className="px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          + New Post
+        </Link>
       </div>
 
       <div className="bg-white rounded-xl border border-black/[0.06] overflow-hidden">
@@ -40,8 +50,11 @@ export default function AdminPostsPage() {
                     ))}
                   </div>
                 </td>
-                <td className="px-4 py-3 text-right">
-                  <Link href={`/blog/${post.slug}`} className="text-brand-blue hover:text-brand-blue-dark transition-colors text-xs">
+                <td className="px-4 py-3 text-right space-x-2">
+                  <Link href={`/admin/posts/${post.slug}/edit`} className="text-blue-600 hover:text-blue-800 transition-colors text-xs">
+                    Edit
+                  </Link>
+                  <Link href={`/blog/${post.slug}`} className="text-gray-500 hover:text-gray-700 transition-colors text-xs">
                     View →
                   </Link>
                 </td>

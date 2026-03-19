@@ -78,7 +78,7 @@ export function Footer() {
             <Link href="/code-of-conduct" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
               Code of Conduct
             </Link>
-            <Link href="/admin/" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
+            <Link href="/admin/login" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
               Admin
             </Link>
           </div>

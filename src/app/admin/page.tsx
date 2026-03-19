@@ -1,9 +1,11 @@
+import { requireAuth } from '@/lib/auth';
 import { getUpcomingEvents } from '@/lib/events';
 import { getAllPosts } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
+  await requireAuth();
   const upcomingEvents = getUpcomingEvents(5);
   const recentPosts = getAllPosts().slice(0, 5);
 
@@ -38,13 +40,13 @@ export default function AdminDashboard() {
         <h2 className="font-semibold mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-2">
           <Link
-            href="/admin/events"
+            href="/admin/events/new"
             className="px-4 py-2 text-sm font-medium bg-brand-blue text-white rounded-lg hover:bg-brand-blue-dark transition-colors"
           >
             + New Event
           </Link>
           <Link
-            href="/admin/posts"
+            href="/admin/posts/new"
             className="px-4 py-2 text-sm font-medium bg-brand-blue text-white rounded-lg hover:bg-brand-blue-dark transition-colors"
           >
             + New Post
@@ -118,20 +120,14 @@ export default function AdminDashboard() {
 
       {/* Content Editing Note */}
       <div className="bg-brand-blue/5 rounded-xl p-6">
-        <h2 className="font-semibold mb-2">How to Edit Content</h2>
+        <h2 className="font-semibold mb-2">Content Editing</h2>
         <div className="text-sm text-text-secondary space-y-2">
           <p>
-            Content is managed through Markdown files in the <code className="text-xs bg-white px-1.5 py-0.5 rounded">content/</code> directory.
-            Each event and blog post is a <code className="text-xs bg-white px-1.5 py-0.5 rounded">.md</code> file with frontmatter metadata.
+            Use the <strong>Events</strong> and <strong>Posts</strong> sections above to create and edit content directly from this panel.
+            Changes are saved to GitHub and the site rebuilds automatically within ~30 seconds.
           </p>
           <p>
-            <strong>Events:</strong> <code className="text-xs bg-white px-1.5 py-0.5 rounded">content/events/</code> —
-            <strong> Posts:</strong> <code className="text-xs bg-white px-1.5 py-0.5 rounded">content/blog/</code> —
-            <strong> Pages:</strong> <code className="text-xs bg-white px-1.5 py-0.5 rounded">content/pages/</code>
-          </p>
-          <p>
-            For a visual editor, configure <strong>Decap CMS</strong> or <strong>TinaCMS</strong> following
-            the instructions in <code className="text-xs bg-white px-1.5 py-0.5 rounded">docs/EDITORIAL.md</code>.
+            Content uses <strong>Markdown</strong> for formatting: **bold**, _italic_, ## headings, - lists, [links](url).
           </p>
         </div>
       </div>

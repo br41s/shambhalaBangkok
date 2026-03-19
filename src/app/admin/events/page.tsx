@@ -1,8 +1,10 @@
+import { requireAuth } from '@/lib/auth';
 import { getAllEvents } from '@/lib/events';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
-export default function AdminEventsPage() {
+export default async function AdminEventsPage() {
+  await requireAuth();
   const events = getAllEvents();
 
   return (
@@ -13,6 +15,12 @@ export default function AdminEventsPage() {
           <p className="text-sm text-text-secondary">Manage events via Markdown files in content/events/</p>
         </div>
         <div className="flex gap-2">
+          <Link
+            href="/admin/events/new"
+            className="px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            + New Event
+          </Link>
           <a
             href="/api/calendar/feed.ics"
             className="px-4 py-2 text-sm font-medium border border-black/[0.10] rounded-lg hover:bg-surface-muted transition-colors"
@@ -61,8 +69,11 @@ export default function AdminEventsPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3 text-text-secondary capitalize">{event.pricing}</td>
-                <td className="px-4 py-3 text-right">
-                  <Link href={`/events/${event.slug}`} className="text-brand-blue hover:text-brand-blue-dark transition-colors text-xs">
+                <td className="px-4 py-3 text-right space-x-2">
+                  <Link href={`/admin/events/${event.slug}/edit`} className="text-blue-600 hover:text-blue-800 transition-colors text-xs">
+                    Edit
+                  </Link>
+                  <Link href={`/events/${event.slug}`} className="text-gray-500 hover:text-gray-700 transition-colors text-xs">
                     View →
                   </Link>
                 </td>
