@@ -1,16 +1,16 @@
 ---
-title: 'Café Shambhala'
-summary: 'Weekly meditation followed by reading and discussion. All levels welcome. Free with suggested donation.'
-startDate: '2026-03-25T18:30:00+07:00'
-endDate: '2026-03-25T20:00:00+07:00'
-timezone: 'Asia/Bangkok'
-location: 'Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23'
-modality: 'in-person'
-organizer: 'Bangkok Shambhala'
-pricing: 'donation'
-tags: ['meditation', 'weekly', 'beginners', 'discussion']
-image: ''
-status: 'published'
+title: "Café Shambhala"
+summary: "Weekly meditation followed by reading and discussion. All levels welcome. Free with suggested donation."
+startDate: "2026-04-29T18:30:00+07:00"
+endDate: "2026-04-29T20:00:00+07:00"
+timezone: "Asia/Bangkok"
+location: "Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23"
+modality: "in-person"
+organizer: "Bangkok Shambhala"
+pricing: "donation"
+tags: ["meditation", "weekly", "beginners", "discussion"]
+image: ""
+status: "published"
 capacity: 20
 ---
 

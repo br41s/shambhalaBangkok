@@ -21,6 +21,8 @@
   "license": "MIT",
   "packageManager": "pnpm@10.32.1",
   "dependencies": {
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.37.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",

@@ -22,7 +22,7 @@ export default async function AdminDashboard() {
           { label: 'Upcoming Events', value: upcomingEvents.length, href: '/admin/events' },
           { label: 'Published Posts', value: recentPosts.length, href: '/admin/posts' },
           { label: 'Calendar Feed', value: 'Active', href: '/api/calendar/feed.ics' },
-          { label: 'Newsletter', value: 'Configured', href: '#' },
+          { label: 'Newsletter', value: 'Configured', href: '/admin/settings' },
         ].map((stat) => (
           <Link
             key={stat.label}
@@ -65,21 +65,31 @@ export default async function AdminDashboard() {
         <div className="bg-white rounded-xl border border-black/[0.06] p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold">Upcoming Events</h2>
-            <Link href="/admin/events" className="text-sm text-brand-blue hover:text-brand-blue-dark">
+            <Link
+              href="/admin/events"
+              className="text-sm text-brand-blue hover:text-brand-blue-dark"
+            >
               View all
             </Link>
           </div>
           <div className="space-y-3">
             {upcomingEvents.length > 0 ? (
               upcomingEvents.map((event) => (
-                <div key={event.slug} className="flex items-center justify-between py-2 border-b border-black/[0.04] last:border-0">
+                <div
+                  key={event.slug}
+                  className="flex items-center justify-between py-2 border-b border-black/[0.04] last:border-0"
+                >
                   <div>
                     <p className="font-medium text-sm">{event.title}</p>
                     <p className="text-xs text-text-tertiary">{formatDate(event.startDate)}</p>
                   </div>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${
-                    event.status === 'published' ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-600'
-                  }`}>
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded-full ${
+                      event.status === 'published'
+                        ? 'bg-green-50 text-green-700'
+                        : 'bg-gray-100 text-gray-600'
+                    }`}
+                  >
                     {event.status}
                   </span>
                 </div>
@@ -94,14 +104,20 @@ export default async function AdminDashboard() {
         <div className="bg-white rounded-xl border border-black/[0.06] p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold">Recent Posts</h2>
-            <Link href="/admin/posts" className="text-sm text-brand-blue hover:text-brand-blue-dark">
+            <Link
+              href="/admin/posts"
+              className="text-sm text-brand-blue hover:text-brand-blue-dark"
+            >
               View all
             </Link>
           </div>
           <div className="space-y-3">
             {recentPosts.length > 0 ? (
               recentPosts.map((post) => (
-                <div key={post.slug} className="flex items-center justify-between py-2 border-b border-black/[0.04] last:border-0">
+                <div
+                  key={post.slug}
+                  className="flex items-center justify-between py-2 border-b border-black/[0.04] last:border-0"
+                >
                   <div>
                     <p className="font-medium text-sm">{post.title}</p>
                     <p className="text-xs text-text-tertiary">{formatDate(post.date)}</p>
@@ -123,11 +139,13 @@ export default async function AdminDashboard() {
         <h2 className="font-semibold mb-2">Content Editing</h2>
         <div className="text-sm text-text-secondary space-y-2">
           <p>
-            Use the <strong>Events</strong> and <strong>Posts</strong> sections above to create and edit content directly from this panel.
-            Changes are saved to GitHub and the site rebuilds automatically within ~30 seconds.
+            Use the <strong>Events</strong> and <strong>Posts</strong> sections above to create and
+            edit content directly from this panel. Changes are saved to GitHub and the site rebuilds
+            automatically within ~30 seconds.
           </p>
           <p>
-            Content uses <strong>Markdown</strong> for formatting: **bold**, _italic_, ## headings, - lists, [links](url).
+            Content uses <strong>Markdown</strong> for formatting: **bold**, _italic_, ## headings,
+            - lists, [links](url).
           </p>
         </div>
       </div>

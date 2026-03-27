@@ -1,32 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Simple in-memory rate limiting
-const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
-const RATE_LIMIT = 5;
-const RATE_WINDOW = 60 * 1000; // 1 minute
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-
-  if (!entry || now - entry.lastReset > RATE_WINDOW) {
-    rateLimitMap.set(ip, { count: 1, lastReset: now });
-    return false;
-  }
-
-  entry.count++;
-  return entry.count > RATE_LIMIT;
-}
+import { verifyCsrf } from '@/lib/csrf';
+import { rateLimitNewsletter } from '@/lib/rate-limit';
+import { addContact } from '@/lib/brevo';
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') || 'unknown';
+  const csrf = verifyCsrf(request);
+  if (csrf) return csrf;
 
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please try again later.' },
-      { status: 429 }
-    );
-  }
+  const limited = await rateLimitNewsletter(request);
+  if (limited) return limited;
 
   try {
     const body = await request.json();
@@ -51,15 +33,17 @@ export async function POST(request: NextRequest) {
     // Sanitize
     const sanitizedEmail = email.trim().toLowerCase().slice(0, 320);
 
-    // TODO: Integrate with Brevo API
-    // For now, log the subscription (in production, send to newsletter provider)
-    console.log(`[Newsletter] New subscription: ${sanitizedEmail}`);
+    const result = await addContact(sanitizedEmail);
+    if (!result.ok) {
+      console.error('[Newsletter] Brevo error:', result.error);
+      return NextResponse.json(
+        { error: 'Subscription failed. Please try again.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch {
-    return NextResponse.json(
-      { error: 'Invalid request.' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
   }
 }

@@ -1,19 +1,19 @@
 ---
-title: "Introduction to Mindfulness Workshop"
-summary: "A half-day workshop for absolute beginners. Learn the basics of meditation and mindfulness."
-startDate: "2026-04-05T09:00:00+07:00"
-endDate: "2026-04-05T13:00:00+07:00"
-timezone: "Asia/Bangkok"
-location: "Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23"
-modality: "in-person"
-organizer: "Bangkok Shambhala"
-facilitator: "Sarah Chen"
-pricing: "donation"
+title: 'Introduction to Mindfulness Workshop'
+summary: 'A half-day workshop for absolute beginners. Learn the basics of meditation and mindfulness.'
+startDate: '2026-04-05T09:00:00+07:00'
+endDate: '2026-04-05T13:00:00+07:00'
+timezone: 'Asia/Bangkok'
+location: 'Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23'
+modality: 'in-person'
+organizer: 'Bangkok Shambhala'
+facilitator: 'Sarah Chen'
+pricing: 'donation'
 suggestedDonation: 500
-currency: "THB"
-tags: ["workshop", "beginners", "mindfulness"]
-image: ""
-status: "published"
+currency: 'THB'
+tags: ['workshop', 'beginners', 'mindfulness']
+image: ''
+status: 'draft'
 capacity: 15
 ---
 

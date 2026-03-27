@@ -1,21 +1,21 @@
 ---
-title: "Meditation and the City: Finding Calm in Bangkok"
-summary: "A weekend retreat-in-the-city exploring urban mindfulness and contemplative practice."
-startDate: "2026-04-19T09:00:00+07:00"
-endDate: "2026-04-20T17:00:00+07:00"
-timezone: "Asia/Bangkok"
-location: "Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23"
-modality: "in-person"
-organizer: "Bangkok Shambhala"
-facilitator: "Michael Torres"
-pricing: "fixed"
+title: 'Meditation and the City: Finding Calm in Bangkok'
+summary: 'A weekend retreat-in-the-city exploring urban mindfulness and contemplative practice.'
+startDate: '2026-04-19T09:00:00+07:00'
+endDate: '2026-04-20T17:00:00+07:00'
+timezone: 'Asia/Bangkok'
+location: 'Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23'
+modality: 'in-person'
+organizer: 'Bangkok Shambhala'
+facilitator: 'Michael Torres'
+pricing: 'fixed'
 price: 1500
-currency: "THB"
-tags: ["retreat", "weekend", "urban-mindfulness"]
-image: ""
-status: "published"
+currency: 'THB'
+tags: ['retreat', 'weekend', 'urban-mindfulness']
+image: ''
+status: 'draft'
 capacity: 12
-registrationUrl: "https://forms.gle/example"
+registrationUrl: 'https://forms.gle/example'
 ---
 
 A unique two-day urban retreat that combines intensive meditation practice with exercises for bringing mindfulness into the rhythm of city life.

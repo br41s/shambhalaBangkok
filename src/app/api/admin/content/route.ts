@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { isAuthenticated } from '@/lib/auth';
 import { saveContentFile, deleteContentFile } from '@/lib/github';
+import { verifyCsrf } from '@/lib/csrf';
+import { rateLimitContent } from '@/lib/rate-limit';
 
 async function authGuard() {
   if (!(await isAuthenticated())) {
@@ -11,6 +13,12 @@ async function authGuard() {
 }
 
 export async function POST(request: NextRequest) {
+  const csrf = verifyCsrf(request);
+  if (csrf) return csrf;
+
+  const limited = await rateLimitContent(request);
+  if (limited) return limited;
+
   const denied = await authGuard();
   if (denied) return denied;
 
@@ -44,6 +52,12 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  const csrf = verifyCsrf(request);
+  if (csrf) return csrf;
+
+  const limited = await rateLimitContent(request);
+  if (limited) return limited;
+
   const denied = await authGuard();
   if (denied) return denied;
 

@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyCredentials, verifyTurnstile, setSessionCookie } from '@/lib/auth';
+import { verifyCsrf } from '@/lib/csrf';
+import { rateLimitLogin } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
+  const csrf = verifyCsrf(request);
+  if (csrf) return csrf;
+
+  const limited = await rateLimitLogin(request);
+  if (limited) return limited;
+
   const body = await request.json();
   const { email, password, turnstileToken } = body;
 

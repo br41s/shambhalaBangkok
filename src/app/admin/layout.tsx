@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { isAuthenticated } from '@/lib/auth';
-import { LayoutDashboard, Calendar, FileText } from 'lucide-react';
+import { LayoutDashboard, Calendar, FileText, Settings } from 'lucide-react';
 import { LogoutButton } from '@/components/admin/LogoutButton';
 
 export const metadata: Metadata = {
@@ -41,6 +41,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                   className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
                 >
                   <FileText className="w-4 h-4" /> Posts
+                </Link>
+                <Link
+                  href="/admin/settings"
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+                >
+                  <Settings className="w-4 h-4" /> Settings
                 </Link>
               </div>
             </div>

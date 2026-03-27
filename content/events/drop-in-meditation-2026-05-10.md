@@ -1,16 +1,16 @@
 ---
-title: 'Drop In Meditation'
-summary: 'Weekly sitting and walking meditation. One hour of practice, open to all. Free with suggested donation.'
-startDate: '2026-03-29T13:00:00+07:00'
-endDate: '2026-03-29T14:00:00+07:00'
-timezone: 'Asia/Bangkok'
-location: 'Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23'
-modality: 'in-person'
-organizer: 'Bangkok Shambhala'
-pricing: 'donation'
-tags: ['meditation', 'weekly', 'practice', 'drop-in']
-image: ''
-status: 'published'
+title: "Drop In Meditation"
+summary: "Weekly sitting and walking meditation. One hour of practice, open to all. Free with suggested donation."
+startDate: "2026-05-10T13:00:00+07:00"
+endDate: "2026-05-10T14:00:00+07:00"
+timezone: "Asia/Bangkok"
+location: "Bangkok Shambhala, Young Place Building, Sukhumvit Soi 23"
+modality: "in-person"
+organizer: "Bangkok Shambhala"
+pricing: "donation"
+tags: ["meditation", "weekly", "practice", "drop-in"]
+image: ""
+status: "published"
 capacity: 20
 ---
 
