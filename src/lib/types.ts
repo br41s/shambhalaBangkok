@@ -12,8 +12,8 @@ export interface SEvent {
   title: string;
   summary: string;
   description: string; // MDX/Markdown
-  startDate: string;   // ISO 8601
-  endDate: string;     // ISO 8601
+  startDate: string; // ISO 8601
+  endDate: string; // ISO 8601
   timezone: string;
   location: string;
   modality: EventModality;
@@ -82,10 +82,21 @@ export interface DonationMethod {
 export interface CommunityChannel {
   id: string;
   name: string;
-  platform: 'whatsapp' | 'line' | 'facebook' | 'instagram' | 'meetup' | 'eventbrite' | 'email' | 'couchsurfing' | 'other';
+  platform:
+    | 'whatsapp'
+    | 'line'
+    | 'facebook'
+    | 'instagram'
+    | 'meetup'
+    | 'eventbrite'
+    | 'email'
+    | 'couchsurfing'
+    | 'other';
   url: string;
   icon?: string;
   primary?: boolean;
+  disabled?: boolean;
+  disabledLabel?: string;
 }
 
 // --- Location ---

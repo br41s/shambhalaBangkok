@@ -53,22 +53,36 @@ export function SocialJoinButtons({ compact, className }: SocialJoinButtonsProps
   return (
     <div className={cn('space-y-4', className)}>
       {/* Primary channels - prominent */}
-      <div className="flex flex-col sm:flex-row items-center gap-3">
-        {primaryChannels.map((channel) => (
-          <a
-            key={channel.id}
-            href={channel.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              'flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 text-white font-medium rounded-lg transition-all text-sm',
-              platformColors[channel.platform] || 'bg-brand-blue hover:bg-brand-blue-dark'
-            )}
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span>Join {channel.name}</span>
-          </a>
-        ))}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+        {primaryChannels.map((channel) =>
+          channel.disabled ? (
+            <span
+              key={channel.id}
+              className={cn(
+                'flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 font-medium rounded-lg text-sm text-white/70 cursor-not-allowed opacity-50',
+                platformColors[channel.platform] || 'bg-brand-blue'
+              )}
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>{channel.name}</span>
+              <span className="text-xs ml-1">({channel.disabledLabel || 'Coming soon'})</span>
+            </span>
+          ) : (
+            <a
+              key={channel.id}
+              href={channel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                'flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 text-white font-medium rounded-lg transition-all text-sm',
+                platformColors[channel.platform] || 'bg-brand-blue hover:bg-brand-blue-dark'
+              )}
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Join {channel.name}</span>
+            </a>
+          )
+        )}
       </div>
 
       {/* Secondary channels */}
