@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { blogPostSchema, breadcrumbSchema, generatePageMeta } from '@/lib/schema';
@@ -59,10 +60,13 @@ export default async function BlogPostPage({ params }: Params) {
 
         {post.image && (
           <div className="mb-8 rounded-xl overflow-hidden">
-            <img
+            <Image
               src={post.image}
               alt={post.title}
+              width={1200}
+              height={600}
               className="w-full aspect-[2/1] object-cover"
+              priority
             />
           </div>
         )}

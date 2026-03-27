@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint src/",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit"
   },
@@ -34,6 +34,8 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@next/eslint-plugin-next": "^16.2.1",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^25.5.0",
@@ -43,13 +45,17 @@
     "autoprefixer": "^10.4.27",
     "eslint": "^10.0.3",
     "eslint-config-next": "^16.2.0",
+    "eslint-plugin-react": "^7.37.5",
     "md-to-pdf": "^5.2.5",
     "postcss": "^8.5.8",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.2"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["puppeteer"]
+    "onlyBuiltDependencies": [
+      "puppeteer"
+    ]
   }
 }

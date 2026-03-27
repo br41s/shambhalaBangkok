@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getEventBySlug, getAllEvents } from '@/lib/events';
 import { eventSchema, breadcrumbSchema, generatePageMeta } from '@/lib/schema';
@@ -82,18 +83,19 @@ export default async function EventDetailPage({ params }: Params) {
 
           <h1 className="text-3xl md:text-4xl font-bold mb-4">{event.title}</h1>
 
-          {event.summary && (
-            <p className="text-lg text-text-secondary">{event.summary}</p>
-          )}
+          {event.summary && <p className="text-lg text-text-secondary">{event.summary}</p>}
         </header>
 
         {/* Event image */}
         {event.image && (
           <div className="mb-8 rounded-xl overflow-hidden">
-            <img
+            <Image
               src={event.image}
               alt={event.title}
+              width={1200}
+              height={600}
               className="w-full aspect-[2/1] object-cover"
+              priority
             />
           </div>
         )}

@@ -31,11 +31,11 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io",
+              "script-src 'self' 'unsafe-inline' https://plausible.io https://translate.google.com https://translate.googleapis.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data:",
-              "connect-src 'self' https://plausible.io",
+              "connect-src 'self' https://plausible.io https://translate.googleapis.com",
               "frame-src 'self' https://www.google.com https://maps.google.com",
               "base-uri 'self'",
               "form-action 'self'",

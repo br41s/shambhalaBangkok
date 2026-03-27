@@ -6,7 +6,9 @@ const SESSION_COOKIE = 'admin_session';
 const SESSION_MAX_AGE = 24 * 60 * 60; // 24h in seconds
 
 function getSecret(): string {
-  return process.env.ADMIN_SESSION_SECRET || 'change-me-in-production';
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (!secret) throw new Error('ADMIN_SESSION_SECRET environment variable is required');
+  return secret;
 }
 
 export function createSessionToken(): string {
@@ -39,10 +41,7 @@ export function verifyCredentials(email: string, password: string): boolean {
 
   const emailMatch = email.toLowerCase().trim() === adminEmail.toLowerCase().trim();
   try {
-    const passwordMatch = crypto.timingSafeEqual(
-      Buffer.from(password),
-      Buffer.from(adminPassword)
-    );
+    const passwordMatch = crypto.timingSafeEqual(Buffer.from(password), Buffer.from(adminPassword));
     return emailMatch && passwordMatch;
   } catch {
     return false;

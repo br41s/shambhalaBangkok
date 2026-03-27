@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { isAuthenticated } from '@/lib/auth';
 import { saveContentFile, deleteContentFile } from '@/lib/github';
 
@@ -24,10 +25,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid content type' }, { status: 400 });
   }
 
-  const result = await saveContentFile(type, slug, frontmatter, content || '', message || `Update ${type}/${slug}`);
+  const result = await saveContentFile(
+    type,
+    slug,
+    frontmatter,
+    content || '',
+    message || `Update ${type}/${slug}`
+  );
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: 500 });
   }
+
+  revalidatePath('/');
+  revalidatePath(`/${type}`);
+  revalidatePath(`/${type}/${slug}`);
+
   return NextResponse.json({ ok: true });
 }
 
@@ -51,5 +63,10 @@ export async function DELETE(request: NextRequest) {
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: 500 });
   }
+
+  revalidatePath('/');
+  revalidatePath(`/${type}`);
+  revalidatePath(`/${type}/${slug}`);
+
   return NextResponse.json({ ok: true });
 }

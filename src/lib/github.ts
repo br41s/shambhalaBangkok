@@ -22,7 +22,10 @@ async function ghFetch(path: string, options?: RequestInit) {
 
 export async function getFileSha(path: string): Promise<string | null> {
   const res = await ghFetch(path);
-  if (!res.ok) return null;
+  if (!res.ok) {
+    console.error(`[GitHub] Failed to fetch ${path}: ${res.status} ${res.statusText}`);
+    return null;
+  }
   const data = await res.json();
   return data.sha ?? null;
 }

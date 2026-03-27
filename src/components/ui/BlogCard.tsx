@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { formatDate } from '@/lib/utils';
 import type { BlogPost } from '@/lib/types';
 
@@ -12,11 +13,12 @@ export function BlogCard({ post }: BlogCardProps) {
       <Link href={`/blog/${post.slug}`} className="block">
         {post.image && (
           <div className="aspect-[16/9] rounded-xl overflow-hidden mb-4 bg-surface-muted">
-            <img
+            <Image
               src={post.image}
               alt={post.title}
+              width={640}
+              height={360}
               className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
-              loading="lazy"
             />
           </div>
         )}
@@ -33,9 +35,7 @@ export function BlogCard({ post }: BlogCardProps) {
           <h3 className="text-lg font-semibold group-hover:text-brand-blue transition-colors leading-tight">
             {post.title}
           </h3>
-          <p className="text-sm text-text-secondary line-clamp-2">
-            {post.excerpt}
-          </p>
+          <p className="text-sm text-text-secondary line-clamp-2">{post.excerpt}</p>
         </div>
       </Link>
     </article>
