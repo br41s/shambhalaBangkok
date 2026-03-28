@@ -15,4 +15,4 @@ facilitator: Lucas
 price: 300
 capacity: 20
 ---
-Test description
+Tes description
