@@ -10,9 +10,9 @@ organizer: Bangkok Shambhala
 pricing: fixed
 tags:
   - meditation
-status: published
+status: draft
 facilitator: Lucas
 price: 300
 capacity: 20
 ---
-Test description
+Tes description
