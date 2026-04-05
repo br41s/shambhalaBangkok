@@ -200,10 +200,15 @@ async function fetchAndParse(url: string): Promise<(SEvent & { slug: string })[]
   const text = await response.text();
   const parsed = parseICSText(text);
 
+  // Deduplicate by slug (ICS feeds can have duplicate VEVENT entries for recurring events)
+  const seen = new Set<string>();
   const events: (SEvent & { slug: string })[] = [];
   for (const vevent of parsed) {
     const event = icsEventToSEvent(vevent);
-    if (event) events.push(event);
+    if (event && !seen.has(event.slug)) {
+      seen.add(event.slug);
+      events.push(event);
+    }
   }
 
   return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
