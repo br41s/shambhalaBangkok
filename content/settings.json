@@ -1,5 +1,5 @@
 {
   "external_ics_mode": "replace",
-  "external_ics_enabled": "false",
+  "external_ics_enabled": "true",
   "external_ics_url": "https://bangkok.shambhala.info/ical.php?center=362"
 }
