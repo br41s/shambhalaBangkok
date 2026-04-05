@@ -1,3 +1,4 @@
 {
-  "external_ics_mode": "merge"
+  "external_ics_mode": "merge",
+  "external_ics_url": "https://bangkok.shambhala.info/ical.php?center=362"
 }
