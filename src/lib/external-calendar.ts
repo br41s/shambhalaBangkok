@@ -137,6 +137,13 @@ export async function isExternalFeedActive(): Promise<boolean> {
   return !!url;
 }
 
+export type FeedMode = 'replace' | 'merge';
+
+export async function getExternalFeedMode(): Promise<FeedMode> {
+  const mode = await getSetting('external_ics_mode');
+  return mode === 'merge' ? 'merge' : 'replace';
+}
+
 function slugify(text: string): string {
   return text
     .toLowerCase()

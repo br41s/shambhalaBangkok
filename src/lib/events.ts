@@ -4,6 +4,7 @@ import {
   isExternalFeedActive,
   getExternalEvents,
   getExternalEventBySlug,
+  getExternalFeedMode,
 } from './external-calendar';
 import type { SEvent } from './types';
 
@@ -53,22 +54,51 @@ export function getEventsByMonth(year: number, month: number): (SEvent & { slug:
 
 // --- Active-source functions (external ICS when enabled, internal otherwise) ---
 
+/** Merge external + internal events, sorted by startDate, deduplicating by slug. */
+function mergeEvents(
+  internal: (SEvent & { slug: string })[],
+  external: (SEvent & { slug: string })[]
+): (SEvent & { slug: string })[] {
+  const slugs = new Set(external.map((e) => e.slug));
+  const combined = [...external, ...internal.filter((e) => !slugs.has(e.slug))];
+  return combined.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+}
+
 export async function getActiveUpcomingEvents(
   limit?: number
 ): Promise<(SEvent & { slug: string })[]> {
   if (await isExternalFeedActive()) {
+    const mode = await getExternalFeedMode();
     const now = new Date();
-    const events = (await getExternalEvents()).filter((e) => new Date(e.startDate) >= now);
-    return limit ? events.slice(0, limit) : events;
+    const externalEvents = (await getExternalEvents()).filter((e) => new Date(e.startDate) >= now);
+
+    if (mode === 'merge') {
+      const events = mergeEvents(getUpcomingEvents(), externalEvents);
+      return limit ? events.slice(0, limit) : events;
+    }
+    return limit ? externalEvents.slice(0, limit) : externalEvents;
   }
   return getUpcomingEvents(limit);
 }
 
 export async function getActivePastEvents(limit?: number): Promise<(SEvent & { slug: string })[]> {
   if (await isExternalFeedActive()) {
+    const mode = await getExternalFeedMode();
     const now = new Date();
-    const events = (await getExternalEvents()).filter((e) => new Date(e.startDate) < now).reverse();
-    return limit ? events.slice(0, limit) : events;
+    const externalPast = (await getExternalEvents())
+      .filter((e) => new Date(e.startDate) < now)
+      .reverse();
+
+    if (mode === 'merge') {
+      const internal = getPastEvents();
+      const slugs = new Set(externalPast.map((e) => e.slug));
+      const combined = [...externalPast, ...internal.filter((e) => !slugs.has(e.slug))];
+      const sorted = combined.sort(
+        (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+      );
+      return limit ? sorted.slice(0, limit) : sorted;
+    }
+    return limit ? externalPast.slice(0, limit) : externalPast;
   }
   return getPastEvents(limit);
 }
@@ -77,14 +107,23 @@ export async function getActiveEventBySlug(
   slug: string
 ): Promise<(SEvent & { slug: string }) | null> {
   if (await isExternalFeedActive()) {
-    return getExternalEventBySlug(slug);
+    const mode = await getExternalFeedMode();
+    const external = await getExternalEventBySlug(slug);
+    if (external) return external;
+    if (mode === 'merge') return getEventBySlug(slug);
+    return null;
   }
   return getEventBySlug(slug);
 }
 
 export async function getActiveAllEvents(): Promise<(SEvent & { slug: string })[]> {
   if (await isExternalFeedActive()) {
-    return getExternalEvents();
+    const mode = await getExternalFeedMode();
+    const externalEvents = await getExternalEvents();
+    if (mode === 'merge') {
+      return mergeEvents(getAllEvents(), externalEvents);
+    }
+    return externalEvents;
   }
   return getAllEvents();
 }

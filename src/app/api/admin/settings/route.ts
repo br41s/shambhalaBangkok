@@ -9,6 +9,7 @@ const ALLOWED_KEYS = [
   'brevo_list_id',
   'external_ics_url',
   'external_ics_enabled',
+  'external_ics_mode',
 ] as const;
 type SettingKey = (typeof ALLOWED_KEYS)[number];
 

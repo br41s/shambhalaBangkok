@@ -7,6 +7,7 @@ interface SettingsState {
   brevo_list_id: string | null;
   external_ics_url: string | null;
   external_ics_enabled: string | null;
+  external_ics_mode: string | null;
 }
 
 export function SettingsForm() {
@@ -15,6 +16,7 @@ export function SettingsForm() {
     brevo_list_id: null,
     external_ics_url: null,
     external_ics_enabled: null,
+    external_ics_mode: null,
   });
   const [apiKey, setApiKey] = useState('');
   const [listId, setListId] = useState('');
@@ -186,8 +188,8 @@ export function SettingsForm() {
         <div>
           <h2 className="font-semibold">External Calendar Feed</h2>
           <p className="text-sm text-gray-500 mt-1">
-            Override internal events with an external ICS feed. When enabled, the public site
-            displays events from the external calendar instead of internally managed events.
+            Load events from an external ICS feed. Choose whether to replace or merge with your
+            internal events.
           </p>
         </div>
 
@@ -205,13 +207,50 @@ export function SettingsForm() {
                 settings.external_ics_enabled === 'true' ? 'bg-green-500' : 'bg-gray-400'
               }`}
             />
-            {settings.external_ics_enabled === 'true' ? 'Active' : 'Inactive'}
+            {settings.external_ics_enabled === 'true'
+              ? `Active — ${
+                  (settings.external_ics_mode || 'replace') === 'merge'
+                    ? 'Merging with internal'
+                    : 'Replacing internal'
+                }`
+              : 'Inactive'}
           </span>
           {settings.external_ics_url && (
             <span className="text-xs text-gray-400 truncate max-w-xs">
               {settings.external_ics_url}
             </span>
           )}
+        </div>
+
+        {/* Feed mode selector */}
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-gray-700">Feed Mode</label>
+          <div className="flex gap-2">
+            <button
+              onClick={() => saveSetting('external_ics_mode', 'replace')}
+              disabled={saving === 'external_ics_mode'}
+              className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg border transition-colors ${
+                (settings.external_ics_mode || 'replace') === 'replace'
+                  ? 'bg-blue-50 border-blue-300 text-blue-700'
+                  : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <div className="font-medium">Replace</div>
+              <div className="text-xs mt-0.5 opacity-75">Only show external events</div>
+            </button>
+            <button
+              onClick={() => saveSetting('external_ics_mode', 'merge')}
+              disabled={saving === 'external_ics_mode'}
+              className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg border transition-colors ${
+                settings.external_ics_mode === 'merge'
+                  ? 'bg-blue-50 border-blue-300 text-blue-700'
+                  : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <div className="font-medium">Merge</div>
+              <div className="text-xs mt-0.5 opacity-75">Combine external + internal</div>
+            </button>
+          </div>
         </div>
 
         {/* URL input */}
