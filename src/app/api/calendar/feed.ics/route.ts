@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getUpcomingEvents } from '@/lib/events';
+import { getActiveUpcomingEvents } from '@/lib/events';
 import { generateCalendarFeed } from '@/lib/calendar';
 
 export async function GET() {
-  const events = getUpcomingEvents();
+  const events = await getActiveUpcomingEvents();
   const icsContent = generateCalendarFeed(events);
 
   return new NextResponse(icsContent, {

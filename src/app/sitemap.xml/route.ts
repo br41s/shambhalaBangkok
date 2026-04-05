@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAllEvents } from '@/lib/events';
+import { getActiveAllEvents } from '@/lib/events';
 import { getAllPosts } from '@/lib/blog';
 import { siteConfig } from '@/lib/config';
 
@@ -25,7 +25,7 @@ export async function GET() {
     '/code-of-conduct',
   ];
 
-  const events = getAllEvents();
+  const events = await getActiveAllEvents();
   const posts = getAllPosts();
 
   const urls = [

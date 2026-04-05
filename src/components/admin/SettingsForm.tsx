@@ -5,15 +5,25 @@ import { useState, useEffect } from 'react';
 interface SettingsState {
   brevo_api_key: string | null;
   brevo_list_id: string | null;
+  external_ics_url: string | null;
+  external_ics_enabled: string | null;
 }
 
 export function SettingsForm() {
   const [settings, setSettings] = useState<SettingsState>({
     brevo_api_key: null,
     brevo_list_id: null,
+    external_ics_url: null,
+    external_ics_enabled: null,
   });
   const [apiKey, setApiKey] = useState('');
   const [listId, setListId] = useState('');
+  const [icsUrl, setIcsUrl] = useState('');
+  const [testResult, setTestResult] = useState<{
+    count: number;
+    events: { title: string; date: string }[];
+  } | null>(null);
+  const [testing, setTesting] = useState(false);
   const [saving, setSaving] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [loading, setLoading] = useState(true);
@@ -24,6 +34,7 @@ export function SettingsForm() {
       .then((data: SettingsState) => {
         setSettings(data);
         setListId(data.brevo_list_id || '');
+        setIcsUrl(data.external_ics_url || '');
       })
       .catch(() => setMessage({ type: 'error', text: 'Failed to load settings' }))
       .finally(() => setLoading(false));
@@ -48,7 +59,15 @@ export function SettingsForm() {
 
       setMessage({
         type: 'success',
-        text: `${key === 'brevo_api_key' ? 'API Key' : 'List ID'} updated`,
+        text: `${
+          key === 'brevo_api_key'
+            ? 'API Key'
+            : key === 'brevo_list_id'
+              ? 'List ID'
+              : key === 'external_ics_url'
+                ? 'ICS Feed URL'
+                : 'External feed'
+        } updated`,
       });
 
       // Refresh settings to get masked value
@@ -56,6 +75,7 @@ export function SettingsForm() {
       setSettings(refreshed);
       if (key === 'brevo_api_key') setApiKey('');
       if (key === 'brevo_list_id') setListId(refreshed.brevo_list_id || '');
+      if (key === 'external_ics_url') setIcsUrl(refreshed.external_ics_url || '');
     } catch {
       setMessage({ type: 'error', text: 'Network error' });
     } finally {
@@ -159,6 +179,164 @@ export function SettingsForm() {
             {saving === 'brevo_list_id' ? 'Saving...' : 'Save'}
           </button>
         </div>
+      </div>
+
+      {/* External Calendar Feed */}
+      <div className="bg-white rounded-xl border border-black/[0.06] p-6 space-y-4">
+        <div>
+          <h2 className="font-semibold">External Calendar Feed</h2>
+          <p className="text-sm text-gray-500 mt-1">
+            Override internal events with an external ICS feed. When enabled, the public site
+            displays events from the external calendar instead of internally managed events.
+          </p>
+        </div>
+
+        {/* Status badge */}
+        <div className="flex items-center gap-2">
+          <span
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full ${
+              settings.external_ics_enabled === 'true'
+                ? 'bg-green-50 text-green-700'
+                : 'bg-gray-100 text-gray-600'
+            }`}
+          >
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                settings.external_ics_enabled === 'true' ? 'bg-green-500' : 'bg-gray-400'
+              }`}
+            />
+            {settings.external_ics_enabled === 'true' ? 'Active' : 'Inactive'}
+          </span>
+          {settings.external_ics_url && (
+            <span className="text-xs text-gray-400 truncate max-w-xs">
+              {settings.external_ics_url}
+            </span>
+          )}
+        </div>
+
+        {/* URL input */}
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-gray-700">ICS Feed URL</label>
+          <div className="flex gap-2">
+            <input
+              type="url"
+              value={icsUrl}
+              onChange={(e) => {
+                setIcsUrl(e.target.value);
+                setTestResult(null);
+              }}
+              placeholder="https://calendar.google.com/calendar/ical/.../basic.ics"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <button
+              onClick={() => saveSetting('external_ics_url', icsUrl)}
+              disabled={!icsUrl || saving === 'external_ics_url'}
+              className="px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            >
+              {saving === 'external_ics_url' ? 'Saving...' : 'Save'}
+            </button>
+          </div>
+        </div>
+
+        {/* Test button */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={async () => {
+              if (!icsUrl) return;
+              setTesting(true);
+              setTestResult(null);
+              setMessage(null);
+              try {
+                const res = await fetch('/api/admin/settings/test-feed', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ url: icsUrl }),
+                });
+                if (!res.ok) {
+                  const data = await res.json();
+                  setMessage({ type: 'error', text: data.error || 'Failed to test feed' });
+                  return;
+                }
+                const data = await res.json();
+                setTestResult(data);
+              } catch {
+                setMessage({ type: 'error', text: 'Failed to test feed' });
+              } finally {
+                setTesting(false);
+              }
+            }}
+            disabled={!icsUrl || testing}
+            className="px-4 py-2 text-sm font-medium border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          >
+            {testing ? 'Testing...' : 'Test Feed'}
+          </button>
+
+          {/* Enable / Disable toggle */}
+          {settings.external_ics_url && (
+            <button
+              onClick={() =>
+                saveSetting(
+                  'external_ics_enabled',
+                  settings.external_ics_enabled === 'true' ? 'false' : 'true'
+                )
+              }
+              disabled={saving === 'external_ics_enabled'}
+              className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors disabled:opacity-50 ${
+                settings.external_ics_enabled === 'true'
+                  ? 'bg-red-50 text-red-700 hover:bg-red-100 border border-red-200'
+                  : 'bg-green-50 text-green-700 hover:bg-green-100 border border-green-200'
+              }`}
+            >
+              {saving === 'external_ics_enabled'
+                ? 'Saving...'
+                : settings.external_ics_enabled === 'true'
+                  ? 'Disable'
+                  : 'Enable'}
+            </button>
+          )}
+        </div>
+
+        {/* Test results */}
+        {testResult && (
+          <div className="bg-blue-50/50 rounded-lg p-4 space-y-2">
+            <p className="text-sm font-medium text-blue-800">
+              Found {testResult.count} event{testResult.count !== 1 ? 's' : ''}
+            </p>
+            {testResult.events.length > 0 && (
+              <ul className="text-sm text-blue-700 space-y-1">
+                {testResult.events.map((ev, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className="text-blue-400">•</span>
+                    <span className="truncate">{ev.title}</span>
+                    <span className="text-blue-400 text-xs shrink-0">
+                      {new Date(ev.date).toLocaleDateString()}
+                    </span>
+                  </li>
+                ))}
+                {testResult.count > 5 && (
+                  <li className="text-blue-400 text-xs">...and {testResult.count - 5} more</li>
+                )}
+              </ul>
+            )}
+          </div>
+        )}
+
+        {/* Remove URL */}
+        {settings.external_ics_url && (
+          <button
+            onClick={() => {
+              saveSetting('external_ics_enabled', 'false').then(() =>
+                saveSetting('external_ics_url', '')
+              );
+              setIcsUrl('');
+              setTestResult(null);
+            }}
+            disabled={saving !== null}
+            className="text-xs text-red-600 hover:text-red-800 transition-colors"
+          >
+            Remove external feed
+          </button>
+        )}
       </div>
 
       {/* Info */}

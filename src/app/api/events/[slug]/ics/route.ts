@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getEventBySlug } from '@/lib/events';
+import { getActiveEventBySlug } from '@/lib/events';
 import { generateEventICS } from '@/lib/calendar';
 
 export async function GET(
@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await getActiveEventBySlug(slug);
 
   if (!event) {
     return NextResponse.json({ error: 'Event not found' }, { status: 404 });

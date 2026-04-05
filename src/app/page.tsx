@@ -6,7 +6,7 @@ import { LocationBlock } from '@/components/ui/LocationBlock';
 import { BlogCard } from '@/components/ui/BlogCard';
 import { CTAStrip } from '@/components/ui/CTAStrip';
 import { FAQAccordion } from '@/components/ui/FAQAccordion';
-import { getUpcomingEvents } from '@/lib/events';
+import { getActiveUpcomingEvents } from '@/lib/events';
 import { getRecentPosts } from '@/lib/blog';
 import Link from 'next/link';
 
@@ -23,8 +23,7 @@ const firstVisitFAQ = [
   },
   {
     question: 'What language are sessions in?',
-    answer:
-      'Sessions are held in English. Some facilitators may also speak Thai.',
+    answer: 'Sessions are held in English. Some facilitators may also speak Thai.',
   },
   {
     question: 'What should I bring?',
@@ -43,8 +42,8 @@ const firstVisitFAQ = [
   },
 ];
 
-export default function HomePage() {
-  const upcomingEvents = getUpcomingEvents(6);
+export default async function HomePage() {
+  const upcomingEvents = await getActiveUpcomingEvents(6);
   const recentPosts = getRecentPosts(3);
 
   return (
@@ -126,8 +125,8 @@ export default function HomePage() {
         <div className="container-content max-w-2xl text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Join the Community</h2>
           <p className="text-text-secondary mb-8">
-            Connect with our meditation community. Get event updates, ask questions,
-            and meet fellow practitioners.
+            Connect with our meditation community. Get event updates, ask questions, and meet fellow
+            practitioners.
           </p>
           <SocialJoinButtons />
         </div>
@@ -150,14 +149,14 @@ export default function HomePage() {
             <p>
               Bangkok Shambhala is part of a global network of meditation centres founded on the
               principle that every human being has a natural capacity for wisdom and compassion.
-              Located in the Young Place building on Sukhumvit Soi 23, our centre offers a
-              peaceful space for practice in the heart of the city.
+              Located in the Young Place building on Sukhumvit Soi 23, our centre offers a peaceful
+              space for practice in the heart of the city.
             </p>
             <p>
-              We offer weekly meditation sessions, introductory classes, special workshops,
-              and a welcoming community for practitioners at all levels. Whether you are
-              curious about meditation for the first time or looking to deepen your practice,
-              you are welcome here.
+              We offer weekly meditation sessions, introductory classes, special workshops, and a
+              welcoming community for practitioners at all levels. Whether you are curious about
+              meditation for the first time or looking to deepen your practice, you are welcome
+              here.
             </p>
           </div>
           <div className="mt-6 text-center">

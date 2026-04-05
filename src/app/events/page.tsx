@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { EventCard } from '@/components/ui/EventCard';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { getUpcomingEvents, getPastEvents } from '@/lib/events';
+import { getActiveUpcomingEvents, getActivePastEvents } from '@/lib/events';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
     'Upcoming meditation events, workshops and community gatherings at Bangkok Shambhala.',
 };
 
-export default function EventsPage() {
-  const upcoming = getUpcomingEvents();
-  const past = getPastEvents(6);
+export default async function EventsPage() {
+  const upcoming = await getActiveUpcomingEvents();
+  const past = await getActivePastEvents(6);
 
   return (
     <div className="container-content py-8">

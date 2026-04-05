@@ -2,8 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { isAuthenticated } from '@/lib/auth';
 import { verifyCsrf } from '@/lib/csrf';
 import { getSetting, setSetting, deleteSetting } from '@/lib/settings';
+import { clearFeedCache } from '@/lib/external-calendar';
 
-const ALLOWED_KEYS = ['brevo_api_key', 'brevo_list_id'] as const;
+const ALLOWED_KEYS = [
+  'brevo_api_key',
+  'brevo_list_id',
+  'external_ics_url',
+  'external_ics_enabled',
+] as const;
 type SettingKey = (typeof ALLOWED_KEYS)[number];
 
 function isAllowedKey(key: string): key is SettingKey {
@@ -64,12 +70,20 @@ export async function PUT(request: NextRequest) {
       if (!ok) {
         return NextResponse.json({ error: 'Redis not configured' }, { status: 503 });
       }
+      if (key.startsWith('external_ics_')) {
+        clearFeedCache();
+      }
       return NextResponse.json({ success: true });
     }
 
     const ok = await setSetting(key, value.trim());
     if (!ok) {
       return NextResponse.json({ error: 'Redis not configured' }, { status: 503 });
+    }
+
+    // Clear cached external events when ICS settings change
+    if (key.startsWith('external_ics_')) {
+      clearFeedCache();
     }
 
     return NextResponse.json({ success: true });

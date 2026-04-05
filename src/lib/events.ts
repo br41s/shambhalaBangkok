@@ -1,5 +1,10 @@
 import { getAllContent, getContentBySlug } from './content';
 import { markdownToHtml } from './markdown';
+import {
+  isExternalFeedActive,
+  getExternalEvents,
+  getExternalEventBySlug,
+} from './external-calendar';
 import type { SEvent } from './types';
 
 export function getAllEvents(): (SEvent & { slug: string })[] {
@@ -44,4 +49,42 @@ export function getEventsByMonth(year: number, month: number): (SEvent & { slug:
     const d = new Date(e.startDate);
     return d.getFullYear() === year && d.getMonth() === month;
   });
+}
+
+// --- Active-source functions (external ICS when enabled, internal otherwise) ---
+
+export async function getActiveUpcomingEvents(
+  limit?: number
+): Promise<(SEvent & { slug: string })[]> {
+  if (await isExternalFeedActive()) {
+    const now = new Date();
+    const events = (await getExternalEvents()).filter((e) => new Date(e.startDate) >= now);
+    return limit ? events.slice(0, limit) : events;
+  }
+  return getUpcomingEvents(limit);
+}
+
+export async function getActivePastEvents(limit?: number): Promise<(SEvent & { slug: string })[]> {
+  if (await isExternalFeedActive()) {
+    const now = new Date();
+    const events = (await getExternalEvents()).filter((e) => new Date(e.startDate) < now).reverse();
+    return limit ? events.slice(0, limit) : events;
+  }
+  return getPastEvents(limit);
+}
+
+export async function getActiveEventBySlug(
+  slug: string
+): Promise<(SEvent & { slug: string }) | null> {
+  if (await isExternalFeedActive()) {
+    return getExternalEventBySlug(slug);
+  }
+  return getEventBySlug(slug);
+}
+
+export async function getActiveAllEvents(): Promise<(SEvent & { slug: string })[]> {
+  if (await isExternalFeedActive()) {
+    return getExternalEvents();
+  }
+  return getAllEvents();
 }

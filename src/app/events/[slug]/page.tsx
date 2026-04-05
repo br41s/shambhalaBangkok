@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getEventBySlug, getAllEvents } from '@/lib/events';
+import { getActiveEventBySlug, getAllEvents } from '@/lib/events';
 import { eventSchema, breadcrumbSchema, generatePageMeta } from '@/lib/schema';
 import { formatDate, formatTime } from '@/lib/utils';
 import { JsonLd } from '@/components/ui/JsonLd';
@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await getActiveEventBySlug(slug);
   if (!event) return {};
   return generatePageMeta({
     title: event.title,
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function EventDetailPage({ params }: Params) {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await getActiveEventBySlug(slug);
   if (!event) notFound();
 
   const isPast = new Date(event.startDate) < new Date();
