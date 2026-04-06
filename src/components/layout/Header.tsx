@@ -14,7 +14,7 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-black/[0.06]">
       <div className="container-content flex items-center justify-between h-16">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-semibold text-lg tracking-tight">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/images/logo-sun.png"
             alt="Bangkok Shambhala logo"
@@ -22,7 +22,7 @@ export function Header() {
             height={36}
             priority
           />
-          <span>Bangkok Shambhala</span>
+          <span className="font-[var(--font-logo)] text-lg font-semibold uppercase tracking-[0.08em] text-[#003780]">Bangkok Shambhala</span>
         </Link>
 
         {/* Desktop Nav */}

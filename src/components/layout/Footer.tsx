@@ -11,14 +11,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center gap-2 font-semibold text-lg mb-4">
+            <Link href="/" className="flex items-center gap-2 mb-4">
               <Image
                 src="/images/logo-sun.png"
                 alt="Bangkok Shambhala logo"
                 width={28}
                 height={28}
               />
-              <span>Bangkok Shambhala</span>
+              <span className="font-[var(--font-logo)] text-lg font-semibold uppercase tracking-[0.08em] text-[#003780]">Bangkok Shambhala</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed mb-4">
               {siteConfig.description}
