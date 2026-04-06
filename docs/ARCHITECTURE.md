@@ -90,15 +90,17 @@ src/
 │   ├── admin/           # EventForm, PostForm, MarkdownEditor, LogoutButton
 │   ├── layout/          # Header, Footer (used in root layout)
 │   └── ui/              # Reusable presentational components
+│                          # Includes BookList (bibliography), SectionTabs (blog sections)
 └── lib/
-    ├── types.ts         # All TypeScript interfaces
+    ├── types.ts         # All TypeScript interfaces (incl. BlogSection union type)
     ├── config.ts        # Site configuration & navigation
     ├── auth.ts          # Session management (HMAC-signed cookies)
     ├── github.ts        # GitHub API client (content CRUD)
     ├── content.ts       # File-system content reader (gray-matter)
     ├── markdown.ts      # Markdown → HTML conversion (remark)
     ├── events.ts        # Event data access functions
-    ├── blog.ts          # Blog data access functions
+    ├── blog.ts          # Blog data access (incl. section filtering)
+    ├── books-data.ts    # Bibliography: Book interface + 29 book entries
     ├── calendar.ts      # ICS generation
     ├── schema.ts        # Schema.org JSON-LD generators
     └── utils.ts         # Shared utilities (formatting, slugify)
@@ -129,6 +131,31 @@ Content stored as Markdown is converted to sanitized HTML at build time:
 2. `markdown.ts` converts the Markdown body to HTML using `remark` + `remark-html` (sanitized)
 3. `events.ts` and `blog.ts` call `markdownToHtml()` before returning content
 4. Pages render the HTML via `dangerouslySetInnerHTML` inside Tailwind `prose` containers
+
+### Blog Sections
+Blog posts can belong to one of five sections via a `section` field in frontmatter:
+
+| Section | Slug | Description |
+|---------|------|-------------|
+| Shambhala Vision | `shambhala-vision` | Core teachings and philosophy |
+| What We Offer | `what-we-offer` | Programs and activities |
+| Bibliography | `bibliography` | Recommended reading list |
+| Resources | `resources` | Practice resources and links |
+| Membership | `membership` | Community membership info |
+
+- **SectionTabs** (`components/ui/SectionTabs.tsx`) renders horizontal tab pills on the blog listing page
+- `blog.ts` provides `getPostsBySection()` for filtered queries
+- The `BlogSection` union type is defined in `types.ts`
+
+### Bibliography (Special Rendering)
+The bibliography section has custom rendering instead of raw Markdown HTML:
+
+1. `books-data.ts` exports a `Book[]` array with 29 entries (title, author, cover image path, short text, optional extended text)
+2. `BookList.tsx` (client component) renders each book with:
+   - Cover thumbnail on the left (`public/images/books/`)
+   - Title, author, and description on the right
+   - "Show more" / "Show less" toggle for books with extended text (CSS `max-h` transition)
+3. `[slug]/page.tsx` detects `slug === 'bibliography'` and renders `<BookList>` instead of `dangerouslySetInnerHTML`
 
 ### Client-Side Features
 - **Google Translate** (`GoogleTranslate.tsx`): Auto-translate widget via Google's free Translate API, floating bottom-right

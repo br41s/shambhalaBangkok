@@ -18,12 +18,7 @@ export function Footer() {
                 width={28}
                 height={28}
               />
-              <Image
-                src="/images/text-logo-footer.png"
-                alt="Shambhala"
-                width={142}
-                height={20}
-              />
+              <Image src="/images/text-logo-footer.png" alt="Shambhala" width={142} height={20} />
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed mb-4">
               {siteConfig.description}

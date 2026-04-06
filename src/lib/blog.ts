@@ -1,6 +1,6 @@
 import { getAllContent, getContentBySlug } from './content';
 import { markdownToHtml } from './markdown';
-import type { BlogPost } from './types';
+import type { BlogPost, BlogSection } from './types';
 
 export function getAllPosts(): (BlogPost & { slug: string })[] {
   const items = getAllContent<BlogPost>('blog');
@@ -14,6 +14,14 @@ export function getAllPosts(): (BlogPost & { slug: string })[] {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
+export function getPostsBySection(section: BlogSection): (BlogPost & { slug: string })[] {
+  return getAllPosts().filter((p) => p.section === section);
+}
+
+export function getBlogPosts(): (BlogPost & { slug: string })[] {
+  return getAllPosts().filter((p) => !p.section);
+}
+
 export function getPostBySlug(slug: string): (BlogPost & { slug: string }) | null {
   const result = getContentBySlug<BlogPost>('blog', slug);
   if (!result) return null;
@@ -21,5 +29,5 @@ export function getPostBySlug(slug: string): (BlogPost & { slug: string }) | nul
 }
 
 export function getRecentPosts(limit = 3): (BlogPost & { slug: string })[] {
-  return getAllPosts().slice(0, limit);
+  return getBlogPosts().slice(0, limit);
 }

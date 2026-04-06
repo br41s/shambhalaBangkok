@@ -214,7 +214,44 @@ The editor includes a toolbar with these buttons:
 
 You can also type Markdown directly in the text area.
 
-### 4.4 Content Calendar
+### 4.4 Blog Sections
+
+Blog posts are organized into sections. When creating or editing a post, assign it to one of these sections via the `section` frontmatter field:
+
+| Section Slug | Display Name | Description |
+|-------------|-------------|-------------|
+| `shambhala-vision` | Shambhala Vision | Core teachings and philosophy |
+| `what-we-offer` | What We Offer | Programs, sessions, workshops |
+| `bibliography` | Bibliography | Recommended reading (special rendering) |
+| `resources` | Resources | Practice resources and links |
+| `membership` | Membership | Community membership info |
+
+Users can filter posts by section using the **tab pills** on the blog listing page.
+
+### 4.5 Managing the Bibliography
+
+The Bibliography section has a special layout displaying book covers with expandable descriptions.
+
+**Book data** is stored in `src/lib/books-data.ts` (not in Markdown). Each entry includes:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `title` | Yes | Full book title |
+| `author` | Yes | Author name(s) |
+| `cover` | Yes | Path to cover image (e.g., `/images/books/filename.jpg`) |
+| `shortText` | Yes | Brief description shown by default |
+| `extendedText` | No | Longer text revealed by "Show more" (set to `null` if none) |
+
+**To add a new book:**
+1. Add the cover image to `public/images/books/` (JPEG, max 200KB, ~160×240px recommended)
+2. Add a new entry to the `books` array in `src/lib/books-data.ts`
+3. Commit and push — Vercel will rebuild automatically
+
+**To edit a book:** Update the corresponding entry in `src/lib/books-data.ts`.
+
+> **Note:** The Bibliography section's `content/blog/bibliography.md` still provides frontmatter metadata (title, date, section), but the page body is rendered by the BookList component, not from the Markdown content.
+
+### 4.6 Content Calendar
 
 Suggested publishing schedule:
 

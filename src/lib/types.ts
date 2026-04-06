@@ -36,6 +36,13 @@ export interface SEvent {
 }
 
 // --- Blog / Posts ---
+export type BlogSection =
+  | 'shambhala-vision'
+  | 'what-we-offer'
+  | 'bibliography'
+  | 'resources'
+  | 'membership';
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -46,6 +53,7 @@ export interface BlogPost {
   tags: string[];
   image?: string;
   published: boolean;
+  section?: BlogSection;
   seo?: SEOMeta;
 }
 

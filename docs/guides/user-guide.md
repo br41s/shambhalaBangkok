@@ -259,20 +259,33 @@ Visit the **Location** page on the website for:
 
 ### 7.1 What We Publish
 
-Our blog features:
-- **Community news** — updates about our centre and activities
-- **Practice tips** — articles on meditation and mindfulness
-- **Event recaps** — summaries and reflections from past events
-- **Teacher features** — profiles and teachings from our facilitators
+Our blog is organized into thematic sections covering the full scope of our community's activities and teachings:
+
+| Section | What You'll Find |
+|---------|-----------------|
+| **Shambhala Vision** | Core teachings, philosophy, and the Shambhala tradition |
+| **What We Offer** | Programs, meditation sessions, workshops, and retreats |
+| **Bibliography** | Recommended reading with book covers and descriptions |
+| **Resources** | Practice resources, links, and guided materials |
+| **Membership** | Information about joining and supporting the community |
 
 ### 7.2 Browsing Posts
 
 1. Click **Blog** in the navigation menu
-2. Browse articles displayed as cards with:
+2. Use the **section tabs** at the top to filter by topic (e.g., "Shambhala Vision", "Bibliography")
+3. Browse articles displayed as cards with:
    - Featured image
    - Publication date
    - Title and short excerpt
-3. Click any card to read the full article
+4. Click any card to read the full article
+
+### 7.3 Bibliography Section
+
+The Bibliography section features a curated collection of 29 books on Shambhala, Buddhism, and meditation:
+
+- Each book shows a **cover thumbnail** alongside its title, author, and description
+- For books with extended descriptions, click **"Show more"** to expand the full text
+- Click **"Show less"** to collapse it back
 
 ---
 
