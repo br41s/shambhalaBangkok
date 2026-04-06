@@ -18,7 +18,12 @@ export function Footer() {
                 width={28}
                 height={28}
               />
-              <span className="font-[var(--font-logo)] text-lg font-semibold uppercase tracking-[0.08em] text-[#003780]">Bangkok Shambhala</span>
+              <Image
+                src="/images/text-logo-footer.png"
+                alt="Shambhala"
+                width={142}
+                height={20}
+              />
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed mb-4">
               {siteConfig.description}

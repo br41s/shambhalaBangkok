@@ -22,7 +22,13 @@ export function Header() {
             height={36}
             priority
           />
-          <span className="font-[var(--font-logo)] text-lg font-semibold uppercase tracking-[0.08em] text-[#003780]">Bangkok Shambhala</span>
+          <Image
+            src="/images/text-logo-header.png"
+            alt="Shambhala"
+            width={171}
+            height={24}
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
