@@ -20,7 +20,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <div className="max-w-5xl mx-auto px-4 flex items-center justify-between h-14">
             <div className="flex items-center gap-6">
               <Link href="/admin" className="flex items-center gap-2 font-semibold text-gray-900">
-                <Image src="/images/logo.svg" alt="" width={24} height={24} />
+                <Image src="/images/logo-sun.png" alt="" width={24} height={24} />
                 Admin
               </Link>
               <div className="flex items-center gap-1">

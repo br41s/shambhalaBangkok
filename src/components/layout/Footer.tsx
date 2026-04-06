@@ -12,15 +12,18 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 font-semibold text-lg mb-4">
-              <Image src="/images/logo.svg" alt="Bangkok Shambhala logo" width={28} height={28} />
+              <Image
+                src="/images/logo-sun.png"
+                alt="Bangkok Shambhala logo"
+                width={28}
+                height={28}
+              />
               <span>Bangkok Shambhala</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed mb-4">
               {siteConfig.description}
             </p>
-            <p className="text-sm text-text-tertiary">
-              {siteConfig.location.address}
-            </p>
+            <p className="text-sm text-text-tertiary">{siteConfig.location.address}</p>
           </div>
 
           {/* Navigation */}
@@ -69,16 +72,28 @@ export function Footer() {
             © {new Date().getFullYear()} {siteConfig.name}. Non-profit organization.
           </p>
           <div className="flex gap-4">
-            <Link href="/privacy" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
+            <Link
+              href="/privacy"
+              className="text-xs text-text-tertiary hover:text-text-secondary transition-colors"
+            >
               Privacy
             </Link>
-            <Link href="/terms" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
+            <Link
+              href="/terms"
+              className="text-xs text-text-tertiary hover:text-text-secondary transition-colors"
+            >
               Terms
             </Link>
-            <Link href="/code-of-conduct" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
+            <Link
+              href="/code-of-conduct"
+              className="text-xs text-text-tertiary hover:text-text-secondary transition-colors"
+            >
               Code of Conduct
             </Link>
-            <Link href="/admin/login" className="text-xs text-text-tertiary hover:text-text-secondary transition-colors">
+            <Link
+              href="/admin/login"
+              className="text-xs text-text-tertiary hover:text-text-secondary transition-colors"
+            >
               Admin
             </Link>
           </div>

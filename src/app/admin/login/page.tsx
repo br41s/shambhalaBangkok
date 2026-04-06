@@ -90,16 +90,29 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Image src="/images/logo.svg" alt="Bangkok Shambhala" width={48} height={48} className="mx-auto mb-4" />
+          <Image
+            src="/images/logo-sun.png"
+            alt="Bangkok Shambhala"
+            width={48}
+            height={48}
+            className="mx-auto mb-4"
+          />
           <h1 className="text-xl font-bold text-gray-900">Admin Login</h1>
           <p className="text-sm text-gray-500 mt-1">Bangkok Shambhala</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-4">
-          {error && <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{error}</div>}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-4"
+        >
+          {error && (
+            <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{error}</div>
+          )}
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
             <input
               id="email"
               type="email"
@@ -112,7 +125,9 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
             <input
               id="password"
               type="password"
@@ -131,7 +146,10 @@ export default function LoginPage() {
             </button>
             {showForgot && (
               <div className="mt-2 bg-amber-50 border border-amber-200 text-amber-800 text-xs rounded-lg px-3 py-2.5 leading-relaxed">
-                The admin password is configured as an environment variable. Contact the site administrator to update <code className="bg-amber-100 px-1 rounded">ADMIN_PASSWORD</code> in the Vercel project settings.
+                The admin password is configured as an environment variable. Contact the site
+                administrator to update{' '}
+                <code className="bg-amber-100 px-1 rounded">ADMIN_PASSWORD</code> in the Vercel
+                project settings.
               </div>
             )}
           </div>

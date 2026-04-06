@@ -15,7 +15,13 @@ export function Header() {
       <div className="container-content flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-semibold text-lg tracking-tight">
-          <Image src="/images/logo.svg" alt="Bangkok Shambhala logo" width={36} height={36} priority />
+          <Image
+            src="/images/logo-sun.png"
+            alt="Bangkok Shambhala logo"
+            width={36}
+            height={36}
+            priority
+          />
           <span>Bangkok Shambhala</span>
         </Link>
 
