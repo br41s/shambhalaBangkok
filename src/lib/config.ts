@@ -16,7 +16,7 @@ export const siteConfig: SiteConfig = {
     country: 'Thailand',
     lat: 13.738,
     lng: 100.5658,
-    mapsUrl: 'https://maps.app.goo.gl/shambhala-bangkok',
+    mapsUrl: 'https://maps.app.goo.gl/61vn5zwuLWJUp1367',
     directions:
       'Take BTS to Asoke station or MRT to Sukhumvit station. Walk south along Sukhumvit Soi 23 for about 5 minutes. Young Place Building is on the right side.',
     transitInfo: 'BTS Asoke / MRT Sukhumvit — 5 min walk',
