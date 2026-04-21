@@ -29,9 +29,7 @@ export function LocationBlock({ showMap = true, compact }: LocationBlockProps) {
       </div>
 
       {!compact && loc.directions && (
-        <p className="text-sm text-text-secondary leading-relaxed pl-8">
-          {loc.directions}
-        </p>
+        <p className="text-sm text-text-secondary leading-relaxed pl-8">{loc.directions}</p>
       )}
 
       <div className="flex gap-2 pl-8">
@@ -43,6 +41,15 @@ export function LocationBlock({ showMap = true, compact }: LocationBlockProps) {
         >
           <Navigation className="w-3.5 h-3.5" />
           Open in Maps
+        </a>
+        <a
+          href={`https://maps.apple.com/?ll=${loc.lat},${loc.lng}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
+        >
+          <Navigation className="w-3.5 h-3.5" />
+          Open in Apple Maps
         </a>
       </div>
 
