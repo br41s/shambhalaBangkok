@@ -29,6 +29,12 @@ export function DonateWidget({ compact, className }: DonateWidgetProps) {
     );
   }
 
+  const bankMethod = methods.find((method) => method.id === 'bangkok-bank');
+  const wiseMethod = methods.find((method) => method.id === 'wise');
+  const otherMethods = methods.filter(
+    (method) => method.id !== 'bangkok-bank' && method.id !== 'wise'
+  );
+
   return (
     <div className={cn('space-y-6', className)}>
       <div className="text-center max-w-xl mx-auto">
@@ -40,9 +46,64 @@ export function DonateWidget({ compact, className }: DonateWidgetProps) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-        {methods.map((method) => (
+        {bankMethod && wiseMethod ? (
+          <DonationMethodGroupCard bankMethod={bankMethod} wiseMethod={wiseMethod} />
+        ) : null}
+        {otherMethods.map((method) => (
           <DonationMethodCard key={method.id} method={method} />
         ))}
+      </div>
+    </div>
+  );
+}
+
+function DonationMethodGroupCard({
+  bankMethod,
+  wiseMethod,
+}: {
+  bankMethod: DonationMethod;
+  wiseMethod: DonationMethod;
+}) {
+  return (
+    <div className="border border-black/[0.06] rounded-xl p-6 text-center bg-white">
+      <h3 className="font-semibold mb-2">Bangkok Bank / Wise</h3>
+      <p className="text-sm text-text-secondary mb-4">
+        Use the local Bangkok Bank account for domestic transfers, or choose Wise for international
+        donations.
+      </p>
+
+      <div className="space-y-4 mb-4 text-left">
+        <div className="rounded-2xl bg-surface-soft p-4">
+          <p className="text-sm text-text-secondary uppercase tracking-[0.2em] mb-2">
+            Local transfer
+          </p>
+          <p className="font-semibold">Bangkok Bank</p>
+          <p className="text-sm text-text-secondary">Account: 1183273182</p>
+        </div>
+        <div className="rounded-2xl bg-surface-soft p-4">
+          <p className="text-sm text-text-secondary uppercase tracking-[0.2em] mb-2">
+            International transfer
+          </p>
+          <p className="font-semibold">Wise</p>
+          <p className="text-sm text-text-secondary">Low-fee global transfers</p>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
+        <Link
+          href={bankMethod.url ?? '/donate/bank'}
+          className="inline-flex justify-center px-4 py-2 bg-brand-blue text-white font-medium rounded-lg hover:bg-brand-blue-dark transition-colors text-sm"
+        >
+          View bank details
+        </Link>
+        <a
+          href={wiseMethod.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex justify-center px-4 py-2 bg-brand-blue/10 text-brand-blue font-medium rounded-lg hover:bg-brand-blue/20 transition-colors text-sm"
+        >
+          Donate via Wise
+        </a>
       </div>
     </div>
   );
