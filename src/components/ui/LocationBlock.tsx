@@ -43,7 +43,7 @@ export function LocationBlock({ showMap = true, compact }: LocationBlockProps) {
           Open in Maps
         </a>
         <a
-          href={`https://maps.apple.com/?ll=${loc.lat},${loc.lng}`}
+          href="https://maps.apple.com/p/d3Y_EBU8FrjXGZ"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
