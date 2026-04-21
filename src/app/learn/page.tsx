@@ -72,24 +72,24 @@ export default function LearnPage() {
           <div className="flex items-start gap-4 p-4 bg-surface-soft rounded-xl">
             <div className="text-center shrink-0 w-16">
               <p className="text-sm font-semibold text-brand-blue">WED</p>
-              <p className="text-lg font-bold">19:00</p>
+              <p className="text-lg font-bold">18:30–20:00</p>
             </div>
             <div>
-              <h3 className="font-semibold">Wednesday Evening Meditation</h3>
+              <h3 className="font-semibold">Café Shambhala</h3>
               <p className="text-sm text-text-secondary">
-                Open sitting with instruction for newcomers. All levels welcome.
+                Café Shambhala meets for a relaxed session of meditation and community time.
               </p>
             </div>
           </div>
           <div className="flex items-start gap-4 p-4 bg-surface-soft rounded-xl">
             <div className="text-center shrink-0 w-16">
               <p className="text-sm font-semibold text-brand-blue">SUN</p>
-              <p className="text-lg font-bold">10:00</p>
+              <p className="text-lg font-bold">14:00–15:00</p>
             </div>
             <div>
-              <h3 className="font-semibold">Sunday Morning Practice</h3>
+              <h3 className="font-semibold">Sunday Meditation</h3>
               <p className="text-sm text-text-secondary">
-                Extended sitting practice followed by a short talk or discussion.
+                Guided meditation session for all levels, followed by a brief reflection.
               </p>
             </div>
           </div>
