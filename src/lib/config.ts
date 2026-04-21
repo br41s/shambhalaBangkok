@@ -67,6 +67,13 @@ export const siteConfig: SiteConfig = {
       instructions: 'Scan with any Thai banking app to donate instantly.',
     },
     {
+      id: 'bangkok-bank',
+      label: 'Bangkok Bank (Local)',
+      type: 'bank',
+      url: '/donate/bank',
+      instructions: 'Local transfer details are available on the bank details page.',
+    },
+    {
       id: 'wise',
       label: 'Wise (International)',
       type: 'link',

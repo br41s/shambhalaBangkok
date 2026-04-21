@@ -34,8 +34,8 @@ export function DonateWidget({ compact, className }: DonateWidgetProps) {
       <div className="text-center max-w-xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold mb-3">Support Bangkok Shambhala</h2>
         <p className="text-text-secondary leading-relaxed">
-          All donations go directly toward maintaining our meditation space, offering free instruction,
-          and keeping the community accessible to everyone. Every contribution matters.
+          All donations go directly toward maintaining our meditation space, offering free
+          instruction, and keeping the community accessible to everyone. Every contribution matters.
         </p>
       </div>
 
@@ -66,16 +66,24 @@ function DonationMethodCard({ method }: { method: DonationMethod }) {
       {method.instructions && (
         <p className="text-sm text-text-secondary mb-3">{method.instructions}</p>
       )}
-      {method.url && (
-        <a
-          href={method.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center px-5 py-2 bg-brand-blue text-white font-medium rounded-lg hover:bg-brand-blue-dark transition-colors text-sm"
-        >
-          Donate via {method.label}
-        </a>
-      )}
+      {method.url &&
+        (method.url.startsWith('/') ? (
+          <Link
+            href={method.url}
+            className="inline-flex items-center px-5 py-2 bg-brand-blue text-white font-medium rounded-lg hover:bg-brand-blue-dark transition-colors text-sm"
+          >
+            {method.type === 'bank' ? 'View bank details' : `Donate via ${method.label}`}
+          </Link>
+        ) : (
+          <a
+            href={method.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-5 py-2 bg-brand-blue text-white font-medium rounded-lg hover:bg-brand-blue-dark transition-colors text-sm"
+          >
+            Donate via {method.label}
+          </a>
+        ))}
     </div>
   );
 }
