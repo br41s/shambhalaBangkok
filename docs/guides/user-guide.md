@@ -74,17 +74,18 @@ On the event detail page you'll find:
 
 ### 1.3 Event Types
 
-| Type | Description | Typical Schedule |
-|------|-------------|-----------------|
+| Type              | Description                      | Typical Schedule     |
+| ----------------- | -------------------------------- | -------------------- |
 | Weekly Meditation | Open sitting meditation practice | Wed 19:00, Sun 10:00 |
-| Workshop | Themed session with instruction | Monthly, Saturdays |
-| Retreat | Multi-day intensive practice | Quarterly |
-| Online Session | Virtual meditation via Zoom | Various times |
-| Special Event | Guest teachers, celebrations | As announced |
+| Workshop          | Themed session with instruction  | Monthly, Saturdays   |
+| Retreat           | Multi-day intensive practice     | Quarterly            |
+| Online Session    | Virtual meditation via Zoom      | Various times        |
+| Special Event     | Guest teachers, celebrations     | As announced         |
 
 ### 1.4 Past Events
 
 Scroll down on the Events page to find the **Past Events** section. This is useful for:
+
 - Seeing what kinds of events we offer
 - Finding recap information or resources from past workshops
 
@@ -109,16 +110,19 @@ Never miss an event by subscribing to our calendar feed:
 2. In your calendar app:
 
 **Google Calendar:**
+
 - Open Google Calendar → Settings (gear icon)
 - Click "Add calendar" → "From URL"
 - Paste the URL and click "Add calendar"
 
 **Apple Calendar (iPhone/Mac):**
+
 - Go to Settings → Calendar → Accounts → Add Account
 - Choose "Other" → "Add Subscribed Calendar"
 - Paste the URL
 
 **Outlook:**
+
 - Open Outlook Calendar → Add calendar → Subscribe from web
 - Paste the URL
 
@@ -132,13 +136,13 @@ Never miss an event by subscribing to our calendar feed:
 
 We use messaging groups to stay connected between events:
 
-| Channel | Purpose | How to Join |
-|---------|---------|------------|
-| **WhatsApp Group** | Main community chat, event updates | Click the WhatsApp button on the Community page |
-| **LINE Group** | Thai-language community updates | Click the LINE button on the Community page |
-| **Facebook** | Event photos, articles, public updates | Follow our Facebook page |
-| **Instagram** | Visual updates, meditation quotes | Follow @shambhalabangkok |
-| **Meetup** | Event discovery for newcomers | Join our Meetup group |
+| Channel            | Purpose                                | How to Join                                     |
+| ------------------ | -------------------------------------- | ----------------------------------------------- |
+| **WhatsApp Group** | Main community chat, event updates     | Click the WhatsApp button on the Community page |
+| **LINE Group**     | Thai-language community updates        | Click the LINE button on the Community page     |
+| **Facebook**       | Event photos, articles, public updates | Follow our Facebook page                        |
+| **Instagram**      | Visual updates, meditation quotes      | Follow @shambhalabangkok                        |
+| **Meetup**         | Event discovery for newcomers          | Join our Meetup group                           |
 
 ### 3.2 Joining WhatsApp or LINE
 
@@ -178,10 +182,10 @@ Visit the **Learn** page (`/learn/meditation`) for:
 
 ### 4.2 Weekly Schedule
 
-| Day | Time | Session | Level |
-|-----|------|---------|-------|
+| Day       | Time          | Session            | Level      |
+| --------- | ------------- | ------------------ | ---------- |
 | Wednesday | 19:00 – 20:30 | Evening Meditation | All levels |
-| Sunday | 10:00 – 11:30 | Morning Practice | All levels |
+| Sunday    | 10:00 – 11:30 | Morning Practice   | All levels |
 
 > **First-timers welcome!** No experience or special equipment needed. Just come as you are.
 
@@ -204,21 +208,23 @@ Visit the homepage FAQ section or the Learn page for answers to common questions
 As a non-profit, we rely on community generosity. Visit the **Donate** page to contribute:
 
 **Thai QR / PromptPay:**
+
 - Scan the QR code with your Thai banking app
 - Instant, free transfer within Thailand
 
 **Wise (International Transfer):**
+
 - For international supporters
 - Low fees via Wise platform
 
 ### 5.2 Where Donations Go
 
-| Category | Usage |
-|----------|-------|
-| Venue rental | Monthly rent for our meditation space |
-| Materials | Cushions, books, teaching materials |
-| Events | Workshop supplies, guest teacher travel |
-| Operations | Website hosting, communication tools |
+| Category     | Usage                                   |
+| ------------ | --------------------------------------- |
+| Venue rental | Monthly rent for our meditation space   |
+| Materials    | Cushions, books, teaching materials     |
+| Events       | Workshop supplies, guest teacher travel |
+| Operations   | Website hosting, communication tools    |
 
 ### 5.3 Other Ways to Support
 
@@ -246,6 +252,7 @@ Bangkok 10110, Thailand
 ### 6.3 Open in Maps
 
 Visit the **Location** page on the website for:
+
 - Interactive Google Maps embed
 - Direct "Open in Google Maps" link
 - Address in both English and Thai
@@ -261,13 +268,13 @@ Visit the **Location** page on the website for:
 
 Our blog is organized into thematic sections covering the full scope of our community's activities and teachings:
 
-| Section | What You'll Find |
-|---------|-----------------|
+| Section              | What You'll Find                                        |
+| -------------------- | ------------------------------------------------------- |
 | **Shambhala Vision** | Core teachings, philosophy, and the Shambhala tradition |
-| **What We Offer** | Programs, meditation sessions, workshops, and retreats |
-| **Bibliography** | Recommended reading with book covers and descriptions |
-| **Resources** | Practice resources, links, and guided materials |
-| **Membership** | Information about joining and supporting the community |
+| **What We Offer**    | Programs, meditation sessions, workshops, and retreats  |
+| **Bibliography**     | Recommended reading with book covers and descriptions   |
+| **Resources**        | Practice resources, links, and guided materials         |
+| **Membership**       | Information about joining and supporting the community  |
 
 ### 7.2 Browsing Posts
 
@@ -295,16 +302,17 @@ The Bibliography section features a curated collection of 29 books on Shambhala,
 
 Learn more about us through these pages:
 
-| Page | Content |
-|------|---------|
-| **About** | Overview of our community |
+| Page                | Content                               |
+| ------------------- | ------------------------------------- |
+| **About**           | Overview of our community             |
 | **About Shambhala** | The Shambhala tradition and teachings |
-| **Our Vision** | Mission and aspirations |
-| **Lineage** | Teaching lineage and history |
+| **Our Vision**      | Mission and aspirations               |
+| **Lineage**         | Teaching lineage and history          |
 
 ### 8.2 Resources
 
 Visit the **Resources** page for:
+
 - Recommended books on meditation
 - Online practice resources
 - Related organizations and centres
@@ -323,6 +331,7 @@ The main menu appears at the top of every page:
 ### 9.2 Mobile Navigation
 
 On phones and tablets:
+
 1. Tap the **menu icon** (☰) in the top-right corner
 2. The navigation menu slides open
 3. Tap any link to navigate
@@ -331,6 +340,7 @@ On phones and tablets:
 ### 9.3 Footer
 
 At the bottom of every page you'll find:
+
 - Quick links to all main sections
 - Social media links
 - Newsletter signup
@@ -338,18 +348,18 @@ At the bottom of every page you'll find:
 
 ### 9.4 Useful Direct URLs
 
-| Page | URL |
-|------|-----|
-| Homepage | `/` |
-| All Events | `/events` |
-| Blog | `/blog` |
-| Community Channels | `/community` |
-| Donate | `/donate` |
-| Location & Map | `/location` |
-| Learn Meditation | `/learn/meditation` |
-| About | `/about` |
-| Contact | `/contact` |
-| Calendar Feed | `/api/calendar/feed.ics` |
+| Page               | URL                      |
+| ------------------ | ------------------------ |
+| Homepage           | `/`                      |
+| All Events         | `/events`                |
+| Blog               | `/blog`                  |
+| Community Channels | `/community`             |
+| Donate             | `/donate`                |
+| Location & Map     | `/location`              |
+| Learn Meditation   | `/learn/meditation`      |
+| About              | `/about`                 |
+| Contact            | `/contact`               |
+| Calendar Feed      | `/api/calendar/feed.ics` |
 
 ---
 
@@ -382,13 +392,13 @@ Read our full Privacy Policy at `/privacy`.
 
 ## 12. Contact Us
 
-| Channel | Details |
-|---------|---------|
-| Email | bangkok@shambhala.info |
-| WhatsApp | Via Community page |
-| LINE | Via Community page |
-| Facebook | @shambhalabangkok |
-| Instagram | @shambhalabangkok |
+| Channel   | Details                                         |
+| --------- | ----------------------------------------------- |
+| Email     | bangkok@shambhala.info                          |
+| WhatsApp  | Via Community page                              |
+| LINE      | Via Community page                              |
+| Facebook  | @shambhalabangkok                               |
+| Instagram | @shambhalabangkok                               |
 | In person | Young Place Building, Sukhumvit Soi 23, Bangkok |
 
 Visit the **Contact** page at `/contact` for all contact options.
@@ -412,5 +422,5 @@ New to Bangkok Shambhala? Here's how to get started:
 
 ---
 
-*Bangkok Shambhala User Guide v1.0 — March 2026*
-*Visit us at shambhala-bangkok.org*
+_Bangkok Shambhala User Guide v1.0 — March 2026_
+_Visit us at shambhala-bangkok.org_

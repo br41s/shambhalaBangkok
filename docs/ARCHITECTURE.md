@@ -7,12 +7,14 @@ Bangkok Shambhala is a static-first Next.js application with selective server-si
 ## Design Decisions
 
 ### Why Next.js App Router?
+
 - **Static generation** for content pages = fastest possible load times
 - **Server components** = smaller client bundles
 - **API routes** = newsletter signup, ICS generation, admin auth without external servers
 - **Vercel hosting** = zero-config deployment with CDN
 
 ### Why Markdown + Custom Admin?
+
 - Content lives in Git → version history, no vendor lock-in
 - Custom admin panel at `/admin/` with email/password login
 - Editors create/edit content through forms with a Markdown editor toolbar
@@ -20,6 +22,7 @@ Bangkok Shambhala is a static-first Next.js application with selective server-si
 - No database to maintain or scale
 
 ### Why NOT a database?
+
 - < 100 events/year → Markdown files are sufficient
 - Single admin account → no complex user management needed
 - Donations via external payment links → no transaction processing
@@ -57,6 +60,7 @@ CDN serves worldwide
 ```
 
 ### Authentication Flow
+
 1. User submits email + password (+ optional Turnstile token)
 2. Server verifies credentials against `ADMIN_EMAIL` / `ADMIN_PASSWORD` env vars
 3. If valid, creates HMAC-SHA256 signed session token (24h expiry)
@@ -64,6 +68,7 @@ CDN serves worldwide
 5. All admin pages call `requireAuth()` which validates the cookie or redirects to login
 
 ### Content CRUD Flow
+
 1. Admin fills form → client POSTs JSON to `/api/admin/content`
 2. API route verifies session cookie
 3. Builds Markdown file with YAML frontmatter (via `gray-matter`)
@@ -109,6 +114,7 @@ src/
 ## Data Layer
 
 ### Content Reading
+
 All content is read from `content/` directory at build time using Node.js `fs` module:
 
 1. `content.ts` provides generic `getAllContent()` and `getContentBySlug()`
@@ -116,7 +122,9 @@ All content is read from `content/` directory at build time using Node.js `fs` m
 3. `blog.ts` wraps content reader with blog-specific sorting
 
 ### Schema.org
+
 Every page includes structured data via JSON-LD:
+
 - Organization (global)
 - LocalBusiness (location pages)
 - Event (event details)
@@ -125,6 +133,7 @@ Every page includes structured data via JSON-LD:
 - FAQPage (FAQ sections)
 
 ### Markdown Processing
+
 Content stored as Markdown is converted to sanitized HTML at build time:
 
 1. Raw Markdown files are read from `content/` by `content.ts` (with gray-matter for frontmatter)
@@ -133,21 +142,23 @@ Content stored as Markdown is converted to sanitized HTML at build time:
 4. Pages render the HTML via `dangerouslySetInnerHTML` inside Tailwind `prose` containers
 
 ### Blog Sections
+
 Blog posts can belong to one of five sections via a `section` field in frontmatter:
 
-| Section | Slug | Description |
-|---------|------|-------------|
+| Section          | Slug               | Description                   |
+| ---------------- | ------------------ | ----------------------------- |
 | Shambhala Vision | `shambhala-vision` | Core teachings and philosophy |
-| What We Offer | `what-we-offer` | Programs and activities |
-| Bibliography | `bibliography` | Recommended reading list |
-| Resources | `resources` | Practice resources and links |
-| Membership | `membership` | Community membership info |
+| What We Offer    | `what-we-offer`    | Programs and activities       |
+| Bibliography     | `bibliography`     | Recommended reading list      |
+| Resources        | `resources`        | Practice resources and links  |
+| Membership       | `membership`       | Community membership info     |
 
 - **SectionTabs** (`components/ui/SectionTabs.tsx`) renders horizontal tab pills on the blog listing page
 - `blog.ts` provides `getPostsBySection()` for filtered queries
 - The `BlogSection` union type is defined in `types.ts`
 
 ### Bibliography (Special Rendering)
+
 The bibliography section has custom rendering instead of raw Markdown HTML:
 
 1. `books-data.ts` exports a `Book[]` array with 29 entries (title, author, cover image path, short text, optional extended text)
@@ -158,6 +169,7 @@ The bibliography section has custom rendering instead of raw Markdown HTML:
 3. `[slug]/page.tsx` detects `slug === 'bibliography'` and renders `<BookList>` instead of `dangerouslySetInnerHTML`
 
 ### Client-Side Features
+
 - **Google Translate** (`GoogleTranslate.tsx`): Auto-translate widget via Google's free Translate API, floating bottom-right
 - **Analytics**: Plausible (privacy-first, no cookies)
 - **Timezone**: All dates/times formatted in Asia/Bangkok (GMT+7) via `Intl.DateTimeFormat`
@@ -165,6 +177,7 @@ The bibliography section has custom rendering instead of raw Markdown HTML:
 ## Security Architecture
 
 ### Headers (next.config.js)
+
 - Content-Security-Policy (strict)
 - Strict-Transport-Security (HSTS)
 - X-Frame-Options: DENY
@@ -173,6 +186,7 @@ The bibliography section has custom rendering instead of raw Markdown HTML:
 - Permissions-Policy (restricted)
 
 ### Admin Authentication
+
 - Email/password login verified against environment variables
 - HMAC-SHA256 signed session tokens with 24-hour expiry
 - HTTP-only secure cookie for session storage
@@ -181,6 +195,7 @@ The bibliography section has custom rendering instead of raw Markdown HTML:
 - All admin pages protected by `requireAuth()` middleware
 
 ### API Protection
+
 - Admin API routes verify session cookie before processing
 - GitHub API calls authenticated via personal access token
 - Rate limiting on newsletter endpoint (5 requests/minute per IP)
@@ -189,14 +204,14 @@ The bibliography section has custom rendering instead of raw Markdown HTML:
 
 ## Performance Budget
 
-| Metric | Target |
-|---|---|
-| First Contentful Paint | < 1.2s |
-| Largest Contentful Paint | < 2.5s |
-| Total Blocking Time | < 200ms |
-| Cumulative Layout Shift | < 0.1 |
-| Bundle size (JS) | < 100KB gzipped |
-| Lighthouse score | > 95 |
+| Metric                   | Target          |
+| ------------------------ | --------------- |
+| First Contentful Paint   | < 1.2s          |
+| Largest Contentful Paint | < 2.5s          |
+| Total Blocking Time      | < 200ms         |
+| Cumulative Layout Shift  | < 0.1           |
+| Bundle size (JS)         | < 100KB gzipped |
+| Lighthouse score         | > 95            |
 
 ## Hosting Architecture
 

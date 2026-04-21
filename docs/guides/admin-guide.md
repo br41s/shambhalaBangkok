@@ -41,11 +41,13 @@ Version 1.0 — March 2026
 Welcome to the Bangkok Shambhala website administration guide. This document walks you through every aspect of managing the site, from creating events to publishing blog posts and monitoring site health.
 
 **Who is this guide for?**
+
 - Community coordinators who manage events
 - Content editors who write blog posts
 - Site administrators who oversee the website
 
 **What you'll need:**
+
 - A modern web browser (Chrome, Firefox, Safari, or Edge)
 - Your admin login credentials (email and password, configured by the site administrator)
 
@@ -75,6 +77,7 @@ After logging in, you'll see the dashboard at `/admin/`:
 ### 2.3 Navigation
 
 The admin sidebar includes:
+
 - **Dashboard** — overview and quick actions
 - **Events** — list all events, create new, edit existing
 - **Posts** — list all blog posts, create new, edit existing
@@ -91,29 +94,29 @@ The admin sidebar includes:
    Or click **+ New Event** from the dashboard
 2. Fill in the required fields:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| Title | Yes | Event name (e.g., "Wednesday Evening Meditation") |
-| Slug | Auto | URL path — auto-generated from title, editable |
-| Start Date | Yes | Event start with time (timezone auto-appended as +07:00) |
-| End Date | Yes | Event end with time |
-| Summary | Yes | 1-2 sentences for event cards and search results |
-| Body | Yes | Full description using the Markdown editor |
-| Modality | Yes | `in-person`, `online`, or `hybrid` |
-| Pricing | Yes | `free`, `donation`, or `paid` |
-| Status | Yes | `upcoming`, `cancelled`, or `past` |
-| Location | Yes | Pre-filled with default venue address |
+| Field      | Required | Description                                              |
+| ---------- | -------- | -------------------------------------------------------- |
+| Title      | Yes      | Event name (e.g., "Wednesday Evening Meditation")        |
+| Slug       | Auto     | URL path — auto-generated from title, editable           |
+| Start Date | Yes      | Event start with time (timezone auto-appended as +07:00) |
+| End Date   | Yes      | Event end with time                                      |
+| Summary    | Yes      | 1-2 sentences for event cards and search results         |
+| Body       | Yes      | Full description using the Markdown editor               |
+| Modality   | Yes      | `in-person`, `online`, or `hybrid`                       |
+| Pricing    | Yes      | `free`, `donation`, or `paid`                            |
+| Status     | Yes      | `upcoming`, `cancelled`, or `past`                       |
+| Location   | Yes      | Pre-filled with default venue address                    |
 
 **Optional fields:**
 
-| Field | Description |
-|-------|-------------|
-| Tags | Categories: meditation, workshop, retreat, online, etc. |
-| Featured Image | URL for the event banner image |
-| Facilitator | Who leads the session |
-| Capacity | Limit (leave empty for unlimited) |
-| Price Amount | Numeric amount for paid events |
-| Price Currency | THB, USD, EUR |
+| Field          | Description                                             |
+| -------------- | ------------------------------------------------------- |
+| Tags           | Categories: meditation, workshop, retreat, online, etc. |
+| Featured Image | URL for the event banner image                          |
+| Facilitator    | Who leads the session                                   |
+| Capacity       | Limit (leave empty for unlimited)                       |
+| Price Amount   | Numeric amount for paid events                          |
+| Price Currency | THB, USD, EUR                                           |
 
 3. Use the **Markdown toolbar** to format the body (Bold, Italic, Headings, Lists, Links, Images)
 4. Click **Save Event**
@@ -142,6 +145,7 @@ Edit → change status to "past"
 ```
 
 **Cancelling an event:**
+
 1. Open the event for editing
 2. Change Status to `cancelled`
 3. Add a notice at the top of the body: `> **This event has been cancelled.**`
@@ -161,6 +165,7 @@ For weekly sessions (e.g., Wednesday Meditation):
 ### 3.5 Event Calendar Feed
 
 The site automatically generates an ICS calendar feed at:
+
 - **All events:** `/api/calendar/feed.ics`
 - **Single event:** `/api/events/[slug]/ics`
 
@@ -175,17 +180,17 @@ Users can subscribe to the feed in Google Calendar, Apple Calendar, or Outlook. 
 1. Click **Posts** in the admin navigation, then **+ New Post**
 2. Fill in the fields:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| Title | Yes | Article headline |
-| Slug | Auto | URL path (auto-generated from title) |
-| Date | Yes | Publication date |
-| Author | Yes | Author name (defaults to "Bangkok Shambhala") |
-| Excerpt | Yes | 2-3 sentence summary for cards |
-| Body | Yes | Full article using the Markdown editor |
-| Tags | No | Categories for organization |
-| Featured Image | No | URL for header image |
-| Published | Yes | Toggle — only published posts appear on the site |
+| Field          | Required | Description                                      |
+| -------------- | -------- | ------------------------------------------------ |
+| Title          | Yes      | Article headline                                 |
+| Slug           | Auto     | URL path (auto-generated from title)             |
+| Date           | Yes      | Publication date                                 |
+| Author         | Yes      | Author name (defaults to "Bangkok Shambhala")    |
+| Excerpt        | Yes      | 2-3 sentence summary for cards                   |
+| Body           | Yes      | Full article using the Markdown editor           |
+| Tags           | No       | Categories for organization                      |
+| Featured Image | No       | URL for header image                             |
+| Published      | Yes      | Toggle — only published posts appear on the site |
 
 3. Click **Save Post**
 
@@ -203,14 +208,14 @@ Users can subscribe to the feed in Google Calendar, Apple Calendar, or Outlook. 
 The editor includes a toolbar with these buttons:
 
 | Button | What It Does | Markdown Inserted |
-|--------|-------------|-------------------|
-| **B** | Bold text | `**text**` |
-| *I* | Italic text | `*text*` |
-| H2 | Heading 2 | `## Heading` |
-| H3 | Heading 3 | `### Heading` |
-| List | Bullet list | `- item` |
-| Link | Insert link | `[text](url)` |
-| Image | Insert image | `![alt](url)` |
+| ------ | ------------ | ----------------- |
+| **B**  | Bold text    | `**text**`        |
+| _I_    | Italic text  | `*text*`          |
+| H2     | Heading 2    | `## Heading`      |
+| H3     | Heading 3    | `### Heading`     |
+| List   | Bullet list  | `- item`          |
+| Link   | Insert link  | `[text](url)`     |
+| Image  | Insert image | `![alt](url)`     |
 
 You can also type Markdown directly in the text area.
 
@@ -218,13 +223,13 @@ You can also type Markdown directly in the text area.
 
 Blog posts are organized into sections. When creating or editing a post, assign it to one of these sections via the `section` frontmatter field:
 
-| Section Slug | Display Name | Description |
-|-------------|-------------|-------------|
-| `shambhala-vision` | Shambhala Vision | Core teachings and philosophy |
-| `what-we-offer` | What We Offer | Programs, sessions, workshops |
-| `bibliography` | Bibliography | Recommended reading (special rendering) |
-| `resources` | Resources | Practice resources and links |
-| `membership` | Membership | Community membership info |
+| Section Slug       | Display Name     | Description                             |
+| ------------------ | ---------------- | --------------------------------------- |
+| `shambhala-vision` | Shambhala Vision | Core teachings and philosophy           |
+| `what-we-offer`    | What We Offer    | Programs, sessions, workshops           |
+| `bibliography`     | Bibliography     | Recommended reading (special rendering) |
+| `resources`        | Resources        | Practice resources and links            |
+| `membership`       | Membership       | Community membership info               |
 
 Users can filter posts by section using the **tab pills** on the blog listing page.
 
@@ -234,15 +239,16 @@ The Bibliography section has a special layout displaying book covers with expand
 
 **Book data** is stored in `src/lib/books-data.ts` (not in Markdown). Each entry includes:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `title` | Yes | Full book title |
-| `author` | Yes | Author name(s) |
-| `cover` | Yes | Path to cover image (e.g., `/images/books/filename.jpg`) |
-| `shortText` | Yes | Brief description shown by default |
-| `extendedText` | No | Longer text revealed by "Show more" (set to `null` if none) |
+| Field          | Required | Description                                                 |
+| -------------- | -------- | ----------------------------------------------------------- |
+| `title`        | Yes      | Full book title                                             |
+| `author`       | Yes      | Author name(s)                                              |
+| `cover`        | Yes      | Path to cover image (e.g., `/images/books/filename.jpg`)    |
+| `shortText`    | Yes      | Brief description shown by default                          |
+| `extendedText` | No       | Longer text revealed by "Show more" (set to `null` if none) |
 
 **To add a new book:**
+
 1. Add the cover image to `public/images/books/` (JPEG, max 200KB, ~160×240px recommended)
 2. Add a new entry to the `books` array in `src/lib/books-data.ts`
 3. Commit and push — Vercel will rebuild automatically
@@ -255,12 +261,12 @@ The Bibliography section has a special layout displaying book covers with expand
 
 Suggested publishing schedule:
 
-| Day | Content Type | Example |
-|-----|-------------|---------|
-| Monday | Weekly preview | "This Week at Bangkok Shambhala" |
-| Wednesday | Post-session update | Recap + reflection |
-| Friday | Weekend preview | Upcoming workshop details |
-| 1st of month | Monthly newsletter | Events digest + community news |
+| Day          | Content Type        | Example                          |
+| ------------ | ------------------- | -------------------------------- |
+| Monday       | Weekly preview      | "This Week at Bangkok Shambhala" |
+| Wednesday    | Post-session update | Recap + reflection               |
+| Friday       | Weekend preview     | Upcoming workshop details        |
+| 1st of month | Monthly newsletter  | Events digest + community news   |
 
 ---
 
@@ -268,13 +274,13 @@ Suggested publishing schedule:
 
 ### 5.1 Image Guidelines
 
-| Aspect | Recommendation |
-|--------|---------------|
-| Format | WebP or JPEG (photos), PNG (graphics) |
-| Max width | 1200px |
-| Max file size | 200KB |
-| Naming | Descriptive: `wednesday-meditation-group.jpg` |
-| Alt text | Always describe the image content |
+| Aspect        | Recommendation                                |
+| ------------- | --------------------------------------------- |
+| Format        | WebP or JPEG (photos), PNG (graphics)         |
+| Max width     | 1200px                                        |
+| Max file size | 200KB                                         |
+| Naming        | Descriptive: `wednesday-meditation-group.jpg` |
+| Alt text      | Always describe the image content             |
 
 ### 5.2 Adding Images to Content
 
@@ -316,12 +322,12 @@ Brevo automatically adds an unsubscribe link to every email. This is required by
 
 The site includes 4 pre-built n8n automation workflows:
 
-| Workflow | Trigger | What It Does |
-|----------|---------|-------------|
-| Event Published | Webhook | Sends newsletter + prepares social copy |
-| Weekly Reminder | Monday 9:00 AM | Sends weekly event digest to WhatsApp + email |
-| Broken Link Monitor | Sunday 3:00 AM | Checks all URLs, emails alert if any are broken |
-| Social Copy Generator | Webhook | Uses AI to generate Facebook/Instagram/WhatsApp/LINE copy |
+| Workflow              | Trigger        | What It Does                                              |
+| --------------------- | -------------- | --------------------------------------------------------- |
+| Event Published       | Webhook        | Sends newsletter + prepares social copy                   |
+| Weekly Reminder       | Monday 9:00 AM | Sends weekly event digest to WhatsApp + email             |
+| Broken Link Monitor   | Sunday 3:00 AM | Checks all URLs, emails alert if any are broken           |
+| Social Copy Generator | Webhook        | Uses AI to generate Facebook/Instagram/WhatsApp/LINE copy |
 
 ### 7.2 Setting Up n8n
 
@@ -355,13 +361,13 @@ The site handles these SEO aspects automatically:
 
 When creating content, optimize these fields:
 
-| Field | SEO Impact | Tips |
-|-------|-----------|------|
-| Title | High | Include keywords: "Meditation Workshop Bangkok" |
-| Summary/Excerpt | High | This appears in Google search results |
-| Body headings | Medium | Use `##` and `###` for structure |
-| Alt text | Medium | Describe images for search engines |
-| Tags | Low | Helps internal categorization |
+| Field           | SEO Impact | Tips                                            |
+| --------------- | ---------- | ----------------------------------------------- |
+| Title           | High       | Include keywords: "Meditation Workshop Bangkok" |
+| Summary/Excerpt | High       | This appears in Google search results           |
+| Body headings   | Medium     | Use `##` and `###` for structure                |
+| Alt text        | Medium     | Describe images for search engines              |
+| Tags            | Low        | Helps internal categorization                   |
 
 ### 8.3 Google Search Console
 
@@ -377,16 +383,19 @@ When creating content, optimize these fields:
 ### 9.1 Regular Checks
 
 **Weekly:**
+
 - [ ] Check site loads correctly
 - [ ] Review Plausible analytics at [plausible.io](https://plausible.io)
 - [ ] Update event statuses (mark past events)
 
 **Monthly:**
+
 - [ ] Check Google Search Console for errors
 - [ ] Review newsletter subscriber count in Brevo
 - [ ] Run Lighthouse audit (Chrome DevTools → Lighthouse tab)
 
 **Quarterly:**
+
 - [ ] Review and rotate API keys
 - [ ] Update dependencies (coordinate with developer)
 - [ ] Full QA pass (see QA Checklist in repository)
@@ -394,6 +403,7 @@ When creating content, optimize these fields:
 ### 9.2 Vercel Dashboard
 
 Your hosting dashboard at [vercel.com](https://vercel.com) shows:
+
 - **Deployments** — build history and status
 - **Analytics** — Web Vitals performance data
 - **Logs** — API route execution logs
@@ -403,16 +413,16 @@ Your hosting dashboard at [vercel.com](https://vercel.com) shows:
 
 ## 10. Troubleshooting
 
-| Problem | Solution |
-|---------|----------|
-| Changes don't appear after saving | Wait 1-2 min for rebuild. Check Vercel dashboard for build errors. |
-| Admin login fails | Clear browser cache. Try incognito mode. Verify ADMIN_EMAIL and ADMIN_PASSWORD env vars. |
-| Images don't load | Verify the image URL is correct and publicly accessible. |
-| Event not on homepage | Verify status is `upcoming` and date is in the future. |
-| Newsletter signup fails | Check Brevo API key in Vercel env vars. Check API logs. |
-| 404 errors for old URLs | Add a redirect in `next.config.js` (developer task). |
-| Site down | Check [status.vercel.com](https://status.vercel.com). Rollback in Vercel if recent deploy broke it. |
-| Slow page load | Run Lighthouse audit. Check for large images. Contact developer. |
+| Problem                           | Solution                                                                                            |
+| --------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Changes don't appear after saving | Wait 1-2 min for rebuild. Check Vercel dashboard for build errors.                                  |
+| Admin login fails                 | Clear browser cache. Try incognito mode. Verify ADMIN_EMAIL and ADMIN_PASSWORD env vars.            |
+| Images don't load                 | Verify the image URL is correct and publicly accessible.                                            |
+| Event not on homepage             | Verify status is `upcoming` and date is in the future.                                              |
+| Newsletter signup fails           | Check Brevo API key in Vercel env vars. Check API logs.                                             |
+| 404 errors for old URLs           | Add a redirect in `next.config.js` (developer task).                                                |
+| Site down                         | Check [status.vercel.com](https://status.vercel.com). Rollback in Vercel if recent deploy broke it. |
+| Slow page load                    | Run Lighthouse audit. Check for large images. Contact developer.                                    |
 
 ---
 
@@ -428,15 +438,15 @@ Your hosting dashboard at [vercel.com](https://vercel.com) shows:
 
 ## 12. Getting Help
 
-| Type of Help | Contact |
-|-------------|---------|
-| Content questions | Community coordinator |
-| Technical issues | Site developer |
-| Admin panel access | Site administrator |
-| Brevo / newsletters | Site administrator |
-| n8n automations | Site developer |
+| Type of Help        | Contact               |
+| ------------------- | --------------------- |
+| Content questions   | Community coordinator |
+| Technical issues    | Site developer        |
+| Admin panel access  | Site administrator    |
+| Brevo / newsletters | Site administrator    |
+| n8n automations     | Site developer        |
 
 ---
 
-*Bangkok Shambhala Admin Guide v1.0 — March 2026*
-*For the latest version, check the repository at `/docs/guides/`*
+_Bangkok Shambhala Admin Guide v1.0 — March 2026_
+_For the latest version, check the repository at `/docs/guides/`_

@@ -26,6 +26,9 @@ dist/
 npm-debug.log*
 pnpm-debug.log*
 
+# Local temporary files
+content-scraped.md
+
 # Vercel
 .vercel
 
