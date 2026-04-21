@@ -72,21 +72,10 @@ function DonationMethodGroupCard({
         donations.
       </p>
 
-      <div className="space-y-4 mb-4 text-left">
-        <div className="rounded-2xl bg-surface-soft p-4">
-          <p className="text-sm text-text-secondary uppercase tracking-[0.2em] mb-2">
-            Local transfer
-          </p>
-          <p className="font-semibold">Bangkok Bank</p>
-          <p className="text-sm text-text-secondary">Account: 1183273182</p>
-        </div>
-        <div className="rounded-2xl bg-surface-soft p-4">
-          <p className="text-sm text-text-secondary uppercase tracking-[0.2em] mb-2">
-            International transfer
-          </p>
-          <p className="font-semibold">Wise</p>
-          <p className="text-sm text-text-secondary">Low-fee global transfers</p>
-        </div>
+      <div className="mb-6">
+        <p className="text-sm text-text-secondary mb-2">
+          Choose local transfer via Bangkok Bank or international transfer via Wise.
+        </p>
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
