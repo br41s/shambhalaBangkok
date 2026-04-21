@@ -158,6 +158,20 @@ function generateSlug(uid: string, summary: string, start: Date): string {
   return `${base}-${dateStr}`;
 }
 
+// Serializa una fecha en formato ISO con offset +07:00 (Bangkok)
+function toBangkokISOString(date: Date): string {
+  // Obtiene los componentes en hora Bangkok
+  const tzOffset = 7 * 60; // minutos
+  const local = new Date(date.getTime() + (date.getTimezoneOffset() + tzOffset) * 60000);
+  const y = local.getUTCFullYear();
+  const m = String(local.getUTCMonth() + 1).padStart(2, '0');
+  const d = String(local.getUTCDate()).padStart(2, '0');
+  const h = String(local.getUTCHours()).padStart(2, '0');
+  const min = String(local.getUTCMinutes()).padStart(2, '0');
+  const s = String(local.getUTCSeconds()).padStart(2, '0');
+  return `${y}-${m}-${d}T${h}:${min}:${s}+07:00`;
+}
+
 function icsEventToSEvent(vevent: ICSEvent): (SEvent & { slug: string }) | null {
   const start = parseICSDate(vevent.dtstart);
   if (!start) return null;
@@ -175,8 +189,8 @@ function icsEventToSEvent(vevent: ICSEvent): (SEvent & { slug: string }) | null 
     title: vevent.summary || 'Untitled Event',
     summary: vevent.description.slice(0, 200),
     description: vevent.description,
-    startDate: start.toISOString(),
-    endDate: end.toISOString(),
+    startDate: toBangkokISOString(start),
+    endDate: toBangkokISOString(end),
     timezone: 'Asia/Bangkok',
     location: vevent.location,
     modality: 'in-person',
