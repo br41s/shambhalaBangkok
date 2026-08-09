@@ -14,12 +14,12 @@ const firstVisitFAQ = [
   {
     question: 'What happens at a meditation session?',
     answer:
-      'Each session begins with a brief introduction for newcomers, followed by sitting meditation with guided instruction. No prior experience is needed — just come as you are.',
+      'At our regular meditation sessions we practice Shamatha meditation (also known as "calm-abiding" meditation), which aims to calm our mind by putting our attention on our breathing, while keeping a good posture and letting go of our thoughts. Each session begins with meditation instructions for newcomers, followed by sitting meditation and/or walking mediation.',
   },
   {
     question: 'Is meditation instruction free?',
     answer:
-      'Yes. Basic meditation instruction is always offered free of charge. Some special programs may suggest a donation to cover costs.',
+      'Since our center is a non-profit organization run by volunteers, meditations are on a donation basis. Our regular sessions on Wednesdays and Sundays have a suggested donation of 150 Thai Baht. For some special programs the suggested amount may be higher. However, to keep meditation accessible we invite everyone to our center regardless of their financial situation.'
   },
   {
     question: 'What language are sessions in?',
@@ -33,12 +33,12 @@ const firstVisitFAQ = [
   {
     question: 'Do I need to register?',
     answer:
-      'No registration is required for regular weekly sessions. Some special workshops may ask for a simple RSVP.',
+      'No registration is required for our regular weekly sessions. Some special workshops may require a registration to reserve your spot, this mostly applies to courses spanning multiple days/weeks.',
   },
   {
-    question: "I've never meditated before — is that okay?",
+    question: "I've never meditated before, is that okay?",
     answer:
-      'Absolutely. Our community welcomes complete beginners. We offer personal instruction at the start of every class.',
+      'Absolutely! Our community welcomes complete beginners. We offer personal instruction at the start of every class.',
   },
 ];
 
