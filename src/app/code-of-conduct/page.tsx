@@ -15,7 +15,7 @@ export default function CodeOfConductPage() {
           environment for all participants. This code of conduct applies to all interactions
           within our community — in person and online.
         </p>
-
+        <br />
         <h2>Our Principles</h2>
         <ul>
           <li><strong>Respect:</strong> Treat every person with dignity and kindness.</li>
@@ -24,7 +24,7 @@ export default function CodeOfConductPage() {
           <li><strong>Honesty:</strong> Communicate with integrity and openness.</li>
           <li><strong>Accountability:</strong> Take responsibility for our actions and their impact.</li>
         </ul>
-
+        <br />
         <h2>Expected Behavior</h2>
         <ul>
           <li>Be welcoming and open to newcomers.</li>
@@ -33,7 +33,7 @@ export default function CodeOfConductPage() {
           <li>Give constructive feedback when appropriate.</li>
           <li>Support the wellbeing of the community.</li>
         </ul>
-
+        <br />
         <h2>Unacceptable Behavior</h2>
         <ul>
           <li>Harassment, intimidation, or discrimination of any kind.</li>
@@ -41,7 +41,7 @@ export default function CodeOfConductPage() {
           <li>Disruptive behavior during meditation sessions or events.</li>
           <li>Sharing other members&apos; personal information without consent.</li>
         </ul>
-
+        <br />
         <h2>Reporting Concerns</h2>
         <p>
           If you experience or witness behavior that violates this code of conduct,
