@@ -11,29 +11,29 @@ export const metadata: Metadata = {
 
 const meditationFAQ = [
   {
-    question: 'What style of meditation do you teach?',
+    question: 'What style of meditation do you practice?',
     answer:
-      'We teach shamatha (calm-abiding) meditation in the Shambhala tradition. It is a simple, secular approach to mindfulness that anyone can practice regardless of background or beliefs.',
+      'We practice Shamatha (calm-abiding) meditation in the Shambhala tradition, focusing on our breathing while keeping good posture and letting go of thoughts. It is a simple, secular approach to mindfulness that anyone can practice regardless of background or beliefs.',
   },
   {
     question: 'How long is a typical session?',
     answer:
-      'A typical weekly session is about 1 to 1.5 hours. This includes instruction, sitting meditation, walking meditation, and time for questions.',
+      'Our regular Sunday drop-in sessions are 1 hour of sitting and walking meditation, with an extended 3 hour session every last Sunday of the month. Our Café Shambhala sessions on Wednesday evenings are 1.5 hours including meditation, reading and group discussion.',
   },
   {
     question: 'Do I need experience?',
     answer:
-      'No experience is needed. We offer personal instruction to beginners at the start of every weekly session. Just arrive a few minutes early and let us know it is your first time.',
+      'No experience is needed. We offer personal instruction to beginners at the start of every session. Just arrive a few minutes early and let us know it is your first time.',
   },
   {
     question: 'Are there advanced programs?',
     answer:
-      'Yes. Beyond introductory classes, we offer progressive programs including weekend workshops, retreats, and study groups for committed practitioners.',
+      'Yes. Beyond our regular sessions, we offer a variety of programs including Dharma talks by visiting teachers, yoga classes and advance multi-week courses like our "In Everday Life" series.',
   },
   {
     question: 'Is there a cost?',
     answer:
-      'Basic meditation instruction is always free. Some special programs may have a suggested donation or fee to cover costs, but no one is ever turned away for financial reasons.',
+      'Because our center is a non-profit organization run by volunteers our regular sessions are donation based with a suggested amount of 150 Thai Baht. Some special programs may have a higher suggested donation or fee to cover costs, but no one is ever turned away for financial reasons.',
   },
 ];
 
@@ -54,7 +54,7 @@ export default function LearnPage() {
         <div className="prose max-w-none">
           <p>
             Meditation instruction at Bangkok Shambhala is available to anyone. At the start of
-            each weekly session, we offer a brief introduction for newcomers. You will receive
+            each session, we offer a brief introduction for newcomers. You will receive
             personal guidance on posture, breathing, and the basic technique of mindfulness meditation.
           </p>
           <p>
@@ -77,7 +77,7 @@ export default function LearnPage() {
             <div>
               <h3 className="font-semibold">Café Shambhala</h3>
               <p className="text-sm text-text-secondary">
-                Café Shambhala meets for a relaxed session of meditation and community time.
+                Sitting meditation followed by book reading and discussion and social time afterwards. Café Shambhala is suitable for anyone curious about meditation, Buddhism and meeting fellow practitioners.
               </p>
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function LearnPage() {
             <div>
               <h3 className="font-semibold">Sunday Meditation</h3>
               <p className="text-sm text-text-secondary">
-                Guided meditation session for all levels, followed by a brief reflection.
+                One full hour of sitting and walking meditation followed by social time with refreshments afterwards. The weekly Sunday afternoon drop-in meditation is for those who want to meditate in a supportive group setting. Every last Sunday of the month there is an extended 3 hour session from 2 - 5 PM.
               </p>
             </div>
           </div>
