@@ -131,17 +131,14 @@ const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
 let feedCache: CachedFeed | null = null;
 
 export async function isExternalFeedActive(): Promise<boolean> {
-  const enabled = await getSetting('external_ics_enabled');
-  if (enabled !== 'true') return false;
-  const url = await getSetting('external_ics_url');
-  return !!url;
+  return true;
 }
 
 export type FeedMode = 'replace' | 'merge';
 
 export async function getExternalFeedMode(): Promise<FeedMode> {
   const mode = await getSetting('external_ics_mode');
-  return mode === 'merge' ? 'merge' : 'replace';
+  return 'merge';
 }
 
 function slugify(text: string): string {
@@ -229,7 +226,7 @@ async function fetchAndParse(url: string): Promise<(SEvent & { slug: string })[]
 }
 
 export async function getExternalEvents(): Promise<(SEvent & { slug: string })[]> {
-  const url = await getSetting('external_ics_url');
+  const url = process.env.NEXT_PUBLIC_ICS_FEED;
   if (!url) return [];
 
   if (feedCache && Date.now() - feedCache.fetchedAt < CACHE_TTL) {
