@@ -33,16 +33,16 @@ export function EventCard({ event, compact }: EventCardProps) {
             {event.modality}
           </span>
         )}
-        {event.pricing === 'free' && (
+        {/* {event.pricing === 'free' && (
           <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-brand-yellow/10 text-brand-yellow-dark">
-            Free
+            Donation 
           </span>
         )}
         {event.pricing === 'donation' && (
           <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-brand-yellow/10 text-brand-yellow-dark">
             By donation
           </span>
-        )}
+        )} */}
         {isCancelled && (
           <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-red-50 text-red-700">
             Cancelled
