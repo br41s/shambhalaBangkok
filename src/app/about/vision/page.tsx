@@ -25,12 +25,14 @@ export default function VisionPage() {
           goodness through meditation and contemplative practice, we can extend it into our
           relationships, communities, and society.
         </p>
+        <br />
         <h2>Basic Goodness</h2>
         <p>
           Rather than viewing human nature as fundamentally flawed, the Shambhala tradition
           starts from the premise that our deepest nature is good, awake, and capable of
           tremendous compassion and clarity.
         </p>
+        <br />
         <h2>Enlightened Society</h2>
         <p>
           The idea of an enlightened society is not about perfection, but about communities

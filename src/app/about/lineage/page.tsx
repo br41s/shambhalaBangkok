@@ -23,6 +23,7 @@ export default function LineagePage() {
           The Shambhala tradition draws on centuries of Buddhist contemplative wisdom,
           adapted for the modern world by a lineage of remarkable teachers.
         </p>
+        <br />
         <h2>Chögyam Trungpa Rinpoche</h2>
         <p>
           Chögyam Trungpa Rinpoche (1939–1987) was a Tibetan Buddhist meditation master,
@@ -30,12 +31,14 @@ export default function LineagePage() {
           Tibetan teachers to present Buddhism in a way that was fully accessible to Western
           students, while preserving the depth and integrity of the tradition.
         </p>
+        <br />
         <h2>Sakyong Mipham Rinpoche</h2>
         <p>
           Sakyong Mipham Rinpoche is the current head of the Shambhala lineage. He has
           authored several books on meditation and leads the global Shambhala community
           in its mission of creating enlightened society.
         </p>
+        <br />
         <h2>A Living Tradition</h2>
         <p>
           The teachings offered at Bangkok Shambhala are rooted in this lineage and adapted

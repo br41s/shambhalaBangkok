@@ -10,16 +10,16 @@ export const siteConfig: SiteConfig = {
   email: 'bangkok@shambhala.info',
   location: {
     name: 'Shambhala Meditation Centre Bangkok',
-    address: 'Young Place Building, Sukhumvit Soi 23, Khlong Toei Nuea, Watthana, Bangkok 10110',
+    address: 'Young Place Building 3rd floor, Sukhumvit Soi 23, Khlong Toei Nuea, Watthana, Bangkok 10110',
     addressLocal: 'อาคาร Young Place ซอยสุขุมวิท 23 แขวงคลองเตยเหนือ เขตวัฒนา กรุงเทพฯ 10110',
     city: 'Bangkok',
     country: 'Thailand',
-    lat: 13.738,
-    lng: 100.5658,
-    mapsUrl: 'https://maps.app.goo.gl/61vn5zwuLWJUp1367',
+    lat: 13.740387725210779,
+    lng:  100.56560338252358,
+    mapsUrl: 'https://www.google.com/maps/place/Bangkok+Shambhala+Meditation+Center/@13.7401916,100.5655548,19.31z/data=!4m15!1m8!3m7!1s0x30e29ec4cce9a9b3:0x34321bd455f6d9a8!2sBangkok+Shambhala+Meditation+Center!8m2!3d13.7403709!4d100.5656037!10e1!16s%2Fg%2F11bbx0p7kp!3m5!1s0x30e29ec4cce9a9b3:0x34321bd455f6d9a8!8m2!3d13.7403709!4d100.5656037!16s%2Fg%2F11bbx0p7kp?hl=en-GB&entry=ttu&g_ep=EgoyMDI2MDgwNS4xIKXMDSoASAFQAw%3D%3D',
     directions:
-      'Take BTS to Asoke station or MRT to Sukhumvit station. Walk south along Sukhumvit Soi 23 for about 5 minutes. Young Place Building is on the right side.',
-    transitInfo: 'BTS Asoke / MRT Sukhumvit — 10 min walk',
+      'Take the BTS to Asok station (exit 6) or take the MRT to Sukhumvit station (exit 2). From here proceed to the Interchange 21 building (via Skywalk if coming from BTS or on ground level if coming from MRT) and exit on the East side to Sukhumvit soi 23. Walk North along Sukhumvit Soi 23 for about 5 minutes then turn right across Whiskgars. Follow this road (there is a leftward bend) until you find the Young Place Building all the way at the end of the soi on the left-hand side.',
+    transitInfo: 'BTS Asok (15 min walk) or MRT Sukhumvit (10 min walk)',
   },
   social: [
     {

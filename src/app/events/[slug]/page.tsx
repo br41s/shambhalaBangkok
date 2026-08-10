@@ -131,7 +131,7 @@ export default async function EventDetailPage({ params }: Params) {
               <p>{event.capacity} spots available</p>
             </div>
           )}
-          <div className="flex items-center gap-3">
+          {/* <div className="flex items-center gap-3">
             <Tag className="w-5 h-5 text-brand-yellow shrink-0" />
             <p>
               {event.pricing === 'free'
@@ -140,7 +140,7 @@ export default async function EventDetailPage({ params }: Params) {
                   ? `By donation${event.suggestedDonation ? ` (suggested: ${event.suggestedDonation} ${event.currency || 'THB'})` : ''}`
                   : `${event.price} ${event.currency || 'THB'}`}
             </p>
-          </div>
+          </div> */}
 
           {/* Actions */}
           {!isPast && event.status !== 'cancelled' && (

@@ -25,7 +25,7 @@ export default async function EventsPage() {
         </p>
         <div className="mt-4 flex gap-3">
           <Link
-            href="/api/calendar/feed.ics"
+            href={process.env.NEXT_PUBLIC_ICS_FEED!}
             className="text-sm font-medium text-brand-blue hover:text-brand-blue-dark transition-colors"
           >
             📅 Subscribe to Calendar (ICS)
