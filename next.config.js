@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  allowedDevOrigins: ['cb15-2001-fb1-3c-5077-74ea-5474-ca3c-8ee3.ngrok-free.app'],
   output: 'standalone',
   images: {
     formats: ['image/avif', 'image/webp'],
