@@ -12,13 +12,30 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
-    const payload = await request.json()
+    // IMPORTANT:
+    // Get the raw body first. Signature verification requires
+    // the exact bytes that Resend sent.
+    const payload = await request.text()
 
-    if (payload.type !== 'email.received') {
-      return NextResponse.json({ received: true })
+    // Verify that this request actually came from Resend.
+    const event = resend.webhooks.verify({
+      payload,
+      headers: {
+        id: request.headers.get('svix-id') ?? '',
+        timestamp: request.headers.get('svix-timestamp') ?? '',
+        signature: request.headers.get('svix-signature') ?? '',
+      },
+      webhookSecret: process.env.RESEND_WEBHOOK_SECRET!,
+    })
+
+    // Only process email.received events.
+    if (event.type !== 'email.received') {
+      return NextResponse.json({
+        received: true,
+      })
     }
 
-    const emailId = payload.data?.email_id
+    const emailId = event.data?.email_id
 
     if (!emailId) {
       return NextResponse.json(
@@ -26,6 +43,10 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
+
+    console.log(
+      `Processing Resend email: ${emailId}`
+    )
 
     // Retrieve the complete email from Resend.
     const { data: email, error: emailError } =
@@ -55,23 +76,27 @@ export async function POST(request: NextRequest) {
 
     console.log('Parsed event:', parsedEvent)
 
-    // Create the event as an unpublished draft.
-    const event = await createEvent(
+    // Create the event, or return the existing event if this
+    // email has already been processed.
+    const eventRecord = await createEvent(
       parsedEvent,
       emailId
     )
 
-    console.log('Created event:', event)
+    console.log(
+      'Created/found event:',
+      eventRecord.id
+    )
 
     // Look for an image attachment and upload it.
     const imagePath = await uploadEventImage(
       emailId,
-      event.id
+      eventRecord.id
     )
 
     if (imagePath) {
       await updateEventImage(
-        event.id,
+        eventRecord.id,
         imagePath
       )
 
@@ -83,15 +108,15 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      eventId: event.id,
+      eventId: eventRecord.id,
       image: imagePath,
     })
   } catch (error) {
     console.error('Webhook error:', error)
 
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
+    return new NextResponse(
+      'Invalid webhook or processing error',
+      { status: 400 }
     )
   }
 }
