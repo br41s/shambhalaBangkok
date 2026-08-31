@@ -56,7 +56,10 @@ export async function POST(request: NextRequest) {
     console.log('Parsed event:', parsedEvent)
 
     // Create the event as an unpublished draft.
-    const event = await createEvent(parsedEvent)
+    const event = await createEvent(
+      parsedEvent,
+      emailId
+    )
 
     console.log('Created event:', event)
 
