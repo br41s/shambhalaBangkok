@@ -6,7 +6,8 @@ import Link from 'next/link';
 
 export default async function AdminDashboard() {
   await requireAuth();
-  const upcomingEvents = getUpcomingEvents(5);
+
+  const upcomingEvents = (await getUpcomingEvents()).slice(0, 5);
   const recentPosts = getAllPosts().slice(0, 5);
 
   return (

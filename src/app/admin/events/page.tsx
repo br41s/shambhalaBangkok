@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default async function AdminEventsPage() {
   await requireAuth();
-  const events = getAllEvents();
+  const events = await getAllEvents();
 
   return (
     <div className="space-y-6">

@@ -6,8 +6,7 @@ import { Resend } from 'resend'
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function uploadEventImage(
-  emailId: string,
-  eventId: string
+  emailId: string
 ): Promise<string | null> {
   // Get attachments belonging to this email.
   const { data, error } =
@@ -35,11 +34,13 @@ export async function uploadEventImage(
   }
 
   // Get the actual attachment and its download URL.
-  const { data: attachmentDetails, error: attachmentError } =
-    await resend.emails.receiving.attachments.get({
-      id: attachment.id,
-      emailId
-    })
+  const {
+    data: attachmentDetails,
+    error: attachmentError,
+  } = await resend.emails.receiving.attachments.get({
+    id: attachment.id,
+    emailId,
+  })
 
   if (attachmentError || !attachmentDetails) {
     throw new Error(
@@ -67,7 +68,6 @@ export async function uploadEventImage(
   const imageBuffer = await response.arrayBuffer()
 
   const filename = attachment.filename ?? 'image'
-
   const contentType =
     attachment.content_type ?? 'application/octet-stream'
 
@@ -76,7 +76,8 @@ export async function uploadEventImage(
     contentType
   )
 
-  const path = `${eventId}/image${extension}`
+  // One image belongs to the entire imported email/series.
+  const path = `events/${emailId}/image${extension}`
 
   // Upload to Supabase Storage.
   const supabase = createAdminClient()
@@ -101,7 +102,8 @@ function getExtension(
   filename: string,
   contentType: string
 ): string {
-  const filenameExtension = filename.match(/\.[^.]+$/)?.[0]
+  const filenameExtension =
+    filename.match(/\.[^.]+$/)?.[0]
 
   if (filenameExtension) {
     return filenameExtension.toLowerCase()
