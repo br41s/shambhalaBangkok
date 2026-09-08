@@ -44,7 +44,7 @@ export async function generateMetadata({
   return generatePageMeta({
     title: event.title,
     description: event.summary,
-    ogImage: event.image,
+    ogImage: event.image ?? undefined,
   });
 }
 

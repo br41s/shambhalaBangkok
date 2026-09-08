@@ -2,13 +2,6 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import type { SEvent } from '@/lib/types'
 import type { EventOccurrence } from '@/lib/event-recurrence'
 
-/**
- * Represents one email import.
- *
- * One import can produce:
- * - one event
- * - or many events belonging to the same series
- */
 export type EventImport = {
   id: string
   source_email_id: string
@@ -16,23 +9,133 @@ export type EventImport = {
   created_at: string
 }
 
-/**
- * Create or retrieve an event import.
- *
- * source_email_id is unique, so the same Resend email
- * can never create a second import.
- */
+export type EventSeries = {
+  id: string
+  recurrence_type: 'weekly' | 'monthly'
+  interval: number
+  weekdays: number[]
+  occurrences: string[]
+  count: number | null
+  until: string | null
+  created_at: string
+  updated_at: string
+}
+
+export async function createEventSeries(
+  recurrence: {
+    type: 'weekly' | 'monthly'
+    interval?: number | null
+    weekdays?: number[]
+    occurrences?: string[]
+    count?: number | null
+    until?: string | null
+  }
+): Promise<EventSeries> {
+  const supabase = createAdminClient()
+
+  const { data, error } = await supabase
+    .from('event_series')
+    .insert({
+      recurrence_type: recurrence.type,
+      interval: recurrence.interval ?? 1,
+      weekdays: recurrence.weekdays ?? [],
+      occurrences: recurrence.occurrences ?? [],
+      count: recurrence.count ?? null,
+      until: recurrence.until ?? null,
+    })
+    .select()
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to create event series: ${error.message}`)
+  }
+
+  return data
+}
+
+export async function updateEventSeries(
+  seriesId: string,
+  recurrence: {
+    type: 'weekly' | 'monthly'
+    interval?: number | null
+    weekdays?: number[]
+    occurrences?: string[]
+    count?: number | null
+    until?: string | null
+  }
+): Promise<EventSeries> {
+  const supabase = createAdminClient()
+
+  const { data, error } = await supabase
+    .from('event_series')
+    .update({
+      recurrence_type: recurrence.type,
+      interval: recurrence.interval ?? 1,
+      weekdays: recurrence.weekdays ?? [],
+      occurrences: recurrence.occurrences ?? [],
+      count: recurrence.count ?? null,
+      until: recurrence.until ?? null,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', seriesId)
+    .select()
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to update event series: ${error.message}`)
+  }
+
+  return data
+}
+
+export async function getEventSeries(
+  seriesId: string
+): Promise<EventSeries | null> {
+  const supabase = createAdminClient()
+
+  const { data, error } = await supabase
+    .from('event_series')
+    .select('*')
+    .eq('id', seriesId)
+    .maybeSingle()
+
+  if (error) {
+    throw new Error(`Failed to get event series: ${error.message}`)
+  }
+
+  return data
+}
+
+export async function getEventSeriesForEvent(
+  eventId: string
+): Promise<EventSeries | null> {
+  const supabase = createAdminClient()
+
+  const { data: event, error: eventError } = await supabase
+    .from('events')
+    .select('series_id')
+    .eq('id', eventId)
+    .maybeSingle()
+
+  if (eventError) {
+    throw new Error(
+      `Failed to get event series ID: ${eventError.message}`
+    )
+  }
+
+  if (!event?.series_id) {
+    return null
+  }
+
+  return getEventSeries(event.series_id)
+}
+
 export async function createEventImport(
   sourceEmailId: string,
   seriesId: string | null = null
 ): Promise<EventImport> {
   const supabase = createAdminClient()
 
-  /*
-   * First check whether this email has already been imported.
-   *
-   * This also makes the function useful for webhook retries.
-   */
   const { data: existingImport, error: lookupError } =
     await supabase
       .from('event_imports')
@@ -60,19 +163,15 @@ export async function createEventImport(
     .single()
 
   if (error) {
-    /*
-     * A concurrent webhook retry may have inserted the
-     * same email between our lookup and insert.
-     *
-     * In that case, retrieve the existing import.
-     */
     if (error.code === '23505') {
-      const { data: concurrentImport, error: retryError } =
-        await supabase
-          .from('event_imports')
-          .select('*')
-          .eq('source_email_id', sourceEmailId)
-          .single()
+      const {
+        data: concurrentImport,
+        error: retryError,
+      } = await supabase
+        .from('event_imports')
+        .select('*')
+        .eq('source_email_id', sourceEmailId)
+        .single()
 
       if (retryError || !concurrentImport) {
         throw new Error(
@@ -92,9 +191,6 @@ export async function createEventImport(
   return data
 }
 
-/**
- * Update the series ID associated with an import.
- */
 export async function updateEventImportSeries(
   importId: string,
   seriesId: string
@@ -103,9 +199,7 @@ export async function updateEventImportSeries(
 
   const { data, error } = await supabase
     .from('event_imports')
-    .update({
-      series_id: seriesId,
-    })
+    .update({ series_id: seriesId })
     .eq('id', importId)
     .select()
     .single()
@@ -119,9 +213,6 @@ export async function updateEventImportSeries(
   return data
 }
 
-/**
- * Get an existing event import by Resend email ID.
- */
 export async function getEventImportByEmailId(
   sourceEmailId: string
 ) {
@@ -142,24 +233,14 @@ export async function getEventImportByEmailId(
   return data
 }
 
-/**
- * Get all events belonging to an import.
- *
- * This is useful when Resend retries a webhook that has
- * already been processed.
- */
-export async function getEventsByImportId(
-  importId: string
-) {
+export async function getEventsByImportId(importId: string) {
   const supabase = createAdminClient()
 
   const { data, error } = await supabase
     .from('events')
     .select('*')
     .eq('import_id', importId)
-    .order('starts_at', {
-      ascending: true,
-    })
+    .order('starts_at', { ascending: true })
 
   if (error) {
     throw new Error(
@@ -170,12 +251,24 @@ export async function getEventsByImportId(
   return (data ?? []).map(mapEvent)
 }
 
-/**
- * Create one concrete event occurrence.
- *
- * The recurrence engine has already converted the event's
- * local date/time into UTC ISO timestamps.
- */
+export async function getEventsBySeriesId(seriesId: string) {
+  const supabase = createAdminClient()
+
+  const { data, error } = await supabase
+    .from('events')
+    .select('*')
+    .eq('series_id', seriesId)
+    .order('starts_at', { ascending: true })
+
+  if (error) {
+    throw new Error(
+      `Failed to get series events: ${error.message}`
+    )
+  }
+
+  return (data ?? []).map(mapEvent)
+}
+
 export async function createEvent(
   event: EventOccurrence,
   options?: {
@@ -185,10 +278,16 @@ export async function createEvent(
 ) {
   const supabase = createAdminClient()
 
-  const slug = await createUniqueSlug(
-    event.title,
-    event.starts_at
-  )
+  const slug =
+    options?.seriesId
+      ? await createRecurringEventSlug(
+        event.title,
+        event.starts_at
+      )
+      : await createUniqueSlug(
+        event.title,
+        event.starts_at
+      )
 
   const { data, error } = await supabase
     .from('events')
@@ -200,33 +299,19 @@ export async function createEvent(
       description: event.description,
       location: event.location,
       published: false,
-
-      import_id:
-        options?.importId ?? null,
-
-      series_id:
-        options?.seriesId ?? null,
+      import_id: options?.importId ?? null,
+      series_id: options?.seriesId ?? null,
     })
     .select()
     .single()
 
   if (error) {
-    throw new Error(
-      `Failed to create event: ${error.message}`
-    )
+    throw new Error(`Failed to create event: ${error.message}`)
   }
 
   return data
 }
 
-/**
- * Update an event's image.
- *
- * Publishing is deliberately NOT done here.
- *
- * The webhook will publish the event only after the
- * image upload has succeeded.
- */
 export async function updateEventImage(
   eventId: string,
   imagePath: string
@@ -235,9 +320,7 @@ export async function updateEventImage(
 
   const { data, error } = await supabase
     .from('events')
-    .update({
-      image: imagePath,
-    })
+    .update({ image: imagePath })
     .eq('id', eventId)
     .select()
     .single()
@@ -251,19 +334,107 @@ export async function updateEventImage(
   return data
 }
 
-/**
- * Publish one event.
- */
-export async function publishEvent(
-  eventId: string
+export async function updateEventSlug(
+  eventId: string,
+  slug: string
 ) {
   const supabase = createAdminClient()
 
   const { data, error } = await supabase
     .from('events')
-    .update({
-      published: true,
-    })
+    .update({ slug })
+    .eq('id', eventId)
+    .select()
+    .single()
+
+  if (error) {
+    throw new Error(
+      `Failed to update event slug: ${error.message}`
+    )
+  }
+
+  return data
+}
+
+export async function updateEventOccurrence(
+  eventId: string,
+  occurrence: EventOccurrence,
+  options?: {
+    published?: boolean
+    image?: string | null
+    slug?: string
+  }
+) {
+  const supabase = createAdminClient()
+
+  const updateData: Record<
+    string,
+    string | boolean | null
+  > = {
+    title: occurrence.title,
+    starts_at: occurrence.starts_at,
+    ends_at: occurrence.ends_at,
+    description: occurrence.description,
+    location: occurrence.location,
+  }
+
+  if (options?.published !== undefined) {
+    updateData.published = options.published
+  }
+
+  if (options?.image !== undefined) {
+    updateData.image = options.image?.trim() || null
+  }
+
+  if (options?.slug?.trim()) {
+    updateData.slug = options.slug.trim()
+  }
+
+  const { data, error } =
+    await supabase
+      .from('events')
+      .update(updateData)
+      .eq('id', eventId)
+      .select()
+      .single()
+
+  if (error) {
+    throw new Error(
+      `Failed to update event occurrence: ${error.message}`
+    )
+  }
+
+  return data
+}
+
+export async function deleteEventsByIds(
+  eventIds: string[]
+) {
+  if (eventIds.length === 0) {
+    return
+  }
+
+  const supabase = createAdminClient()
+
+  const { error } =
+    await supabase
+      .from('events')
+      .delete()
+      .in('id', eventIds)
+
+  if (error) {
+    throw new Error(
+      `Failed to delete events: ${error.message}`
+    )
+  }
+}
+
+export async function publishEvent(eventId: string) {
+  const supabase = createAdminClient()
+
+  const { data, error } = await supabase
+    .from('events')
+    .update({ published: true })
     .eq('id', eventId)
     .select()
     .single()
@@ -277,12 +448,6 @@ export async function publishEvent(
   return data
 }
 
-/**
- * Publish all events belonging to an import.
- *
- * Useful for recurring events where all occurrences
- * should become public together.
- */
 export async function publishEventsByImportId(
   importId: string
 ) {
@@ -290,9 +455,7 @@ export async function publishEventsByImportId(
 
   const { data, error } = await supabase
     .from('events')
-    .update({
-      published: true,
-    })
+    .update({ published: true })
     .eq('import_id', importId)
     .select()
 
@@ -305,10 +468,6 @@ export async function publishEventsByImportId(
   return data ?? []
 }
 
-/**
- * Convert the Supabase event shape into the shape
- * expected by the existing frontend components.
- */
 function mapEvent(
   event: any
 ): SEvent & { id: string; slug: string } {
@@ -316,8 +475,9 @@ function mapEvent(
 
   const imageUrl = event.image
     ? supabase.storage
-        .from('images')
-        .getPublicUrl(event.image).data.publicUrl
+      .from('images')
+      .getPublicUrl(event.image)
+      .data.publicUrl
     : null
 
   return {
@@ -325,59 +485,39 @@ function mapEvent(
     image: imageUrl,
     startDate: event.starts_at,
     endDate: event.ends_at,
-    summary:
-      event.summary ?? '',
+    summary: event.summary ?? '',
     location: event.location ?? '',
     status: event.status ?? 'active',
-    modality:
-      event.modality ?? undefined,
-    capacity:
-      event.capacity ?? undefined,
+    modality: event.modality ?? undefined,
+    capacity: event.capacity ?? undefined,
     registrationUrl:
       event.registration_url ?? undefined,
   }
 }
 
-/**
- * Get all events.
- *
- * Sorted by start date, soonest first.
- */
 export async function getAllEvents() {
   const supabase = createAdminClient()
 
   const { data, error } = await supabase
     .from('events')
     .select('*')
-    .order('starts_at', {
-      ascending: true,
-    })
+    .order('starts_at', { ascending: true })
 
   if (error) {
-    throw new Error(
-      `Failed to get events: ${error.message}`
-    )
+    throw new Error(`Failed to get events: ${error.message}`)
   }
 
   return (data ?? []).map(mapEvent)
 }
 
-/**
- * Get upcoming events.
- */
 export async function getUpcomingEvents() {
   const supabase = createAdminClient()
 
   const { data, error } = await supabase
     .from('events')
     .select('*')
-    .gte(
-      'starts_at',
-      new Date().toISOString()
-    )
-    .order('starts_at', {
-      ascending: true,
-    })
+    .gte('starts_at', new Date().toISOString())
+    .order('starts_at', { ascending: true })
 
   if (error) {
     throw new Error(
@@ -388,12 +528,7 @@ export async function getUpcomingEvents() {
   return (data ?? []).map(mapEvent)
 }
 
-/**
- * Get a single event by ID.
- */
-export async function getEventById(
-  id: string
-) {
+export async function getEventById(id: string) {
   const supabase = createAdminClient()
 
   const { data, error } = await supabase
@@ -403,20 +538,13 @@ export async function getEventById(
     .single()
 
   if (error) {
-    throw new Error(
-      `Failed to get event: ${error.message}`
-    )
+    throw new Error(`Failed to get event: ${error.message}`)
   }
 
   return mapEvent(data)
 }
 
-/**
- * Get a single event by slug.
- */
-export async function getEventBySlug(
-  slug: string
-) {
+export async function getEventBySlug(slug: string) {
   const supabase = createAdminClient()
 
   const { data, error } = await supabase
@@ -434,9 +562,6 @@ export async function getEventBySlug(
   return mapEvent(data)
 }
 
-/**
- * Get a published event by slug.
- */
 export async function getActiveEventBySlug(
   slug: string
 ) {
@@ -462,9 +587,6 @@ export async function getActiveEventBySlug(
   return mapEvent(data)
 }
 
-/**
- * Get published upcoming events.
- */
 export async function getActiveUpcomingEvents() {
   const supabase = createAdminClient()
 
@@ -472,13 +594,8 @@ export async function getActiveUpcomingEvents() {
     .from('events')
     .select('*')
     .eq('published', true)
-    .gte(
-      'starts_at',
-      new Date().toISOString()
-    )
-    .order('starts_at', {
-      ascending: true,
-    })
+    .gte('starts_at', new Date().toISOString())
+    .order('starts_at', { ascending: true })
 
   if (error) {
     throw new Error(
@@ -489,9 +606,6 @@ export async function getActiveUpcomingEvents() {
   return (data ?? []).map(mapEvent)
 }
 
-/**
- * Get published past events.
- */
 export async function getActivePastEvents(
   limit = 6
 ) {
@@ -501,13 +615,8 @@ export async function getActivePastEvents(
     .from('events')
     .select('*')
     .eq('published', true)
-    .lt(
-      'starts_at',
-      new Date().toISOString()
-    )
-    .order('starts_at', {
-      ascending: false,
-    })
+    .lt('starts_at', new Date().toISOString())
+    .order('starts_at', { ascending: false })
     .limit(limit)
 
   if (error) {
@@ -519,44 +628,31 @@ export async function getActivePastEvents(
   return (data ?? []).map(mapEvent)
 }
 
-/**
- * Create a URL-safe slug.
- */
-function slugify(
-  text: string
-): string {
+function slugify(text: string): string {
   return text
     .toLowerCase()
     .trim()
-    .replace(
-      /[^a-z0-9\s-]/g,
-      ''
-    )
-    .replace(
-      /\s+/g,
-      '-'
-    )
-    .replace(
-      /-+/g,
-      '-'
-    )
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
 }
 
 /**
- * Create a unique slug for an event.
+ * Create a unique slug for a normal/one-off event.
  *
- * Recurring events often have the same title, so:
+ * If the base slug is available:
  *
- * "Sunday Meditation"
+ * "Workshop"
  *
  * becomes:
  *
- * /events/sunday-meditation-2026-09-06
- * /events/sunday-meditation-2026-09-13
+ * /events/workshop
  *
- * If the base slug isn't taken, we keep the shorter slug.
+ * If it already exists, we add the Bangkok-local date:
+ *
+ * /events/workshop-2026-10-19
  */
-async function createUniqueSlug(
+export async function createUniqueSlug(
   title: string,
   startsAt: string
 ): Promise<string> {
@@ -570,9 +666,6 @@ async function createUniqueSlug(
     )
   }
 
-  /*
-   * First try the normal title slug.
-   */
   const { data: existingBase } =
     await supabase
       .from('events')
@@ -584,28 +677,8 @@ async function createUniqueSlug(
     return baseSlug
   }
 
-  /*
-   * If the title already exists, append the local
-   * calendar date.
-   *
-   * We use Intl instead of slicing the UTC ISO string
-   * because the event is in Asia/Bangkok.
-   */
-  const datePart =
-    new Intl.DateTimeFormat(
-      'en-CA',
-      {
-        timeZone: 'Asia/Bangkok',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-      }
-    ).format(
-      new Date(startsAt)
-    )
-
-  const datedSlug =
-    `${baseSlug}-${datePart}`
+  const datePart = getBangkokDate(startsAt)
+  const datedSlug = `${baseSlug}-${datePart}`
 
   const { data: existingDated } =
     await supabase
@@ -618,15 +691,10 @@ async function createUniqueSlug(
     return datedSlug
   }
 
-  /*
-   * Extremely unlikely, but make the slug deterministic
-   * and unique if the same event/date is imported again.
-   */
   let counter = 2
 
   while (counter <= 100) {
-    const candidate =
-      `${datedSlug}-${counter}`
+    const candidate = `${datedSlug}-${counter}`
 
     const { data: existing } =
       await supabase
@@ -645,4 +713,89 @@ async function createUniqueSlug(
   throw new Error(
     'Could not generate a unique event slug'
   )
+}
+
+/**
+ * Create a unique slug for a recurring event occurrence.
+ *
+ * Recurring events always include their Bangkok-local date,
+ * including the first occurrence.
+ *
+ * Example:
+ *
+ * /events/sunday-meditation-2026-10-19
+ * /events/sunday-meditation-2026-10-26
+ * /events/sunday-meditation-2026-11-02
+ */
+export async function createRecurringEventSlug(
+  title: string,
+  startsAt: string
+): Promise<string> {
+  const supabase = createAdminClient()
+
+  const baseSlug = slugify(title)
+
+  if (!baseSlug) {
+    throw new Error(
+      'Cannot create event slug from empty title'
+    )
+  }
+
+  const datePart = getBangkokDate(startsAt)
+  const datedSlug = `${baseSlug}-${datePart}`
+
+  const { data: existingDated } =
+    await supabase
+      .from('events')
+      .select('id')
+      .eq('slug', datedSlug)
+      .maybeSingle()
+
+  if (!existingDated) {
+    return datedSlug
+  }
+
+  let counter = 2
+
+  while (counter <= 100) {
+    const candidate = `${datedSlug}-${counter}`
+
+    const { data: existing } =
+      await supabase
+        .from('events')
+        .select('id')
+        .eq('slug', candidate)
+        .maybeSingle()
+
+    if (!existing) {
+      return candidate
+    }
+
+    counter += 1
+  }
+
+  throw new Error(
+    'Could not generate a unique recurring event slug'
+  )
+}
+
+/**
+ * Get the calendar date of an event in Bangkok.
+ *
+ * This is deliberately based on the event's UTC timestamp
+ * converted to Asia/Bangkok, so a value such as:
+ *
+ * 2026-10-18 23:30:00+00
+ *
+ * correctly becomes:
+ *
+ * 2026-10-19 in Bangkok.
+ */
+function getBangkokDate(startsAt: string): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Bangkok',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(startsAt))
 }
