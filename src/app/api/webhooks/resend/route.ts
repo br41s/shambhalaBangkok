@@ -6,6 +6,7 @@ import { expandEventOccurrences } from '@/lib/event-recurrence'
 import {
   createEvent,
   createEventImport,
+  createEventSeries,
   getEventImportByEmailId,
   getEventsByImportId,
   publishEventsByImportId,
@@ -189,11 +190,23 @@ export async function POST(request: NextRequest) {
      * A recurring event gets one shared series_id.
      * A one-off event has no series_id.
      */
-    const seriesId =
-      occurrences.length > 1
-        ? crypto.randomUUID()
-        : null
+    let seriesId: string | null = null
 
+    if (
+      parsedEvent.recurrence &&
+      parsedEvent.recurrence.type !== 'none'
+    ) {
+      const series = await createEventSeries({
+        type: parsedEvent.recurrence.type,
+        interval: parsedEvent.recurrence.interval,
+        weekdays: parsedEvent.recurrence.weekdays,
+        occurrences: parsedEvent.recurrence.occurrences,
+        count: parsedEvent.recurrence.count,
+        until: parsedEvent.recurrence.until,
+      })
+
+      seriesId = series.id
+    }
     let importRecord =
       existingImport ??
       (await createEventImport(
